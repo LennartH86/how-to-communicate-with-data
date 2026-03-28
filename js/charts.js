@@ -4,28 +4,30 @@
 (function () {
   'use strict';
 
-  // ── Car Sales Data (aggregated from car-sales.csv, monthly) ──────────────
+  // ── Car Sales Data (monthly, winners vary across all three cars) ──────────
   const MONTHS = [
     'Jan 24','Feb 24','Mar 24','Apr 24','May 24','Jun 24',
     'Jul 24','Aug 24','Sep 24','Oct 24',
     'Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25',
     'Jul 25','Aug 25','Sep 25','Oct 25'
   ];
+  // Winners by month: Car2, Car1, Car3, Car3, Car2, Car1, Car2, Car1, Car3, Car2,
+  //                   Car1, Car2, Car1, Car3, Car1, Car2, Car1, Car3, Car1, Car2
   const MODELS = [
     {
       name: 'Car 1',
       color: '#00d4e0',
-      sales: [2580,1755,2642,3060,3688,4040,2808,2442,2202,2388,3484,4093,4185,3891,3279,3626,2855,2070,3645,3218]
+      sales: [2200,3100,1900,2800,3400,4100,2600,3500,1800,3200,4000,2500,3800,2100,3600,2200,3100,2400,3900,2700]
     },
     {
       name: 'Car 2',
       color: '#0ea5e9',
-      sales: [634,555,955,1010,931,918,768,720,853,802,491,593,726,738,709,705,534,563,788,453]
+      sales: [2800,1800,2100,1600,3800,2900,3200,2100,2400,3600,2200,3100,2400,1800,2800,3500,2600,1900,2300,3400]
     },
     {
       name: 'Car 3',
       color: '#22c55e',
-      sales: [92,61,211,113,74,98,98,156,157,157,187,163,188,195,192,222,202,199,238,134]
+      sales: [1500,2400,2600,3100,1200,2200,1800,2800,3000,2100,1900,2800,1600,3400,2300,2100,1400,3200,2800,1700]
     }
   ];
 
@@ -33,6 +35,7 @@
   let salesChartRendered = false;
   let barChartRendered   = false;
   let answerRevealed     = false;
+  let tabsInitialized    = false;
 
   // ── Slide 15: Table ───────────────────────────────────────────────────────
   function renderSalesTable(revealed) {
@@ -277,6 +280,8 @@
 
   // ── Slide 15 tabs + reveal ────────────────────────────────────────────────
   function initTabs() {
+    if (tabsInitialized) return;
+    tabsInitialized = true;
     const tableBtn  = document.getElementById('tab-table');
     const chartBtn  = document.getElementById('tab-chart');
     const revealBtn = document.getElementById('reveal-answer');
