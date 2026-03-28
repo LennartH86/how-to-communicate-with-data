@@ -76,7 +76,7 @@
     html += `</tbody></table></div>`;
     if (revealed) {
       html += `<p style="margin-top:16px;font-size:20px;color:var(--text-muted);text-align:center">
-        <strong style="color:var(--accent)">Car 1 leads in all ${car1WinMonths.length} months</strong>
+        <strong style="color:var(--accent)">Car 1 leads in ${car1WinMonths.length} of ${MONTHS.length} months: ${car1WinMonths.join(', ')}</strong>
       </p>`;
     }
     container.innerHTML = html;
