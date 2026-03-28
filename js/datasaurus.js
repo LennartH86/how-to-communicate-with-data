@@ -10,15 +10,14 @@
   let dsScatterRendered = false;
   let dinoVisible = false;
 
-  // ── Global regression (same for ALL datasets — that's the point) ──────────
-  // slope = r * (sd_y / sd_x) = -0.064 * (26.93 / 16.76)
-  // intercept = mean_y - slope * mean_x
-  const GLOBAL_SLOPE     = -0.064 * (26.93 / 16.76);   // ≈ -0.1028
-  const GLOBAL_INTERCEPT = 47.83 - GLOBAL_SLOPE * 54.26; // ≈ 53.41
+  // ── Global regression — identical on EVERY panel (that's the point) ───────
+  // slope = r × (sd_y / sd_x) = -0.064 × (26.93 / 16.76) ≈ -0.103
+  // intercept = mean_y − slope × mean_x ≈ 53.41
+  const SLOPE     = -0.064 * (26.93 / 16.76);
+  const INTERCEPT = 47.83 - SLOPE * 54.26;
 
-  // Fixed axes so regression visually matches across all panels
-  const X_DOMAIN = [0, 110];
-  const Y_DOMAIN = [0, 110];
+  // Fixed equal data range on both axes → square plot area looks square
+  const DOMAIN = [0, 110];
 
   async function loadData() {
     if (data) return data;
@@ -43,27 +42,18 @@
 
     let html = `<div style="max-height:780px;overflow-y:auto;border-radius:12px;border:2px solid var(--border)">
     <table class="data-table" style="font-size:19px">
-      <thead>
-        <tr>
-          <th style="text-align:left;padding-left:32px">Dataset</th>
-          <th>Mean X</th><th>Mean Y</th>
-          <th>SD X</th><th>SD Y</th>
-          <th>Correlation</th>
-        </tr>
-      </thead>
-      <tbody>`;
+      <thead><tr>
+        <th style="text-align:left;padding-left:32px">Dataset</th>
+        <th>Mean X</th><th>Mean Y</th><th>SD X</th><th>SD Y</th><th>Correlation</th>
+      </tr></thead><tbody>`;
 
     d.datasets.forEach(ds => {
       const xs = ds.points.map(p => p.x);
       const ys = ds.points.map(p => p.y);
-      const mx = mean(xs).toFixed(2);
-      const my = mean(ys).toFixed(2);
-      const sx = sd(xs).toFixed(2);
-      const sy = sd(ys).toFixed(2);
       html += `<tr>
         <td style="font-weight:700;text-align:left;padding-left:32px">${ds.label}</td>
-        <td>${mx}</td><td>${my}</td>
-        <td>${sx}</td><td>${sy}</td>
+        <td>${mean(xs).toFixed(2)}</td><td>${mean(ys).toFixed(2)}</td>
+        <td>${sd(xs).toFixed(2)}</td><td>${sd(ys).toFixed(2)}</td>
         <td>${(-0.064).toFixed(3)}</td>
       </tr>`;
     });
@@ -72,17 +62,17 @@
     <p style="margin-top:24px;font-size:20px;color:var(--text-muted);text-align:center">
       <strong>All 13 datasets share nearly identical summary statistics</strong> — yet they look completely different when visualised.
     </p>`;
-
     container.innerHTML = html;
   }
 
-  // ── Draw a single scatter panel ───────────────────────────────────────────
-  function drawPanel(container, ds, panelW, panelH, margin) {
-    const innerW = panelW - margin.left - margin.right;
-    const innerH = panelH - margin.top - margin.bottom;
+  // ── Draw one scatter panel ─────────────────────────────────────────────────
+  // Margins are symmetric left/right and top/bottom so the inner plot is square
+  // when panelW === panelH.
+  function drawPanel(parentEl, ds, size, margin, isDino) {
+    const inner = size - margin.h; // same as size - margin.v because symmetric
 
     const wrapper = document.createElement('div');
-    wrapper.className = 'ds-panel';
+    wrapper.className = 'ds-panel' + (isDino ? ' ds-panel-dino' : '');
     wrapper.dataset.name = ds.name;
 
     const title = document.createElement('div');
@@ -90,117 +80,106 @@
     title.textContent = ds.label;
     wrapper.appendChild(title);
 
-    const svg = d3.select(wrapper)
-      .append('svg')
-      .attr('width', panelW)
-      .attr('height', panelH);
+    const svg = d3.select(wrapper).append('svg')
+      .attr('width',  size)
+      .attr('height', size);
 
     const g = svg.append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    const xScale = d3.scaleLinear().domain(X_DOMAIN).range([0, innerW]);
-    const yScale = d3.scaleLinear().domain(Y_DOMAIN).range([innerH, 0]);
+    const xScale = d3.scaleLinear().domain(DOMAIN).range([0, inner]);
+    const yScale = d3.scaleLinear().domain(DOMAIN).range([inner, 0]);
 
     // Grid lines
     g.append('g').attr('class', 'axis')
-      .attr('transform', `translate(0,${innerH})`)
-      .call(d3.axisBottom(xScale).ticks(4).tickSize(-innerH))
+      .attr('transform', `translate(0,${inner})`)
+      .call(d3.axisBottom(xScale).ticks(5).tickSize(-inner))
       .call(ax => ax.select('.domain').remove())
       .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
 
     g.append('g').attr('class', 'axis')
-      .call(d3.axisLeft(yScale).ticks(4).tickSize(-innerW))
+      .call(d3.axisLeft(yScale).ticks(5).tickSize(-inner))
       .call(ax => ax.select('.domain').remove())
       .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
 
-    // Global regression line — identical on every panel
-    const rx0 = X_DOMAIN[0], rx1 = X_DOMAIN[1];
+    // Regression line — global, identical on all panels
     g.append('line')
       .attr('class', 'ds-reg-line')
-      .attr('x1', xScale(rx0)).attr('y1', yScale(GLOBAL_SLOPE * rx0 + GLOBAL_INTERCEPT))
-      .attr('x2', xScale(rx1)).attr('y2', yScale(GLOBAL_SLOPE * rx1 + GLOBAL_INTERCEPT))
+      .attr('x1', xScale(DOMAIN[0])).attr('y1', yScale(SLOPE * DOMAIN[0] + INTERCEPT))
+      .attr('x2', xScale(DOMAIN[1])).attr('y2', yScale(SLOPE * DOMAIN[1] + INTERCEPT))
       .attr('stroke', '#ef4444')
-      .attr('stroke-width', 2)
-      .attr('stroke-dasharray', '6,3')
+      .attr('stroke-width', isDino ? 3 : 2)
+      .attr('stroke-dasharray', '7,4')
       .attr('opacity', dsRegressionVisible ? 1 : 0);
 
     // Data points
-    g.selectAll('.dot')
-      .data(ds.points)
-      .enter()
-      .append('circle')
+    g.selectAll('.dot').data(ds.points).enter().append('circle')
       .attr('class', 'dot')
       .attr('cx', p => xScale(p.x))
       .attr('cy', p => yScale(p.y))
-      .attr('r', panelW > 600 ? 5 : 4)
-      .attr('fill', ds.name === 'dino' ? '#00d4e0' : '#0ea5e9')
+      .attr('r', isDino ? 5 : 4)
+      .attr('fill', isDino ? '#00d4e0' : '#0ea5e9')
       .attr('stroke', 'white')
-      .attr('stroke-width', 1.5)
+      .attr('stroke-width', isDino ? 1.5 : 1)
       .attr('opacity', 0.85);
 
-    container.appendChild(wrapper);
-    return wrapper;
+    parentEl.appendChild(wrapper);
   }
 
-  // ── Scatter Grid (Slide 14) ───────────────────────────────────────────────
+  // ── Scatter (Slide 14) ────────────────────────────────────────────────────
   async function renderScatter() {
     if (dsScatterRendered) return;
-    const grid    = document.getElementById('datasaurus-scatter');
-    const featured = document.getElementById('dino-featured');
-    if (!grid || !featured || typeof d3 === 'undefined') return;
+    const grid     = document.getElementById('datasaurus-scatter');
+    const dinoCont = document.getElementById('dino-featured');
+    if (!grid || !dinoCont || typeof d3 === 'undefined') return;
     const d = await loadData();
     dsScatterRendered = true;
 
-    // Panel sizes for the 12-dataset grid
-    const panelW = 390, panelH = 200;
-    const margin  = { top: 10, right: 12, bottom: 28, left: 36 };
+    // ── Grid panels: square at 240px, symmetric margins ─────────────────────
+    // margin.left = margin.right = 30, margin.top = margin.bottom = 24
+    // → horizontal span = 60, vertical span = 48  … almost square inner area
+    // Make them fully square: use same total margin on both axes
+    // total margin = 56 on each axis → inner = 240 - 56 = 184px square
+    const GRID_SIZE = 240;
+    const GM = { left: 36, right: 20, top: 20, bottom: 36, h: 56, v: 56 };
 
-    // Panel size for the featured dino (wider + taller)
-    const dinoW = 860, dinoH = 260;
-    const dinoMargin = { top: 16, right: 20, bottom: 36, left: 48 };
+    // ── Dino panel: large centered square ───────────────────────────────────
+    // Available height for dino: ~840px; width: 1760px → use 800px square
+    const DINO_SIZE = 780;
+    const DM = { left: 56, right: 24, top: 24, bottom: 56, h: 80, v: 80 };
 
-    grid.innerHTML    = '';
-    featured.innerHTML = '';
+    grid.innerHTML     = '';
+    dinoCont.innerHTML = '';
 
     const dino    = d.datasets.find(ds => ds.name === 'dino');
     const nonDino = d.datasets.filter(ds => ds.name !== 'dino');
 
-    // Render featured dino panel
-    if (dino) {
-      const dinoWrapper = drawPanel(featured, dino, dinoW, dinoH, dinoMargin);
-      dinoWrapper.style.cssText = `
-        border: 3px solid var(--accent);
-        border-radius: 12px;
-        overflow: hidden;
-        display: inline-block;
-      `;
-    }
+    // Render 12 non-dino panels into the grid
+    nonDino.forEach(ds => drawPanel(grid, ds, GRID_SIZE, GM, false));
 
-    // Render 12 non-dino datasets in the grid
-    nonDino.forEach(ds => drawPanel(grid, ds, panelW, panelH, margin));
+    // Render the large dino panel into its container
+    if (dino) drawPanel(dinoCont, dino, DINO_SIZE, DM, true);
 
-    // ── Button: toggle regression lines ──────────────────────────────────────
+    // ── Regression toggle ────────────────────────────────────────────────────
     const regBtn = document.getElementById('toggle-ds-regression');
     if (regBtn) {
       regBtn.addEventListener('click', () => {
         dsRegressionVisible = !dsRegressionVisible;
         regBtn.classList.toggle('active', dsRegressionVisible);
         regBtn.textContent = dsRegressionVisible ? '✓ Hide Regression Lines' : 'Show Regression Lines';
-        // Update all reg lines in both grid and featured panel
-        [grid, featured].forEach(el => {
-          el.querySelectorAll('.ds-reg-line').forEach(line => {
-            d3.select(line).attr('opacity', dsRegressionVisible ? 1 : 0);
-          });
+        document.querySelectorAll('.ds-reg-line').forEach(line => {
+          d3.select(line).attr('opacity', dsRegressionVisible ? 1 : 0);
         });
       });
     }
 
-    // ── Button: show / hide dino ──────────────────────────────────────────────
+    // ── Dino toggle: hide grid, show dino centered ───────────────────────────
     const dinoBtn = document.getElementById('show-dino');
     if (dinoBtn) {
       dinoBtn.addEventListener('click', () => {
         dinoVisible = !dinoVisible;
-        featured.style.display = dinoVisible ? 'flex' : 'none';
+        grid.style.display     = dinoVisible ? 'none' : 'grid';
+        dinoCont.style.display = dinoVisible ? 'flex'  : 'none';
         dinoBtn.classList.toggle('active', dinoVisible);
         dinoBtn.textContent = dinoVisible ? '🦕 Hide Dinosaur' : '🦕 Show Dinosaur';
       });
