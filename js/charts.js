@@ -4,23 +4,28 @@
 (function () {
   'use strict';
 
-  // ── Car Sales Data ────────────────────────────────────────────────────────
-  const QUARTERS = ['Q1 2022', 'Q2 2022', 'Q3 2022', 'Q4 2022', 'Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023'];
+  // ── Car Sales Data (aggregated from car-sales.csv, monthly) ──────────────
+  const MONTHS = [
+    'Jan 24','Feb 24','Mar 24','Apr 24','May 24','Jun 24',
+    'Jul 24','Aug 24','Sep 24','Oct 24',
+    'Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25',
+    'Jul 25','Aug 25','Sep 25','Oct 25'
+  ];
   const MODELS = [
     {
-      name: 'Model A (SUV)',
+      name: 'Car 1',
       color: '#00d4e0',
-      sales: [4250, 4100, 3980, 4320, 3850, 3720, 3890, 4010]
+      sales: [2580,1755,2642,3060,3688,4040,2808,2442,2202,2388,3484,4093,4185,3891,3279,3626,2855,2070,3645,3218]
     },
     {
-      name: 'Model B (Sedan)',
+      name: 'Car 2',
       color: '#0ea5e9',
-      sales: [3100, 3150, 3200, 3080, 3180, 3220, 3170, 3250]
+      sales: [634,555,955,1010,931,918,768,720,853,802,491,593,726,738,709,705,534,563,788,453]
     },
     {
-      name: 'Model C (EV)',
+      name: 'Car 3',
       color: '#22c55e',
-      sales: [1200, 1480, 1750, 2100, 2450, 2820, 3150, 3480]
+      sales: [92,61,211,113,74,98,98,156,157,157,187,163,188,195,192,222,202,199,238,134]
     }
   ];
 
@@ -35,29 +40,29 @@
     if (!container) return;
     salesTableRendered = true;
 
-    const modelAWins = [];
-    let html = `<div style="overflow-x:auto;border-radius:12px;border:2px solid var(--border)">
-      <table class="data-table" style="font-size:19px;min-width:900px">
+    const car1WinMonths = [];
+    let html = `<div style="max-height:340px;overflow-y:auto;border-radius:12px;border:2px solid var(--border)">
+      <table class="data-table" style="font-size:18px;min-width:700px">
         <thead>
           <tr>
-            <th style="text-align:left;padding-left:24px">Quarter</th>`;
+            <th style="text-align:left;padding-left:24px">Month</th>`;
     MODELS.forEach(m => {
       html += `<th>${m.name}</th>`;
     });
     html += `</tr></thead><tbody>`;
 
-    QUARTERS.forEach((q, i) => {
+    MONTHS.forEach((month, i) => {
       const vals = MODELS.map(m => m.sales[i]);
       const maxVal = Math.max(...vals);
       const maxIdx = vals.indexOf(maxVal);
-      const aWins = maxIdx === 0;
-      if (aWins) modelAWins.push(q);
+      const car1Wins = maxIdx === 0;
+      if (car1Wins) car1WinMonths.push(month);
 
-      const rowStyle = revealed && aWins ? 'background:rgba(0,212,224,0.08);' : '';
+      const rowStyle = revealed && car1Wins ? 'background:rgba(0,212,224,0.08);' : '';
       html += `<tr style="${rowStyle}">`;
-      html += `<td style="font-weight:600;text-align:left;padding-left:24px">${q}</td>`;
+      html += `<td style="font-weight:600;text-align:left;padding-left:24px">${month}</td>`;
       vals.forEach((v, j) => {
-        const highlight = revealed && aWins && j === 0;
+        const highlight = revealed && car1Wins && j === 0;
         html += `<td style="${highlight ? 'font-weight:800;color:var(--accent);' : ''}">
           ${v.toLocaleString()}${highlight ? ' ★' : ''}
         </td>`;
@@ -67,8 +72,8 @@
 
     html += `</tbody></table></div>`;
     if (revealed) {
-      html += `<p style="margin-top:20px;font-size:20px;color:var(--text-muted);text-align:center">
-        <strong style="color:var(--accent)">Model A leads in: ${modelAWins.join(', ')}</strong>
+      html += `<p style="margin-top:16px;font-size:20px;color:var(--text-muted);text-align:center">
+        <strong style="color:var(--accent)">Car 1 leads in all ${car1WinMonths.length} months</strong>
       </p>`;
     }
     container.innerHTML = html;
@@ -81,9 +86,9 @@
     if (!container || typeof d3 === 'undefined') return;
     salesChartRendered = true;
 
-    const width = container.clientWidth || 1400;
+    const width  = 1400;
     const height = 380;
-    const margin = { top: 24, right: 160, bottom: 56, left: 80 };
+    const margin = { top: 24, right: 100, bottom: 56, left: 80 };
     const innerW = width - margin.left - margin.right;
     const innerH = height - margin.top - margin.bottom;
 
@@ -97,7 +102,7 @@
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const xScale = d3.scalePoint()
-      .domain(QUARTERS)
+      .domain(MONTHS)
       .range([0, innerW])
       .padding(0.2);
 
@@ -109,22 +114,26 @@
     // Grid
     g.append('g').attr('class', 'axis')
       .call(d3.axisLeft(yScale).ticks(5).tickSize(-innerW)
-        .tickFormat(d => (d / 1000).toFixed(0) + 'k'))
+        .tickFormat(d => (d / 1000).toFixed(1) + 'k'))
       .call(ax => ax.select('.domain').remove())
       .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
 
     g.append('g').attr('class', 'axis')
       .attr('transform', `translate(0,${innerH})`)
-      .call(d3.axisBottom(xScale))
-      .call(ax => ax.select('.domain').attr('stroke', '#e2e6ed'));
+      .call(d3.axisBottom(xScale).tickSize(0))
+      .call(ax => ax.select('.domain').attr('stroke', '#e2e6ed'))
+      .selectAll('text')
+        .attr('font-size', 13)
+        .attr('dy', '1.2em');
 
-    // Lines
+    // One line + dots + label per model
     const line = d3.line()
-      .x((d, i) => xScale(QUARTERS[i]))
+      .x((d, i) => xScale(MONTHS[i]))
       .y(d => yScale(d))
       .curve(d3.curveMonotoneX);
 
     MODELS.forEach(model => {
+      // Line
       g.append('path')
         .datum(model.sales)
         .attr('fill', 'none')
@@ -133,30 +142,28 @@
         .attr('d', line);
 
       // Dots
-      g.selectAll(`.dot-${model.name.replace(/\s+/g, '')}`)
+      g.selectAll(null)
         .data(model.sales)
         .enter()
         .append('circle')
-        .attr('cx', (d, i) => xScale(QUARTERS[i]))
+        .attr('cx', (d, i) => xScale(MONTHS[i]))
         .attr('cy', d => yScale(d))
-        .attr('r', 5)
+        .attr('r', 4)
         .attr('fill', model.color)
         .attr('stroke', 'white')
         .attr('stroke-width', 2);
 
-      // Label
-      const lastX = xScale(QUARTERS[QUARTERS.length - 1]);
+      // End label
+      const lastX = xScale(MONTHS[MONTHS.length - 1]);
       const lastY = yScale(model.sales[model.sales.length - 1]);
       g.append('text')
-        .attr('x', lastX + 16)
+        .attr('x', lastX + 10)
         .attr('y', lastY + 5)
-        .attr('font-size', 18)
+        .attr('font-size', 16)
         .attr('font-weight', 700)
         .attr('fill', model.color)
         .text(model.name);
     });
-
-    container.style.display = 'none'; // toggled by tab
   }
 
   // ── Slide 18: Bar Chart with min/max highlight ────────────────────────────
@@ -166,16 +173,16 @@
     if (!container || typeof d3 === 'undefined') return;
     barChartRendered = true;
 
-    // Total sales per quarter
-    const totals = QUARTERS.map((q, i) => ({
-      quarter: q,
-      value: MODELS.reduce((sum, m) => sum + m.sales[i], 0)
+    // Total sales per month across all models
+    const totals = MONTHS.map((m, i) => ({
+      month: m,
+      value: MODELS.reduce((sum, model) => sum + model.sales[i], 0)
     }));
 
     const maxVal = Math.max(...totals.map(t => t.value));
     const minVal = Math.min(...totals.map(t => t.value));
 
-    const width = container.clientWidth || 1600;
+    const width  = 1600;
     const height = 580;
     const margin = { top: 40, right: 60, bottom: 80, left: 80 };
     const innerW = width - margin.left - margin.right;
@@ -191,7 +198,7 @@
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const xScale = d3.scaleBand()
-      .domain(QUARTERS)
+      .domain(MONTHS)
       .range([0, innerW])
       .padding(0.25);
 
@@ -202,7 +209,7 @@
     // Grid lines
     g.append('g').attr('class', 'axis')
       .call(d3.axisLeft(yScale).ticks(6).tickSize(-innerW)
-        .tickFormat(d => (d / 1000).toFixed(0) + 'k'))
+        .tickFormat(d => (d / 1000).toFixed(1) + 'k'))
       .call(ax => ax.select('.domain').remove())
       .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
 
@@ -211,7 +218,7 @@
       .call(d3.axisBottom(xScale).tickSize(0))
       .call(ax => ax.select('.domain').attr('stroke', '#e2e6ed'))
       .selectAll('text')
-      .attr('font-size', 20)
+      .attr('font-size', 16)
       .attr('font-weight', 600)
       .attr('dy', '1.2em');
 
@@ -221,7 +228,7 @@
       .enter()
       .append('rect')
       .attr('class', 'bar')
-      .attr('x', d => xScale(d.quarter))
+      .attr('x', d => xScale(d.month))
       .attr('y', d => yScale(d.value))
       .attr('width', xScale.bandwidth())
       .attr('height', d => innerH - yScale(d.value))
@@ -239,10 +246,10 @@
       .enter()
       .append('text')
       .attr('class', 'bar-label')
-      .attr('x', d => xScale(d.quarter) + xScale.bandwidth() / 2)
-      .attr('y', d => yScale(d.value) - 12)
+      .attr('x', d => xScale(d.month) + xScale.bandwidth() / 2)
+      .attr('y', d => yScale(d.value) - 10)
       .attr('text-anchor', 'middle')
-      .attr('font-size', 20)
+      .attr('font-size', 16)
       .attr('font-weight', 700)
       .attr('fill', d => {
         if (d.value === maxVal) return '#00a8b5';
@@ -253,9 +260,9 @@
 
     // Legend
     const legendData = [
-      { color: '#00d4e0', label: 'Highest quarter' },
-      { color: '#ef4444', label: 'Lowest quarter' },
-      { color: '#e2e6ed', label: 'Other quarters' }
+      { color: '#00d4e0', label: 'Highest month' },
+      { color: '#ef4444', label: 'Lowest month' },
+      { color: '#e2e6ed', label: 'Other months' }
     ];
     const legend = svg.append('g')
       .attr('transform', `translate(${margin.left},${height - 24})`);
@@ -297,9 +304,8 @@
         answerRevealed = !answerRevealed;
         revealBtn.classList.toggle('active', answerRevealed);
         revealBtn.textContent = answerRevealed ? '✓ Hide Answer' : 'Reveal Answer';
-        // Always re-render the table with new state
         renderSalesTable(answerRevealed);
-        // Switch to table view so the highlight is visible
+        // Switch to table view
         tableBtn.classList.add('active');
         chartBtn.classList.remove('active');
         if (tableEl) tableEl.style.display = '';
