@@ -347,36 +347,40 @@ button { cursor: pointer; font-family: var(--font); }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 80px 80px;
+  padding: 64px 72px;
 }
 .hist-slide .hist-label {
-  font-size: 18px; font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 20px;
+  font-size: 16px; font-weight: 700;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 16px;
 }
 .hist-slide .hist-title {
-  font-size: 48px; font-weight: 800;
-  line-height: 1.2; margin-bottom: 16px;
+  font-size: 44px; font-weight: 800;
+  line-height: 1.15; margin-bottom: 10px;
 }
 .hist-slide .hist-year {
-  font-size: 22px; font-weight: 500;
-  color: var(--text-muted); margin-bottom: 48px;
+  font-size: 21px; font-weight: 500;
+  color: var(--text-muted); margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid var(--border);
 }
 .hist-slide .bullet-list {
   list-style: none;
-  display: flex; flex-direction: column; gap: 28px;
+  display: flex; flex-direction: column; gap: 14px;
 }
 .hist-slide .bullet-list li {
-  display: flex; align-items: flex-start; gap: 20px;
-  font-size: 26px; line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  font-size: 22px;
+  line-height: 1.55;
+  background: var(--surface);
+  border-radius: 10px;
+  border-left: 4px solid var(--accent);
+  padding: 16px 22px;
 }
 .hist-slide .bullet-list li::before {
-  content: '';
-  width: 10px; height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
-  margin-top: 12px;
-  flex-shrink: 0;
+  display: none;
 }
 
 /* ---------- Slide 9: Visual Resume ---------- */
