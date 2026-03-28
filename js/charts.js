@@ -27,48 +27,50 @@
   let salesTableRendered = false;
   let salesChartRendered = false;
   let barChartRendered   = false;
+  let answerRevealed     = false;
 
   // ── Slide 15: Table ───────────────────────────────────────────────────────
-  function renderSalesTable() {
-    if (salesTableRendered) return;
+  function renderSalesTable(revealed) {
     const container = document.getElementById('sales-table-container');
     if (!container) return;
     salesTableRendered = true;
 
+    const modelAWins = [];
     let html = `<div style="overflow-x:auto;border-radius:12px;border:2px solid var(--border)">
       <table class="data-table" style="font-size:19px;min-width:900px">
         <thead>
           <tr>
             <th style="text-align:left;padding-left:24px">Quarter</th>`;
     MODELS.forEach(m => {
-      html += `<th style="color:white">${m.name}</th>`;
+      html += `<th>${m.name}</th>`;
     });
-    html += `<th>Best Model</th></tr></thead><tbody>`;
+    html += `</tr></thead><tbody>`;
 
-    let modelAWins = 0;
     QUARTERS.forEach((q, i) => {
       const vals = MODELS.map(m => m.sales[i]);
       const maxVal = Math.max(...vals);
       const maxIdx = vals.indexOf(maxVal);
-      if (maxIdx === 0) modelAWins++;
+      const aWins = maxIdx === 0;
+      if (aWins) modelAWins.push(q);
 
-      html += `<tr>`;
+      const rowStyle = revealed && aWins ? 'background:rgba(0,212,224,0.08);' : '';
+      html += `<tr style="${rowStyle}">`;
       html += `<td style="font-weight:600;text-align:left;padding-left:24px">${q}</td>`;
       vals.forEach((v, j) => {
-        const isMax = j === maxIdx;
-        html += `<td style="${isMax ? 'font-weight:800;color:var(--accent);' : ''}">
-          ${v.toLocaleString()}${isMax ? ' ★' : ''}
+        const highlight = revealed && aWins && j === 0;
+        html += `<td style="${highlight ? 'font-weight:800;color:var(--accent);' : ''}">
+          ${v.toLocaleString()}${highlight ? ' ★' : ''}
         </td>`;
       });
-      html += `<td style="font-weight:700;color:${MODELS[maxIdx].color}">${MODELS[maxIdx].name.split(' ')[0]} ${MODELS[maxIdx].name.split(' ')[1]}</td>`;
       html += `</tr>`;
     });
 
     html += `</tbody></table></div>`;
-    html += `<p style="margin-top:20px;font-size:20px;color:var(--text-muted);text-align:center">
-      <strong style="color:var(--accent)">Model A was #1 in ${modelAWins} out of ${QUARTERS.length} quarters</strong>
-    </p>`;
-
+    if (revealed) {
+      html += `<p style="margin-top:20px;font-size:20px;color:var(--text-muted);text-align:center">
+        <strong style="color:var(--accent)">Model A leads in: ${modelAWins.join(', ')}</strong>
+      </p>`;
+    }
     container.innerHTML = html;
   }
 
@@ -79,9 +81,9 @@
     if (!container || typeof d3 === 'undefined') return;
     salesChartRendered = true;
 
-    const width = container.clientWidth || 1200;
-    const height = 260;
-    const margin = { top: 20, right: 120, bottom: 48, left: 64 };
+    const width = container.clientWidth || 1400;
+    const height = 380;
+    const margin = { top: 24, right: 160, bottom: 56, left: 80 };
     const innerW = width - margin.left - margin.right;
     const innerH = height - margin.top - margin.bottom;
 
@@ -146,12 +148,12 @@
       const lastX = xScale(QUARTERS[QUARTERS.length - 1]);
       const lastY = yScale(model.sales[model.sales.length - 1]);
       g.append('text')
-        .attr('x', lastX + 12)
+        .attr('x', lastX + 16)
         .attr('y', lastY + 5)
-        .attr('font-size', 14)
+        .attr('font-size', 18)
         .attr('font-weight', 700)
         .attr('fill', model.color)
-        .text(model.name.split(' ')[0] + ' ' + model.name.split(' ')[1]);
+        .text(model.name);
     });
 
     container.style.display = 'none'; // toggled by tab
@@ -266,12 +268,13 @@
     });
   }
 
-  // ── Slide 15 tabs ─────────────────────────────────────────────────────────
+  // ── Slide 15 tabs + reveal ────────────────────────────────────────────────
   function initTabs() {
-    const tableBtn = document.getElementById('tab-table');
-    const chartBtn = document.getElementById('tab-chart');
-    const tableEl  = document.getElementById('sales-table-container');
-    const chartEl  = document.getElementById('sales-chart-container');
+    const tableBtn  = document.getElementById('tab-table');
+    const chartBtn  = document.getElementById('tab-chart');
+    const revealBtn = document.getElementById('reveal-answer');
+    const tableEl   = document.getElementById('sales-table-container');
+    const chartEl   = document.getElementById('sales-chart-container');
     if (!tableBtn || !chartBtn) return;
 
     tableBtn.addEventListener('click', () => {
@@ -279,7 +282,6 @@
       chartBtn.classList.remove('active');
       if (tableEl) tableEl.style.display = '';
       if (chartEl) chartEl.style.display = 'none';
-      renderSalesTable();
     });
 
     chartBtn.addEventListener('click', () => {
@@ -289,13 +291,28 @@
       if (tableEl) tableEl.style.display = 'none';
       renderSalesChart();
     });
+
+    if (revealBtn) {
+      revealBtn.addEventListener('click', () => {
+        answerRevealed = !answerRevealed;
+        revealBtn.classList.toggle('active', answerRevealed);
+        revealBtn.textContent = answerRevealed ? '✓ Hide Answer' : 'Reveal Answer';
+        // Always re-render the table with new state
+        renderSalesTable(answerRevealed);
+        // Switch to table view so the highlight is visible
+        tableBtn.classList.add('active');
+        chartBtn.classList.remove('active');
+        if (tableEl) tableEl.style.display = '';
+        if (chartEl) chartEl.style.display = 'none';
+      });
+    }
   }
 
   // ── Init ──────────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
       if (e.detail.slide === 15) {
-        renderSalesTable();
+        if (!salesTableRendered) renderSalesTable(false);
         initTabs();
       }
       if (e.detail.slide === 18) {

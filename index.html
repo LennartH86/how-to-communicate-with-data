@@ -364,24 +364,25 @@
   <section class="slide" id="slide-15">
     <div class="slide-header"></div>
     <div class="slide-center" style="gap:20px;justify-content:flex-start;padding-top:60px">
-      <p class="label">Car Sales Challenge — How Often Was Model A #1?</p>
+      <p class="label">Car Sales Challenge — In Which Quarters Does Model A Outsell Both Competitors?</p>
       <div class="btn-row" style="margin-top:0;margin-bottom:8px">
         <button class="toggle-btn active" id="tab-table">📋 Table View</button>
         <button class="toggle-btn" id="tab-chart">📈 Line Chart</button>
+        <button class="toggle-btn" id="reveal-answer">Reveal Answer</button>
       </div>
       <div id="sales-table-container" style="width:100%;max-width:1700px"></div>
-      <div id="sales-chart-container" style="width:100%;max-width:1600px;display:none"></div>
+      <div id="sales-chart-container" style="width:100%;max-width:1700px;display:none"></div>
       <div class="approach-cards">
         <div class="approach-card">
           <div class="approach-icon">👁️</div>
           <div class="approach-title">Manual — Scan the Table</div>
-          <div class="approach-desc">Go row by row, compare three columns, mentally track the winner</div>
+          <div class="approach-desc">Go row by row, compare three columns, mentally track when A leads</div>
           <span class="speed-badge speed-slow">Slow &amp; error-prone</span>
         </div>
         <div class="approach-card">
           <div class="approach-icon">🤖</div>
           <div class="approach-title">Copy to Claude / AI</div>
-          <div class="approach-desc">Paste the table, ask "how often is Model A the highest?"</div>
+          <div class="approach-desc">Paste the table, ask "in which quarters is Model A highest?"</div>
           <span class="speed-badge speed-medium">Fast, requires trust</span>
         </div>
         <div class="approach-card">
