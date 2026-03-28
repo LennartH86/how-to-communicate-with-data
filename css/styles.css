@@ -386,7 +386,8 @@ button { cursor: pointer; font-family: var(--font); }
 /* ---------- Slide 9: Visual Resume ---------- */
 #slide-9 .resume-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 32px;
   width: 100%;
   max-width: 1700px;
@@ -394,28 +395,48 @@ button { cursor: pointer; font-family: var(--font); }
 #slide-9 .resume-card {
   background: var(--surface);
   border-radius: var(--radius-lg);
-  padding: 44px 36px;
+  padding: 40px 44px;
   border: 2px solid var(--border);
   border-top: 6px solid var(--accent);
+  display: flex;
+  gap: 36px;
+}
+#slide-9 .resume-card-header {
+  flex-shrink: 0;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 4px;
 }
 #slide-9 .resume-name {
   font-size: 22px; font-weight: 800;
-  color: var(--text); margin-bottom: 8px;
+  color: var(--text); margin-bottom: 6px;
 }
 #slide-9 .resume-year {
   font-size: 16px; font-weight: 500;
-  color: var(--text-muted); margin-bottom: 28px;
+  color: var(--text-muted);
+}
+#slide-9 .resume-divider {
+  width: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  flex-shrink: 0;
 }
 #slide-9 .resume-elements {
   list-style: none;
-  display: flex; flex-direction: column; gap: 14px;
+  display: flex; flex-direction: column; gap: 12px;
+  flex: 1;
 }
 #slide-9 .resume-elements li {
-  font-size: 19px; line-height: 1.5;
-  display: flex; gap: 12px; align-items: flex-start;
+  font-size: 20px; line-height: 1.5;
+  padding: 10px 16px;
+  background: white;
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
 }
 #slide-9 .resume-elements li::before {
-  content: '→';
+  content: none;
   color: var(--accent);
   font-weight: 700;
   flex-shrink: 0;
