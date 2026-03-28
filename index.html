@@ -345,10 +345,15 @@
   <!-- ── SLIDE 14: Datasaurus Scatter ──────────────────────────── -->
   <section class="slide" id="slide-14">
     <div class="slide-header"></div>
-    <div class="slide-center" style="gap:20px;justify-content:flex-start;padding-top:60px">
+    <div class="slide-center" style="gap:12px;justify-content:flex-start;padding-top:52px;padding-bottom:40px">
       <p class="label">The Datasaurus Dozen — Now Visualized</p>
+      <!-- Featured dino panel — hidden until button clicked, sits above grid -->
+      <div id="dino-featured"
+           style="display:none;justify-content:center;width:100%;max-width:1760px"></div>
+      <!-- 12-dataset grid — always visible -->
       <div id="datasaurus-scatter" style="width:100%;max-width:1760px"></div>
-      <div class="btn-row">
+      <!-- Buttons always anchored below the grid -->
+      <div class="btn-row" style="margin-top:8px">
         <button class="toggle-btn" id="toggle-ds-regression">Show Regression Lines</button>
         <button class="toggle-btn" id="show-dino">🦕 Show Dinosaur</button>
       </div>
