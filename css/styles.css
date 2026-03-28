@@ -366,21 +366,31 @@ button { cursor: pointer; font-family: var(--font); }
 }
 .hist-slide .bullet-list {
   list-style: none;
-  display: flex; flex-direction: column; gap: 14px;
+  display: flex; flex-direction: column; gap: 12px;
 }
 .hist-slide .bullet-list li {
   display: flex;
-  align-items: flex-start;
-  gap: 0;
-  font-size: 22px;
-  line-height: 1.55;
+  flex-direction: column;
+  gap: 4px;
   background: var(--surface);
   border-radius: 10px;
   border-left: 4px solid var(--accent);
-  padding: 16px 22px;
+  padding: 14px 22px;
 }
 .hist-slide .bullet-list li::before {
   display: none;
+}
+.hist-slide .bullet-list li b {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--accent-dark);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.hist-slide .bullet-list li span {
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--text);
 }
 
 /* ---------- Slide 9: Visual Resume ---------- */
