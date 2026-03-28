@@ -555,10 +555,10 @@ button { cursor: pointer; font-family: var(--font); }
 /* ---------- Datasaurus Scatter ---------- */
 #datasaurus-scatter {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 240px);
+  justify-content: center;
   gap: 12px;
   width: 100%;
-  max-width: 1760px;
 }
 .ds-panel {
   background: var(--surface);
