@@ -90,8 +90,8 @@
     const d = await loadData();
     dsScatterRendered = true;
 
-    const panelW = 390, panelH = 260;
-    const margin = { top: 16, right: 12, bottom: 32, left: 36 };
+    const panelW = 390, panelH = 200;
+    const margin = { top: 10, right: 12, bottom: 28, left: 36 };
     const innerW = panelW - margin.left - margin.right;
     const innerH = panelH - margin.top - margin.bottom;
 
