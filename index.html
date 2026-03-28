@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Communicate with Data</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- D3 & TopoJSON -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PRESENTATION WRAPPER
+══════════════════════════════════════════════════════════════ -->
+<div id="presentation">
+
+  <!-- ── SLIDE 1: Title ────────────────────────────────────────── -->
+  <section class="slide active" id="slide-1">
+    <div class="slide-header"></div>
+    <span class="eyebrow">Lennart Heuckendorf · Tableau</span>
+    <h1>How to<br>Communicate<br>with Data</h1>
+    <div class="title-line"></div>
+    <p class="subtitle-text">A journey through the art and science of data visualization</p>
+  </section>
+
+  <!-- ── SLIDE 2: About Me ─────────────────────────────────────── -->
+  <section class="slide" id="slide-2">
+    <div class="slide-header"></div>
+    <div class="col-left">
+      <img src="assets/images/profile.jpg"
+           alt="Lennart Heuckendorf"
+           class="profile-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="profile-placeholder" style="display:none">LH</div>
+      <div class="name">Lennart Heuckendorf</div>
+      <div class="role">Solution Engineer · Tableau</div>
+      <p class="bio">
+        I'm Lennart Heuckendorf — Solution Engineer at Tableau.
+        13 years in the data space, from SAP and Hadoop pipelines
+        to Tableau dashboards and Salesforce analytics.
+        I've spent my career bridging the gap between
+        raw data and the people who need it most.
+      </p>
+      <div class="skills-grid">
+        <span class="skill-chip">Tableau</span>
+        <span class="skill-chip">Python</span>
+        <span class="skill-chip">R</span>
+        <span class="skill-chip">Salesforce</span>
+        <span class="skill-chip">SAP</span>
+        <span class="skill-chip">AWS</span>
+        <span class="skill-chip">GCP</span>
+        <span class="skill-chip">Docker</span>
+        <span class="skill-chip">Kubernetes</span>
+      </div>
+    </div>
+    <div class="col-right">
+      <div class="map-title">Customer Visits</div>
+      <div id="world-map"></div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 3: Agenda ───────────────────────────────────────── -->
+  <section class="slide" id="slide-3">
+    <div class="slide-header"></div>
+    <div class="slide-center">
+      <p class="label mb-40">Today's Agenda</p>
+      <div class="agenda-grid">
+        <div class="agenda-card">
+          <div class="agenda-num">01</div>
+          <div>
+            <div class="agenda-title">The Beautiful Science of Data Visualization</div>
+            <p style="font-size:19px;color:var(--text-muted);margin-top:12px">
+              Historical masterpieces that changed how we see the world
+            </p>
+          </div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">02</div>
+          <div>
+            <div class="agenda-title">How You Build Data Visualizations</div>
+            <p style="font-size:19px;color:var(--text-muted);margin-top:12px">
+              From raw numbers to meaningful visual patterns
+            </p>
+          </div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">03</div>
+          <div>
+            <div class="agenda-title">How You Answer Data Questions</div>
+            <p style="font-size:19px;color:var(--text-muted);margin-top:12px">
+              Tools, techniques, and the role of AI in analytics
+            </p>
+          </div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">04</div>
+          <div>
+            <div class="agenda-title">How to Tell a Data Story</div>
+            <p style="font-size:19px;color:var(--text-muted);margin-top:12px">
+              Turning insights into compelling narratives that drive action
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 4: Key Learnings ────────────────────────────────── -->
+  <section class="slide" id="slide-4">
+    <div class="slide-header"></div>
+    <div class="slide-center">
+      <p class="label mb-40">What You Will Learn Today</p>
+      <div class="learnings-list">
+        <div class="learning-item">
+          <div class="learning-num">1</div>
+          <div class="learning-text">
+            <strong>What makes data visualization so important</strong> —
+            and why our brains are wired to think visually
+          </div>
+        </div>
+        <div class="learning-item">
+          <div class="learning-num">2</div>
+          <div class="learning-text">
+            <strong>How we think about the world</strong> —
+            the mental models behind effective data communication
+          </div>
+        </div>
+        <div class="learning-item">
+          <div class="learning-num">3</div>
+          <div class="learning-text">
+            <strong>Who actually benefits from AI advancements</strong> —
+            and how trust becomes the deciding factor
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 5: Minard ───────────────────────────────────────── -->
+  <section class="slide hist-slide" id="slide-5">
+    <div class="slide-header"></div>
+    <div class="img-col">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/2/29/Minard.png"
+        alt="Minard's Map of Napoleon's March"
+        onerror="this.src=''; this.alt='Image unavailable offline'">
+    </div>
+    <div class="info-col">
+      <div class="hist-label">Data Visualization History</div>
+      <div class="hist-title">Charles Joseph Minard</div>
+      <div class="hist-year">Napoleon's March to Moscow, 1869</div>
+      <ul class="bullet-list">
+        <li>Considered by many the greatest statistical graphic ever drawn</li>
+        <li><strong>Line color</strong> encodes direction — beige advancing, black retreating</li>
+        <li><strong>Line thickness</strong> represents army strength — 422,000 soldiers entered Russia, only 10,000 returned</li>
+        <li><strong>Line height</strong> shows temperature during the deadly winter retreat</li>
+        <li>Six variables in a single 2D image: size, direction, location, time, temperature, geography</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 6: Nightingale ──────────────────────────────────── -->
+  <section class="slide hist-slide" id="slide-6">
+    <div class="slide-header"></div>
+    <div class="img-col">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/1/17/Nightingale-mortality.jpg"
+        alt="Florence Nightingale's Rose Diagram"
+        onerror="this.src=''; this.alt='Image unavailable offline'">
+    </div>
+    <div class="info-col">
+      <div class="hist-label">Data Visualization History</div>
+      <div class="hist-title">Florence Nightingale</div>
+      <div class="hist-year">Mortality Causes in the Crimean War, 1858</div>
+      <ul class="bullet-list">
+        <li>Nightingale was a pioneering statistician as much as a nurse</li>
+        <li><strong>Area</strong> of each wedge encodes the number of deaths — bigger area means more deaths</li>
+        <li><strong>Angle/orientation</strong> on the clock face represents time — each wedge is one month</li>
+        <li><strong>Color</strong> distinguishes causes — blue for preventable diseases, red for wounds, black for other</li>
+        <li>Showed that preventable disease killed far more soldiers than combat — driving hospital reform</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 7: John Snow ────────────────────────────────────── -->
+  <section class="slide hist-slide" id="slide-7">
+    <div class="slide-header"></div>
+    <div class="img-col">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/2/27/Snow-cholera-map-1.jpg"
+        alt="John Snow's Cholera Map of London"
+        onerror="this.src=''; this.alt='Image unavailable offline'">
+    </div>
+    <div class="info-col">
+      <div class="hist-label">Data Visualization History</div>
+      <div class="hist-title">John Snow</div>
+      <div class="hist-year">Cholera Outbreak in Soho, London, 1854</div>
+      <ul class="bullet-list">
+        <li>Snow plotted <strong>every death as a dot on a map</strong> — a deceptively simple idea</li>
+        <li>The spatial clustering around the Broad Street water pump was immediately visible</li>
+        <li>By removing the pump handle, the outbreak stopped — one of the first uses of spatial epidemiology</li>
+        <li>Disproved the "miasma" theory of disease; spatial proximity to the pump was the key variable</li>
+        <li>The map didn't just describe data — it <strong>solved a crisis</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 8: Hamburg Cholera ──────────────────────────────── -->
+  <section class="slide hist-slide" id="slide-8">
+    <div class="slide-header"></div>
+    <div class="img-col" style="background:#fff">
+      <div style="padding:40px;text-align:center">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/1892_Hamburg_cholera_outbreak_map.svg/800px-1892_Hamburg_cholera_outbreak_map.svg.png"
+          alt="Hamburg Cholera Map 1892"
+          style="max-height:860px;object-fit:contain;border-radius:12px;box-shadow:0 8px 48px rgba(0,0,0,0.12)"
+          onerror="this.style.display='none';document.getElementById('hamburg-fallback').style.display='block'">
+        <div id="hamburg-fallback" style="display:none;padding:40px;color:var(--text-muted);font-size:22px">
+          Hamburg Cholera Map 1892<br><small>(requires internet)</small>
+        </div>
+      </div>
+    </div>
+    <div class="info-col">
+      <div class="hist-label">Data Visualization History</div>
+      <div class="hist-title">Hamburg Cholera Epidemic</div>
+      <div class="hist-year">Hamburg vs. Altona, 1892</div>
+      <ul class="bullet-list">
+        <li>The 1892 Hamburg epidemic killed over 8,600 people in just weeks</li>
+        <li>The city border between Hamburg and Altona ran down the middle of streets</li>
+        <li><strong>Hamburg</strong> drew drinking water directly from the polluted River Elbe — no filtration</li>
+        <li><strong>Altona</strong> filtered its water supply — deaths dropped sharply at the city border</li>
+        <li>The map makes the invisible visible: the sharp geographic divide in deaths proved water contamination was the cause</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 9: Visual Elements Resume ──────────────────────── -->
+  <section class="slide" id="slide-9">
+    <div class="slide-header"></div>
+    <div class="slide-center">
+      <p class="label mb-40">Visual Encoding — What Made These Charts Work</p>
+      <div class="resume-grid">
+        <div class="resume-card">
+          <div class="resume-name">Minard (1869)</div>
+          <div class="resume-year">Napoleon's March</div>
+          <ul class="resume-elements">
+            <li><strong>Line color</strong> — direction of march (advance vs. retreat)</li>
+            <li><strong>Line thickness</strong> — army strength (soldiers remaining)</li>
+            <li><strong>Line position Y</strong> — temperature during retreat</li>
+            <li><strong>Map geography</strong> — spatial context (rivers, cities)</li>
+          </ul>
+        </div>
+        <div class="resume-card">
+          <div class="resume-name">Nightingale (1858)</div>
+          <div class="resume-year">Crimean War Deaths</div>
+          <ul class="resume-elements">
+            <li><strong>Wedge area</strong> — number of deaths (more deaths = larger area)</li>
+            <li><strong>Clock orientation</strong> — time (each wedge = one month)</li>
+            <li><strong>Color</strong> — cause of death (disease, wounds, other)</li>
+            <li><strong>Radial layout</strong> — enables quick comparison across months</li>
+          </ul>
+        </div>
+        <div class="resume-card">
+          <div class="resume-name">John Snow (1854)</div>
+          <div class="resume-year">London Cholera</div>
+          <ul class="resume-elements">
+            <li><strong>Dots on a map</strong> — each dot = one death, position = location</li>
+            <li><strong>Spatial proximity</strong> — clustering reveals the contamination source</li>
+            <li><strong>Reference points</strong> — pump locations as anchors for interpretation</li>
+            <li><strong>Absence of dots</strong> — the workhouse and brewery (safe water) tell a story too</li>
+          </ul>
+        </div>
+        <div class="resume-card">
+          <div class="resume-name">Hamburg (1892)</div>
+          <div class="resume-year">Cholera Boundary</div>
+          <ul class="resume-elements">
+            <li><strong>Geographic density</strong> — dots concentrated in Hamburg, sparse in Altona</li>
+            <li><strong>City border as visual divider</strong> — makes the policy difference visible</li>
+            <li><strong>Absence</strong> — the empty space in Altona is as powerful as the filled space in Hamburg</li>
+            <li><strong>Spatial juxtaposition</strong> — same street, different outcomes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 10: Transition ──────────────────────────────────── -->
+  <section class="slide" id="slide-10">
+    <div class="slide-header"></div>
+    <div class="eyebrow">Part 2</div>
+    <div class="big-text">
+      Let's explore how we can build visualizations that tell
+      <span>a rich story</span>
+      with easily understandable design elements
+    </div>
+  </section>
+
+  <!-- ── SLIDE 11: Anscombe Table ──────────────────────────────── -->
+  <section class="slide" id="slide-11">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:24px">
+      <p class="label">Anscombe's Quartet — Four Datasets That Look Identical as Numbers</p>
+      <p class="caption mb-24" style="text-align:center">
+        All four datasets share the same mean, variance, and correlation — so what's the difference?
+      </p>
+      <div id="anscombe-table-container" style="width:100%;max-width:1700px;overflow-x:auto"></div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 12: Anscombe Scatter ────────────────────────────── -->
+  <section class="slide" id="slide-12">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:24px">
+      <p class="label">Anscombe's Quartet — Now Let's Plot Them</p>
+      <div id="anscombe-scatter" style="width:100%;max-width:1760px"></div>
+      <div class="btn-row">
+        <button class="toggle-btn" id="toggle-regression">Show Regression Lines</button>
+      </div>
+      <p class="caption" style="text-align:center">
+        All four share: Mean x = 9.0 · Mean y ≈ 7.5 · Variance x = 11.0 · Correlation ≈ 0.816 · Regression: y = 3 + 0.5x
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 13: Datasaurus Table ────────────────────────────── -->
+  <section class="slide" id="slide-13">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:24px">
+      <p class="label">The Datasaurus Dozen — 13 Datasets, Same Statistics</p>
+      <p class="caption mb-16" style="text-align:center">
+        Mean x ≈ 54.26 · Mean y ≈ 47.83 · SD x ≈ 16.76 · SD y ≈ 26.93 · Correlation ≈ −0.064
+      </p>
+      <div id="datasaurus-table-container" style="width:100%;max-width:1200px"></div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 14: Datasaurus Scatter ──────────────────────────── -->
+  <section class="slide" id="slide-14">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:20px;justify-content:flex-start;padding-top:60px">
+      <p class="label">The Datasaurus Dozen — Now Visualized</p>
+      <div id="datasaurus-scatter" style="width:100%;max-width:1760px"></div>
+      <div class="btn-row">
+        <button class="toggle-btn" id="toggle-ds-regression">Show Regression Lines</button>
+        <button class="toggle-btn" id="show-dino">🦕 Show Dinosaur</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 15: Car Sales ───────────────────────────────────── -->
+  <section class="slide" id="slide-15">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:20px;justify-content:flex-start;padding-top:60px">
+      <p class="label">Car Sales Challenge — How Often Was Model A #1?</p>
+      <div class="btn-row" style="margin-top:0;margin-bottom:8px">
+        <button class="toggle-btn active" id="tab-table">📋 Table View</button>
+        <button class="toggle-btn" id="tab-chart">📈 Line Chart</button>
+      </div>
+      <div id="sales-table-container" style="width:100%;max-width:1700px"></div>
+      <div id="sales-chart-container" style="width:100%;max-width:1600px;display:none"></div>
+      <div class="approach-cards">
+        <div class="approach-card">
+          <div class="approach-icon">👁️</div>
+          <div class="approach-title">Manual — Scan the Table</div>
+          <div class="approach-desc">Go row by row, compare three columns, mentally track the winner</div>
+          <span class="speed-badge speed-slow">Slow &amp; error-prone</span>
+        </div>
+        <div class="approach-card">
+          <div class="approach-icon">🤖</div>
+          <div class="approach-title">Copy to Claude / AI</div>
+          <div class="approach-desc">Paste the table, ask "how often is Model A the highest?"</div>
+          <span class="speed-badge speed-medium">Fast, requires trust</span>
+        </div>
+        <div class="approach-card">
+          <div class="approach-icon">📈</div>
+          <div class="approach-title">Line Chart</div>
+          <div class="approach-desc">Plot all three models — the crossings tell the story instantly</div>
+          <span class="speed-badge speed-fast">Fastest &amp; most reliable</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 16: Pre-attentive Intro ─────────────────────────── -->
+  <section class="slide" id="slide-16">
+    <div class="slide-header"></div>
+    <p class="label" style="position:absolute;top:48px;left:80px">Pre-attentive Attributes</p>
+    <div class="pa-headline">
+      Our brains detect outliers, minima,<br>and maxima in
+      <span style="color:var(--accent)">under 250 milliseconds</span>
+    </div>
+    <p class="pa-subtitle">
+      Before we consciously "read" a chart, our visual system has already identified
+      <span class="pa-highlight">the biggest bar</span>,
+      <span class="pa-highlight">the red dot</span>,
+      and <span class="pa-highlight">the lone outlier</span>.
+      <br><br>
+      This is called <strong>pre-attentive processing</strong> — and great data visualizations
+      are designed to exploit it deliberately.
+    </p>
+    <div style="display:flex;gap:48px;margin-top:48px">
+      <div style="background:var(--surface);border-radius:16px;padding:28px 40px;border:2px solid var(--border);text-align:center">
+        <div style="font-size:52px;margin-bottom:12px">🔴</div>
+        <div style="font-size:20px;font-weight:700">Color Pop-out</div>
+        <div style="font-size:16px;color:var(--text-muted)">One red dot in a sea of blue</div>
+      </div>
+      <div style="background:var(--surface);border-radius:16px;padding:28px 40px;border:2px solid var(--border);text-align:center">
+        <div style="font-size:52px;margin-bottom:12px">↕️</div>
+        <div style="font-size:20px;font-weight:700">Length</div>
+        <div style="font-size:16px;color:var(--text-muted)">The tallest bar stands out instantly</div>
+      </div>
+      <div style="background:var(--surface);border-radius:16px;padding:28px 40px;border:2px solid var(--border);text-align:center">
+        <div style="font-size:52px;margin-bottom:12px">◉</div>
+        <div style="font-size:20px;font-weight:700">Size</div>
+        <div style="font-size:16px;color:var(--text-muted)">One giant circle among small ones</div>
+      </div>
+      <div style="background:var(--surface);border-radius:16px;padding:28px 40px;border:2px solid var(--border);text-align:center">
+        <div style="font-size:52px;margin-bottom:12px">▲</div>
+        <div style="font-size:20px;font-weight:700">Shape</div>
+        <div style="font-size:16px;color:var(--text-muted)">The triangle among circles</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 17: Number Grid ─────────────────────────────────── -->
+  <section class="slide" id="slide-17">
+    <div class="slide-header"></div>
+    <p id="grid-prompt" class="prompt-text">Count the 2s — how many are there?</p>
+    <div id="number-grid" class="highlight-off"></div>
+    <div class="btn-row">
+      <button class="toggle-btn" id="toggle-highlight">Enable Visual Aid</button>
+      <span style="font-size:20px;color:var(--text-muted);padding:14px 0">
+        Answer: <strong id="two-count" style="color:var(--accent)">—</strong>
+      </span>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 18: Bar Chart ───────────────────────────────────── -->
+  <section class="slide" id="slide-18">
+    <div class="slide-header"></div>
+    <p class="label" style="position:absolute;top:48px;left:80px">Pre-attentive — Color Highlights Extremes</p>
+    <p style="font-size:26px;color:var(--text-muted);margin-top:80px;margin-bottom:16px;font-weight:500">
+      Total car sales per quarter — which quarter was the best? Which was the worst?
+    </p>
+    <div id="sales-bar-chart" style="width:100%;max-width:1760px"></div>
+  </section>
+
+  <!-- ── SLIDE 19: Pre-attentive Overview ──────────────────────── -->
+  <section class="slide" id="slide-19">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:32px">
+      <p class="label">Pre-attentive Attributes — The Full Toolkit</p>
+      <div class="pa-grid">
+        <div class="pa-card">
+          <div class="pa-icon">🎨</div>
+          <div class="pa-name">Color (Hue)</div>
+          <div class="pa-desc">Categorical differences — "the red one" stands out from blue ones</div>
+        </div>
+        <div class="pa-card">
+          <div class="pa-icon">🌓</div>
+          <div class="pa-name">Intensity</div>
+          <div class="pa-desc">Light vs. dark shades encode magnitude or emphasis</div>
+        </div>
+        <div class="pa-card">
+          <div class="pa-icon">⬛</div>
+          <div class="pa-name">Size / Area</div>
+          <div class="pa-desc">Larger objects appear more important — used in bubble charts</div>
+        </div>
+        <div class="pa-card">
+          <div class="pa-icon">📏</div>
+          <div class="pa-name">Length</div>
+          <div class="pa-desc">The foundation of bar charts — longer = more</div>
+        </div>
+        <div class="pa-card">
+          <div class="pa-icon">◆</div>
+          <div class="pa-name">Shape</div>
+          <div class="pa-desc">Circles, squares, triangles — categorical encoding in scatter plots</div>
+        </div>
+        <div class="pa-card">
+          <div class="pa-icon">🔤</div>
+          <div class="pa-name">Bold / Weight</div>
+          <div class="pa-desc">Bold text draws the eye before regular weight — hierarchy in labels</div>
+        </div>
+        <div class="pa-card">
+          <div class="pa-icon">📍</div>
+          <div class="pa-name">Position</div>
+          <div class="pa-desc">The most precise pre-attentive attribute — the foundation of axes</div>
+        </div>
+        <div class="pa-card">
+          <div class="pa-icon">〰️</div>
+          <div class="pa-name">Orientation</div>
+          <div class="pa-desc">A diagonal line in a grid of horizontal lines jumps out immediately</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 20: YouTube 1 ───────────────────────────────────── -->
+  <section class="slide video-slide" id="slide-20">
+    <div class="slide-header"></div>
+    <div class="video-title">The Art of Data Visualization</div>
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/mBmOSbouBzI"
+        title="The Art of Data Visualization"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 21: YouTube 2 ───────────────────────────────────── -->
+  <section class="slide video-slide" id="slide-21">
+    <div class="slide-header"></div>
+    <div class="video-title">The Beauty of Data Visualization</div>
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/xNSgmm9FX2s"
+        title="The Beauty of Data Visualization"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 22: QR Code ─────────────────────────────────────── -->
+  <section class="slide" id="slide-22">
+    <div class="slide-header"></div>
+    <div class="slide-center">
+      <img
+        src="assets/images/qr-code.png"
+        alt="QR Code"
+        class="qr-img"
+        onerror="this.style.display='none';document.getElementById('qr-placeholder').style.display='flex'">
+      <div id="qr-placeholder" style="
+        display:none;
+        width:520px;height:520px;
+        background:var(--surface);
+        border:4px dashed var(--border);
+        border-radius:20px;
+        align-items:center;justify-content:center;
+        flex-direction:column;gap:16px;
+        font-size:22px;color:var(--text-muted);
+        text-align:center;padding:40px">
+        <div style="font-size:72px">📱</div>
+        <div><strong>QR Code</strong></div>
+        <div>Place <code>assets/images/qr-code.png</code><br>to display here</div>
+      </div>
+      <div class="qr-label">Scan to access today's resources</div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 23: Hands-on Challenge ──────────────────────────── -->
+  <section class="slide" id="slide-23">
+    <div class="slide-header"></div>
+    <p class="label" style="position:absolute;top:48px;left:80px">Hands-On Challenge</p>
+    <div class="challenge-header" style="margin-top:80px">
+      <a href="http://bit.ly/hands-on-challenge" target="_blank" class="challenge-link">
+        🔗 &nbsp; bit.ly/hands-on-challenge
+      </a>
+      <span style="font-size:22px;color:var(--text-muted);margin-left:16px">Open this workbook to get started</span>
+    </div>
+    <div class="tableau-container">
+      <!-- Tableau Public Embed -->
+      <div class='tableauPlaceholder' id='viz-tableau' style='width:100%;height:100%'>
+        <noscript>
+          <a href='https://public.tableau.com/views/Hands-On-Challenge-World-Indicators/DIY'>
+            <img alt='Hands-On Challenge - World Indicators' src='https://public.tableau.com/static/images/Ha/Hands-On-Challenge-World-Indicators/DIY/1_rss.png' style='border: none' />
+          </a>
+        </noscript>
+        <object class='tableauViz' style='width:100%;height:100%'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+          <param name='embed_code_version' value='3' />
+          <param name='site_root' value='' />
+          <param name='name' value='Hands-On-Challenge-World-Indicators/DIY' />
+          <param name='tabs' value='no' />
+          <param name='toolbar' value='yes' />
+          <param name='animate_transition' value='yes' />
+          <param name='display_static_image' value='yes' />
+          <param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' />
+          <param name='display_count' value='yes' />
+          <param name='language' value='en-US' />
+        </object>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 24: Analytics Workflow ──────────────────────────── -->
+  <section class="slide" id="slide-24">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:40px">
+      <p class="label">The Analytics Workflow</p>
+      <p class="subtitle" style="text-align:center;max-width:1300px">
+        Every insight follows the same cycle — and the cycle never really ends
+      </p>
+      <div class="workflow-diagram">
+        <div class="workflow-step">
+          <div class="workflow-circle accent-bg">❓</div>
+          <div class="workflow-step-label">Question</div>
+          <div class="workflow-step-sub">Start with a business question worth answering</div>
+        </div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-step">
+          <div class="workflow-circle">🗄️</div>
+          <div class="workflow-step-label">Get Data</div>
+          <div class="workflow-step-sub">Collect, clean, and connect relevant data sources</div>
+        </div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-step">
+          <div class="workflow-circle">🔍</div>
+          <div class="workflow-step-label">Explore</div>
+          <div class="workflow-step-sub">Visualize, query, and investigate patterns</div>
+        </div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-step">
+          <div class="workflow-circle">💡</div>
+          <div class="workflow-step-label">Insight</div>
+          <div class="workflow-step-sub">Surface a finding that is surprising or actionable</div>
+        </div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-step">
+          <div class="workflow-circle">🚀</div>
+          <div class="workflow-step-label">Act</div>
+          <div class="workflow-step-sub">Communicate the insight and drive a decision</div>
+        </div>
+        <div class="workflow-arrow" style="color:var(--text-muted)">↩</div>
+        <div class="workflow-step" style="opacity:0.6">
+          <div class="workflow-circle">🔁</div>
+          <div class="workflow-step-label">New Question</div>
+          <div class="workflow-step-sub">Every answer creates new questions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 25: Damien Newman Squiggle ──────────────────────── -->
+  <section class="slide" id="slide-25">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:32px">
+      <p class="label">The Design Process — Damien Newman's Squiggle</p>
+      <p class="subtitle" style="text-align:center;max-width:1300px">
+        Real analysis is messy before it becomes clear — and that's exactly how trust is built
+      </p>
+
+      <!-- SVG Squiggle -->
+      <svg width="1600" height="380" viewBox="0 0 1600 380" style="overflow:visible">
+        <!-- Messy squiggle on left -->
+        <path d="M80,190 C90,100 120,280 140,160 C160,50 185,290 210,150 C235,20 260,300 285,170
+                 C310,50 330,280 355,150 C375,40 400,270 425,140 C445,30 470,260 495,130
+                 C515,20 538,240 560,120 C580,20 600,220 620,110 C640,20 658,200 675,100
+                 C692,20 708,185 720,100 C732,30 748,175 760,100"
+          fill="none" stroke="#00d4e0" stroke-width="3" stroke-linecap="round"
+          opacity="0.7"/>
+
+        <!-- Transition — getting cleaner -->
+        <path d="M760,100 C790,80 820,110 850,90 C880,70 910,100 940,85
+                 C970,70 1000,95 1030,82 C1060,68 1090,88 1120,78"
+          fill="none" stroke="#0ea5e9" stroke-width="3.5" stroke-linecap="round"/>
+
+        <!-- Clean line on right -->
+        <path d="M1120,78 C1200,70 1300,65 1440,60 C1500,58 1540,57 1560,56"
+          fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- Arrow head -->
+        <polygon points="1560,56 1545,46 1545,66" fill="#111827"/>
+
+        <!-- Labels -->
+        <text x="80" y="320" font-family="Inter,sans-serif" font-size="20" font-weight="600" fill="#6b7280">Start: Digging through data</text>
+        <text x="700" y="320" font-family="Inter,sans-serif" font-size="20" font-weight="600" fill="#6b7280">Multiple attempts</text>
+        <text x="1200" y="320" font-family="Inter,sans-serif" font-size="20" font-weight="700" fill="#00d4e0">The final product</text>
+
+        <!-- Phase markers -->
+        <text x="240" y="50" font-family="Inter,sans-serif" font-size="17" fill="#9ca3af">fail fast</text>
+        <text x="370" y="40" font-family="Inter,sans-serif" font-size="17" fill="#9ca3af">new question</text>
+        <text x="490" y="45" font-family="Inter,sans-serif" font-size="17" fill="#9ca3af">followup</text>
+        <text x="620" y="42" font-family="Inter,sans-serif" font-size="17" fill="#9ca3af">iterate</text>
+
+        <!-- Final output labels -->
+        <text x="1310" y="40" font-family="Inter,sans-serif" font-size="17" font-weight="600" fill="#111827">Dashboard</text>
+        <text x="1310" y="62" font-family="Inter,sans-serif" font-size="17" font-weight="600" fill="#111827">Insight</text>
+        <text x="1310" y="84" font-family="Inter,sans-serif" font-size="17" font-weight="600" fill="#111827">Story</text>
+      </svg>
+
+      <div style="display:flex;gap:48px;max-width:1500px">
+        <div style="flex:1;background:var(--surface);border-radius:16px;padding:32px;border:2px solid var(--border)">
+          <strong style="font-size:22px;color:var(--accent)">This builds Trust</strong>
+          <p style="font-size:20px;color:var(--text-muted);margin-top:12px;line-height:1.6">
+            We trust the <strong>data</strong> · We trust the <strong>process</strong> · We trust our <strong>calculations</strong> · We trust our <strong>analysis</strong>
+          </p>
+        </div>
+        <div style="flex:1;background:var(--surface);border-radius:16px;padding:32px;border:2px solid var(--border)">
+          <strong style="font-size:22px;color:var(--text)">Recipients trust us</strong>
+          <p style="font-size:20px;color:var(--text-muted);margin-top:12px;line-height:1.6">
+            To trust our outcome, people need to <strong>trust us first</strong>. We genuinely trust humans more than machines.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 26: AI Introduction ─────────────────────────────── -->
+  <section class="slide text-slide" id="slide-26">
+    <div class="slide-header"></div>
+    <div class="section-label">Part 3 — How You Answer Data Questions</div>
+    <div class="big-heading">
+      I've shown you how to build it yourself.<br>
+      But what about putting data in<br>
+      <span style="color:var(--accent)">everyone's hands?</span>
+    </div>
+    <ul class="text-points">
+      <li>A tool you can easily pick up is powerful — but it still requires training and a skill curve</li>
+      <li>To reach <strong>100% of the workforce</strong>, we need a different interface: natural language</li>
+      <li>AI makes it possible to ask "which region had the highest growth last quarter?" — and just get the answer</li>
+      <li>But: <strong>where does trust come from</strong> when you didn't do the analysis yourself?</li>
+      <li>I bet all of you have caught ChatGPT, Gemini, or Claude <strong>cheating, hallucinating, or simply wrong</strong></li>
+    </ul>
+  </section>
+
+  <!-- ── SLIDE 27: Reliable AI ─────────────────────────────────── -->
+  <section class="slide text-slide" id="slide-27">
+    <div class="slide-header"></div>
+    <div class="section-label">The Trust Problem with AI</div>
+    <div class="big-heading">
+      This is why we need<br>
+      <span style="color:var(--accent)">reliable AI</span><br>
+      to trust the actual outcomes
+    </div>
+    <ul class="text-points">
+      <li>General-purpose AI (ChatGPT, Claude, Gemini) is trained to sound plausible — not to be precise with your data</li>
+      <li>For analytics, we need AI that is <strong>grounded in your actual data</strong> — not guessing</li>
+      <li>The answer to "how many units did we sell in Bavaria in Q3?" must be <strong>verifiably correct</strong></li>
+      <li>Trust in AI-generated insights requires <strong>explainability</strong> — show me the query, show me the numbers</li>
+    </ul>
+  </section>
+
+  <!-- ── SLIDE 28: Veezoo ───────────────────────────────────────── -->
+  <section class="slide" id="slide-28">
+    <div class="slide-header" style="z-index:3"></div>
+    <div class="veezoo-video">
+      <iframe
+        src="https://player.vimeo.com/video/1144483391?autoplay=1&loop=1&muted=1&controls=0&autopause=0&background=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="veezoo-overlay">
+      <div class="veezoo-label">Natural Language Analytics</div>
+      <div class="veezoo-title">Veezoo</div>
+      <div class="veezoo-desc">
+        Ask your data questions in plain language.
+        Veezoo connects directly to your data warehouse
+        and returns verified, explainable answers —
+        no hallucinations, no guessing.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 29: Both Solutions ──────────────────────────────── -->
+  <section class="slide" id="slide-29">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:32px">
+      <p class="label">The Complete Picture</p>
+      <p class="subtitle" style="text-align:center;max-width:1300px">
+        We need both approaches side by side to reach <strong>100% of the workforce</strong>
+      </p>
+      <div class="solutions-row">
+        <div class="solution-card">
+          <div class="solution-icon">📊</div>
+          <div class="solution-title">Visual Analytics</div>
+          <p class="solution-desc">
+            Tableau, Power BI, and similar tools for analysts and data-fluent users
+            who want to explore, build, and tell stories with data.
+            Deep insights, rich visuals, full control.
+          </p>
+        </div>
+        <div class="plus-sign">+</div>
+        <div class="solution-card accent-border">
+          <div class="solution-icon">💬</div>
+          <div class="solution-title">Natural Language AI</div>
+          <p class="solution-desc">
+            Veezoo and similar tools for business users who need quick,
+            trusted answers without building a dashboard.
+            Instant answers, verified results, zero learning curve.
+          </p>
+        </div>
+      </div>
+      <div class="outcome-badge">Together = 100% of the workforce empowered by data</div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 30: Data Story Video ────────────────────────────── -->
+  <section class="slide video-slide" id="slide-30">
+    <div class="slide-header"></div>
+    <div class="video-title">How to Tell a Data Story — Inspiration</div>
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/hVimVzgtD6w?start=173"
+        title="How to Tell a Data Story"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 31: Summary ──────────────────────────────────────── -->
+  <section class="slide" id="slide-31">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:24px;justify-content:flex-start;padding-top:70px">
+      <p class="label">What We Learned Today</p>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="summary-icon">🎨</div>
+          <div class="summary-title">The Power of Visual Encoding</div>
+          <div class="summary-desc">Minard, Nightingale, and Snow showed us that the right visual encoding turns data into discovery. Color, size, position, and area all carry meaning.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">📐</div>
+          <div class="summary-title">Always Visualize Your Data</div>
+          <div class="summary-desc">Anscombe's Quartet and the Datasaurus Dozen prove it: identical statistics can hide completely different shapes. Charts reveal what numbers hide.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">⚡</div>
+          <div class="summary-title">Pre-attentive Attributes</div>
+          <div class="summary-desc">Your audience processes color, size, and position before they consciously read a single number. Design with this in mind — highlight what matters.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">🔁</div>
+          <div class="summary-title">The Analytics Workflow</div>
+          <div class="summary-desc">Good analysis is iterative. Question → Data → Insight → Act → New Question. The squiggle becomes a clear line only through repeated attempts.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">🤝</div>
+          <div class="summary-title">Trust is Everything</div>
+          <div class="summary-desc">The recipient of your insight must trust you to trust the outcome. Transparency in your process — showing the work — is what builds that trust.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">🚀</div>
+          <div class="summary-title">AI + Visual Analytics</div>
+          <div class="summary-desc">Visual storytelling for analysts plus natural-language AI for everyone else. Together, they bring the power of data to 100% of the workforce.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 32: Links ───────────────────────────────────────── -->
+  <section class="slide" id="slide-32">
+    <div class="slide-header"></div>
+    <div class="slide-center" style="gap:48px">
+      <p class="label">Explore Further</p>
+      <div class="links-row">
+        <a href="https://public.tableau.com/views/Hands-On-Challenge-World-Indicators/DIY"
+           target="_blank" class="link-card">
+          <div class="link-icon">📊</div>
+          <div class="link-title">Tableau Public</div>
+          <div class="link-url">public.tableau.com</div>
+          <p style="font-size:17px;color:var(--text-muted);text-align:center">
+            Explore the Hands-On Challenge workbook and thousands of public visualizations
+          </p>
+        </a>
+        <a href="https://www.veezoo.com" target="_blank" class="link-card">
+          <div class="link-icon">💬</div>
+          <div class="link-title">Veezoo</div>
+          <div class="link-url">veezoo.com</div>
+          <p style="font-size:17px;color:var(--text-muted);text-align:center">
+            Natural language analytics — ask your data questions, get verified answers
+          </p>
+        </a>
+      </div>
+      <a href="http://bit.ly/hands-on-challenge" target="_blank" style="
+        display:inline-flex;align-items:center;gap:12px;
+        background:var(--accent);color:white;padding:18px 48px;
+        border-radius:40px;font-size:24px;font-weight:700;text-decoration:none;
+        box-shadow:0 4px 24px rgba(0,212,224,0.4)">
+        🔗 &nbsp; bit.ly/hands-on-challenge — Today's Workbook
+      </a>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 33: Thank You ───────────────────────────────────── -->
+  <section class="slide" id="slide-33">
+    <div class="slide-header"></div>
+    <div class="thanks-eyebrow">Thank You</div>
+    <div class="thanks-headline">Thank You!</div>
+    <p class="thanks-sub">
+      Data is most powerful when it reaches every person who needs it —
+      told with clarity, designed with empathy, and backed by trust.
+    </p>
+    <div class="thanks-contact">
+      <span>Lennart Heuckendorf</span>
+      <span>·</span>
+      <span>Solution Engineer, Tableau</span>
+      <span>·</span>
+      <a href="https://www.linkedin.com/in/lennart-heuckendorf" target="_blank">LinkedIn</a>
+    </div>
+  </section>
+
+</div><!-- /presentation -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     FIXED NAVIGATION UI
+══════════════════════════════════════════════════════════════ -->
+<div id="nav-ui">
+  <div id="progress-bar"></div>
+</div>
+<div id="slide-counter">1 / 33</div>
+<div class="nav-arrow" id="nav-prev" title="Previous slide (← arrow)">&#8592;</div>
+<div class="nav-arrow" id="nav-next" title="Next slide (→ arrow)">&#8594;</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     TABLEAU SCRIPT
+══════════════════════════════════════════════════════════════ -->
+<script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script>
+
+<!-- ══════════════════════════════════════════════════════════════
+     APP SCRIPTS
+══════════════════════════════════════════════════════════════ -->
+<script src="js/navigation.js"></script>
+<script src="js/map.js"></script>
+<script src="js/anscombe.js"></script>
+<script src="js/datasaurus.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/numbers.js"></script>
+
+<!-- Hover effect on nav arrows -->
+<script>
+  (function() {
+    const pres = document.getElementById('presentation');
+    const prev = document.getElementById('nav-prev');
+    const next = document.getElementById('nav-next');
+    if (pres && prev && next) {
+      pres.addEventListener('mouseenter', () => { prev.style.opacity='0.45'; next.style.opacity='0.45'; });
+      pres.addEventListener('mouseleave', () => { prev.style.opacity='0'; next.style.opacity='0'; });
+      prev.addEventListener('mouseenter', () => prev.style.opacity='1');
+      prev.addEventListener('mouseleave', () => prev.style.opacity='0.45');
+      next.addEventListener('mouseenter', () => next.style.opacity='1');
+      next.addEventListener('mouseleave', () => next.style.opacity='0.45');
+    }
+  })();
+</script>
+
+</body>
+</html>
