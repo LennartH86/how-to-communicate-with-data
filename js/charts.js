@@ -44,7 +44,7 @@
     salesTableRendered = true;
 
     const car1WinMonths = [];
-    let html = `<div style="max-height:340px;overflow-y:auto;border-radius:12px;border:2px solid var(--border)">
+    let html = `<div style="overflow-y:auto;border-radius:12px;border:2px solid var(--border)">
       <table class="data-table" style="font-size:18px;min-width:700px">
         <thead>
           <tr>
@@ -306,12 +306,17 @@
 
     const approachBtn   = document.getElementById('show-approaches');
     const approachCards = document.getElementById('approach-cards');
+    // Set tall default — approaches are hidden initially
+    if (tableEl) tableEl.style.maxHeight = '520px';
     if (approachBtn && approachCards) {
       approachBtn.addEventListener('click', () => {
         const visible = approachCards.style.display !== 'none';
         approachCards.style.display = visible ? 'none' : '';
         approachBtn.classList.toggle('active', !visible);
         approachBtn.textContent = visible ? 'Show Approaches' : '✓ Hide Approaches';
+        // Shrink table when approaches shown, expand when hidden
+        if (tableEl) tableEl.style.maxHeight = visible ? '520px' : '280px';
+        if (chartEl) chartEl.style.maxHeight = visible ? '520px' : '280px';
       });
     }
 
