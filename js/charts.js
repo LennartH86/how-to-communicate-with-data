@@ -304,6 +304,17 @@
       renderSalesChart();
     });
 
+    const approachBtn   = document.getElementById('show-approaches');
+    const approachCards = document.getElementById('approach-cards');
+    if (approachBtn && approachCards) {
+      approachBtn.addEventListener('click', () => {
+        const visible = approachCards.style.display !== 'none';
+        approachCards.style.display = visible ? 'none' : '';
+        approachBtn.classList.toggle('active', !visible);
+        approachBtn.textContent = visible ? 'Show Approaches' : '✓ Hide Approaches';
+      });
+    }
+
     if (revealBtn) {
       revealBtn.addEventListener('click', () => {
         answerRevealed = !answerRevealed;
