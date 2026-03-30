@@ -176,7 +176,6 @@
     if (!container || typeof d3 === 'undefined') return;
     barChartRendered = true;
 
-    // Total sales per month across all models
     const totals = MONTHS.map((m, i) => ({
       month: m,
       value: MODELS.reduce((sum, model) => sum + model.sales[i], 0)
@@ -186,8 +185,8 @@
     const minVal = Math.min(...totals.map(t => t.value));
 
     const width  = 1600;
-    const height = 580;
-    const margin = { top: 40, right: 60, bottom: 80, left: 80 };
+    const height = 520;
+    const margin = { top: 24, right: 60, bottom: 64, left: 72 };
     const innerW = width - margin.left - margin.right;
     const innerH = height - margin.top - margin.bottom;
 
@@ -203,16 +202,16 @@
     const xScale = d3.scaleBand()
       .domain(MONTHS)
       .range([0, innerW])
-      .padding(0.25);
+      .padding(0.28);
 
     const yScale = d3.scaleLinear()
-      .domain([0, maxVal * 1.12])
+      .domain([0, maxVal * 1.15])
       .range([innerH, 0]);
 
     // Grid lines
     g.append('g').attr('class', 'axis')
-      .call(d3.axisLeft(yScale).ticks(6).tickSize(-innerW)
-        .tickFormat(d => (d / 1000).toFixed(1) + 'k'))
+      .call(d3.axisLeft(yScale).ticks(5).tickSize(-innerW)
+        .tickFormat(d => (d / 1000).toFixed(0) + 'k'))
       .call(ax => ax.select('.domain').remove())
       .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
 
@@ -225,57 +224,67 @@
       .attr('font-weight', 600)
       .attr('dy', '1.2em');
 
-    // Bars
-    g.selectAll('.bar')
+    // Bars — all neutral to start
+    const bars = g.selectAll('.bar')
       .data(totals)
       .enter()
       .append('rect')
-      .attr('class', 'bar')
+      .attr('class', d => 'bar' + (d.value === maxVal ? ' bar-max' : d.value === minVal ? ' bar-min' : ''))
       .attr('x', d => xScale(d.month))
       .attr('y', d => yScale(d.value))
       .attr('width', xScale.bandwidth())
       .attr('height', d => innerH - yScale(d.value))
       .attr('rx', 8)
-      .attr('fill', d => {
-        if (d.value === maxVal) return '#00d4e0';
-        if (d.value === minVal) return '#ef4444';
-        return '#e2e6ed';
-      })
-      .attr('opacity', 0.9);
+      .attr('fill', '#c8d0db')
+      .attr('opacity', 0.85);
 
-    // Value labels on top of bars
-    g.selectAll('.bar-label')
-      .data(totals)
-      .enter()
-      .append('text')
-      .attr('class', 'bar-label')
-      .attr('x', d => xScale(d.month) + xScale.bandwidth() / 2)
-      .attr('y', d => yScale(d.value) - 10)
-      .attr('text-anchor', 'middle')
-      .attr('font-size', 16)
-      .attr('font-weight', 700)
-      .attr('fill', d => {
-        if (d.value === maxVal) return '#00a8b5';
-        if (d.value === minVal) return '#dc2626';
-        return '#9ca3af';
-      })
-      .text(d => (d.value / 1000).toFixed(1) + 'k');
-
-    // Legend
+    // Legend — hidden until highlighted
     const legendData = [
       { color: '#00d4e0', label: 'Highest month' },
-      { color: '#ef4444', label: 'Lowest month' },
-      { color: '#e2e6ed', label: 'Other months' }
+      { color: '#ef4444', label: 'Lowest month' }
     ];
-    const legend = svg.append('g')
-      .attr('transform', `translate(${margin.left},${height - 24})`);
+    const legendG = svg.append('g')
+      .attr('transform', `translate(${margin.left},${height - 20})`)
+      .attr('opacity', 0);
     legendData.forEach((item, i) => {
-      const lx = i * 300;
-      legend.append('rect').attr('x', lx).attr('y', 0)
-        .attr('width', 20).attr('height', 20).attr('rx', 4).attr('fill', item.color);
-      legend.append('text').attr('x', lx + 28).attr('y', 15)
-        .attr('font-size', 18).attr('fill', '#374151').text(item.label);
+      const lx = i * 260;
+      legendG.append('rect').attr('x', lx).attr('y', 0)
+        .attr('width', 18).attr('height', 18).attr('rx', 4).attr('fill', item.color);
+      legendG.append('text').attr('x', lx + 26).attr('y', 14)
+        .attr('font-size', 17).attr('fill', '#374151').text(item.label);
     });
+
+    // Toggle button
+    let barsHighlighted = false;
+    const btn = document.getElementById('toggle-bar-highlight');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        barsHighlighted = !barsHighlighted;
+        btn.classList.toggle('active', barsHighlighted);
+        btn.textContent = barsHighlighted ? '✓ Remove Highlight' : 'Highlight Extremes';
+
+        bars.transition().duration(400)
+          .attr('fill', d => {
+            if (!barsHighlighted) return '#c8d0db';
+            if (d.value === maxVal) return '#00d4e0';
+            if (d.value === minVal) return '#ef4444';
+            return '#dde3ec';
+          })
+          .attr('opacity', d => {
+            if (!barsHighlighted) return 0.85;
+            return (d.value === maxVal || d.value === minVal) ? 1 : 0.35;
+          })
+          .attr('stroke', d => {
+            if (!barsHighlighted) return 'none';
+            if (d.value === maxVal) return '#00a8b5';
+            if (d.value === minVal) return '#b91c1c';
+            return 'none';
+          })
+          .attr('stroke-width', 3);
+
+        legendG.transition().duration(400).attr('opacity', barsHighlighted ? 1 : 0);
+      });
+    }
   }
 
   // ── Slide 15 tabs + reveal ────────────────────────────────────────────────
