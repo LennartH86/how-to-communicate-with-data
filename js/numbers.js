@@ -51,21 +51,30 @@
       grid.appendChild(cell);
     });
 
-    // Button wiring
-    const btn    = document.getElementById('toggle-highlight');
-    const prompt = document.getElementById('grid-prompt');
-    if (btn) {
-      btn.addEventListener('click', () => {
+    // Button: highlight toggle
+    const highlightBtn = document.getElementById('toggle-highlight');
+    if (highlightBtn) {
+      highlightBtn.addEventListener('click', () => {
         highlighted = !highlighted;
         grid.classList.toggle('highlight-off', !highlighted);
         grid.classList.toggle('highlight-on',   highlighted);
-        btn.classList.toggle('active', highlighted);
-        btn.textContent = highlighted ? '✓ Hide Answer' : 'Reveal Answer';
-        if (prompt) {
-          prompt.innerHTML = highlighted
-            ? `There are <strong style="color:var(--accent)">${TWO_COUNT} twos</strong> in this grid`
-            : `How many <strong style="color:var(--accent)">2s</strong> are hidden in this grid?`;
-        }
+        highlightBtn.classList.toggle('active', highlighted);
+        highlightBtn.textContent = highlighted ? '✓ Hide Highlight' : 'Highlight 2s';
+      });
+    }
+
+    // Button: reveal count
+    const revealBtn = document.getElementById('reveal-count');
+    const prompt    = document.getElementById('grid-prompt');
+    let revealed    = false;
+    if (revealBtn && prompt) {
+      revealBtn.addEventListener('click', () => {
+        revealed = !revealed;
+        revealBtn.classList.toggle('active', revealed);
+        revealBtn.textContent = revealed ? '✓ Hide Answer' : 'Reveal Answer';
+        prompt.innerHTML = revealed
+          ? `There are <strong style="color:var(--accent)">${TWO_COUNT} twos</strong> in this grid`
+          : `How many <strong style="color:var(--accent)">2s</strong> are hidden in this grid?`;
       });
     }
   }

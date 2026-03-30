@@ -633,8 +633,7 @@ button { cursor: pointer; font-family: var(--font); }
 #grid-topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 18px 64px;
+  padding: 16px 64px;
   flex-shrink: 0;
   border-bottom: 1px solid var(--border);
 }
@@ -643,6 +642,11 @@ button { cursor: pointer; font-family: var(--font); }
   font-weight: 600;
   color: var(--text-muted);
   margin: 0;
+}
+#grid-btnrow {
+  flex-shrink: 0;
+  padding: 12px 64px;
+  justify-content: flex-start;
 }
 #number-grid {
   display: grid;
