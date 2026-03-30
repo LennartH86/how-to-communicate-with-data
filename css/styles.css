@@ -133,7 +133,7 @@ button { cursor: pointer; font-family: var(--font); }
 .subtitle { font-size: 32px; font-weight: 500; line-height: 1.4; color: var(--text-muted); }
 .body { font-size: 28px; font-weight: 400; line-height: 1.6; }
 .body-sm { font-size: 22px; font-weight: 400; line-height: 1.6; }
-.label { font-size: 18px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+.label { font-size: 18px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
 .caption { font-size: 18px; font-weight: 400; color: var(--text-muted); }
 
 .accent-text { color: var(--accent); }
@@ -350,8 +350,8 @@ button { cursor: pointer; font-family: var(--font); }
   padding: 64px 72px;
 }
 .hist-slide .hist-label {
-  font-size: 16px; font-weight: 700;
-  letter-spacing: 0.10em; text-transform: uppercase;
+  font-size: 18px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 16px;
 }
 .hist-slide .hist-title {
