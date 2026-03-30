@@ -721,64 +721,60 @@
   <!-- ── SLIDE 25: Damien Newman Squiggle ──────────────────────── -->
   <section class="slide" id="slide-25">
     <div class="slide-header"></div>
-    <div class="slide-center" style="gap:32px">
-      <p class="label">The Design Process — Damien Newman's Squiggle</p>
-      <p class="subtitle" style="text-align:center;max-width:1300px">
-        Real analysis is messy before it becomes clear — and that's exactly how trust is built
-      </p>
 
-      <!-- SVG Squiggle -->
-      <svg width="1600" height="380" viewBox="0 0 1600 380" style="overflow:visible">
-        <!-- Messy squiggle on left -->
-        <path d="M80,190 C90,100 120,280 140,160 C160,50 185,290 210,150 C235,20 260,300 285,170
-                 C310,50 330,280 355,150 C375,40 400,270 425,140 C445,30 470,260 495,130
-                 C515,20 538,240 560,120 C580,20 600,220 620,110 C640,20 658,200 675,100
-                 C692,20 708,185 720,100 C732,30 748,175 760,100"
-          fill="none" stroke="#00d4e0" stroke-width="3" stroke-linecap="round"
-          opacity="0.7"/>
+    <!-- Top labels row -->
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0">
+      <div>
+        <p class="label" style="margin:0">The Design Process</p>
+        <p style="font-size:19px;color:var(--text-muted);margin:8px 0 0;font-weight:400">Noise / Uncertainty / Patterns / Insights</p>
+      </div>
+      <span style="font-size:19px;color:var(--text-muted);padding-top:48px">Clarity / Focus</span>
+    </div>
 
-        <!-- Transition — getting cleaner -->
-        <path d="M760,100 C790,80 820,110 850,90 C880,70 910,100 940,85
-                 C970,70 1000,95 1030,82 C1060,68 1090,88 1120,78"
-          fill="none" stroke="#0ea5e9" stroke-width="3.5" stroke-linecap="round"/>
-
-        <!-- Clean line on right -->
-        <path d="M1120,78 C1200,70 1300,65 1440,60 C1500,58 1540,57 1560,56"
-          fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
-
-        <!-- Arrow head -->
-        <polygon points="1560,56 1545,46 1545,66" fill="#111827"/>
-
-        <!-- Labels -->
-        <text x="80" y="320" font-family="Inter,sans-serif" font-size="20" font-weight="600" fill="#6b7280">Start: Digging through data</text>
-        <text x="700" y="320" font-family="Inter,sans-serif" font-size="20" font-weight="600" fill="#6b7280">Multiple attempts</text>
-        <text x="1200" y="320" font-family="Inter,sans-serif" font-size="20" font-weight="700" fill="#00d4e0">The final product</text>
-
-        <!-- Phase markers -->
-        <text x="240" y="50" font-family="Inter,sans-serif" font-size="17" fill="#9ca3af">fail fast</text>
-        <text x="370" y="40" font-family="Inter,sans-serif" font-size="17" fill="#9ca3af">new question</text>
-        <text x="490" y="45" font-family="Inter,sans-serif" font-size="17" fill="#9ca3af">followup</text>
-        <text x="620" y="42" font-family="Inter,sans-serif" font-size="17" fill="#9ca3af">iterate</text>
-
-        <!-- Final output labels -->
-        <text x="1310" y="40" font-family="Inter,sans-serif" font-size="17" font-weight="600" fill="#111827">Dashboard</text>
-        <text x="1310" y="62" font-family="Inter,sans-serif" font-size="17" font-weight="600" fill="#111827">Insight</text>
-        <text x="1310" y="84" font-family="Inter,sans-serif" font-size="17" font-weight="600" fill="#111827">Story</text>
+    <!-- Newman Squiggle SVG -->
+    <div style="flex:1;min-height:0;display:flex;align-items:center">
+      <svg viewBox="0 0 1760 480" style="width:100%;height:auto" aria-hidden="true">
+        <path d="M 75,250
+                 C 110,120 220,390 240,248
+                 C 260,70 130,420 120,252
+                 C 100,80 200,460 210,250
+                 C 230,60 170,440 155,252
+                 C 140,90 260,420 265,252
+                 C 285,100 230,390 220,255
+                 C 230,105 340,400 350,252
+                 C 365,100 295,390 288,255
+                 C 300,115 390,385 405,252
+                 C 420,120 460,375 470,254
+                 C 485,140 525,360 540,256
+                 C 555,160 595,340 615,258
+                 C 635,200 660,305 685,262
+                 C 730,256 830,254 960,254
+                 C 1100,254 1400,254 1720,254"
+          fill="none" stroke="#111827" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
+    </div>
 
-      <div style="display:flex;gap:48px;max-width:1500px">
-        <div style="flex:1;background:var(--surface);border-radius:16px;padding:32px;border:2px solid var(--border)">
-          <strong style="font-size:22px;color:var(--accent)">This builds Trust</strong>
-          <p style="font-size:20px;color:var(--text-muted);margin-top:12px;line-height:1.6">
-            We trust the <strong>data</strong> · We trust the <strong>process</strong> · We trust our <strong>calculations</strong> · We trust our <strong>analysis</strong>
-          </p>
-        </div>
-        <div style="flex:1;background:var(--surface);border-radius:16px;padding:32px;border:2px solid var(--border)">
-          <strong style="font-size:22px;color:var(--text)">Recipients trust us</strong>
-          <p style="font-size:20px;color:var(--text-muted);margin-top:12px;line-height:1.6">
-            To trust our outcome, people need to <strong>trust us first</strong>. We genuinely trust humans more than machines.
-          </p>
-        </div>
+    <!-- Bottom phase labels -->
+    <div style="display:flex;justify-content:space-between;flex-shrink:0">
+      <span style="font-size:19px;color:var(--text-muted)">Research &amp; Synthesis</span>
+      <span style="font-size:19px;color:var(--text-muted)">Concept / Prototype</span>
+      <span style="font-size:19px;color:var(--text-muted)">Design</span>
+    </div>
+
+    <!-- Trust cards -->
+    <div style="display:flex;gap:40px;margin-top:24px;flex-shrink:0">
+      <div style="flex:1;background:var(--surface);border-radius:16px;padding:24px 32px;border:2px solid var(--border)">
+        <strong style="font-size:20px;color:var(--accent)">This builds Trust</strong>
+        <p style="font-size:18px;color:var(--text-muted);margin-top:10px;line-height:1.6">
+          We trust the <strong>data</strong> · We trust the <strong>process</strong> · We trust our <strong>calculations</strong> · We trust our <strong>analysis</strong>
+        </p>
+      </div>
+      <div style="flex:1;background:var(--surface);border-radius:16px;padding:24px 32px;border:2px solid var(--border)">
+        <strong style="font-size:20px;color:var(--text)">Recipients trust us</strong>
+        <p style="font-size:18px;color:var(--text-muted);margin-top:10px;line-height:1.6">
+          To trust our outcome, people need to <strong>trust us first</strong>. We genuinely trust humans more than machines.
+        </p>
       </div>
     </div>
   </section>
