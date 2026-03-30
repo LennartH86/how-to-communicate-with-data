@@ -831,20 +831,85 @@
   </section>
 
   <!-- ── SLIDE 27: Reliable AI ─────────────────────────────────── -->
-  <section class="slide text-slide" id="slide-27">
+  <section class="slide" id="slide-27" style="flex-direction:column;align-items:center;justify-content:center;padding:60px 120px">
     <div class="slide-header"></div>
-    <div class="section-label">The Trust Problem with AI</div>
-    <div class="big-heading">
-      This is why we need<br>
-      <span style="color:var(--accent)">reliable AI</span><br>
-      to trust the actual outcomes
+    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;text-align:center">The Trust Problem with AI</div>
+    <div style="font-size:56px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:52px;text-align:center">
+      This is why we need <span style="color:var(--accent)">reliable AI</span>
     </div>
-    <ul class="text-points">
-      <li>General-purpose AI (ChatGPT, Claude, Gemini) is trained to sound plausible — not to be precise with your data</li>
-      <li>For analytics, we need AI that is <strong>grounded in your actual data</strong> — not guessing</li>
-      <li>The answer to "how many units did we sell in Bavaria in Q3?" must be <strong>verifiably correct</strong></li>
-      <li>Trust in AI-generated insights requires <strong>explainability</strong> — show me the query, show me the numbers</li>
-    </ul>
+
+    <!-- 4 icon cards -->
+    <div style="display:flex;gap:32px;width:100%;align-items:stretch">
+
+      <!-- 1: Sounds plausible -->
+      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
+        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
+          <!-- Theatre mask: happy face that's actually hollow/fake -->
+          <circle cx="50" cy="46" r="34" stroke="#6b7280" stroke-width="2.5"/>
+          <!-- Smile -->
+          <path d="M 34,54 Q 50,68 66,54" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <!-- Eyes: one open, one closed = fake -->
+          <circle cx="38" cy="38" r="4" fill="#6b7280"/>
+          <circle cx="62" cy="38" r="4" fill="#6b7280"/>
+          <!-- Crack / broken line through it -->
+          <path d="M 50,12 L 44,30 L 54,42 L 46,58 L 50,80" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Warning dot -->
+          <circle cx="50" cy="88" r="5" fill="#f59e0b"/>
+        </svg>
+        <strong style="font-size:21px;color:var(--text)">Sounds Right</strong>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Trained to be plausible, not precise</p>
+      </div>
+
+      <!-- 2: Grounded in real data -->
+      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
+        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
+          <!-- Database cylinder -->
+          <ellipse cx="50" cy="28" rx="28" ry="9" stroke="#00d4e0" stroke-width="2.5"/>
+          <line x1="22" y1="28" x2="22" y2="62" stroke="#00d4e0" stroke-width="2.5"/>
+          <line x1="78" y1="28" x2="78" y2="62" stroke="#00d4e0" stroke-width="2.5"/>
+          <ellipse cx="50" cy="62" rx="28" ry="9" stroke="#00d4e0" stroke-width="2.5"/>
+          <ellipse cx="50" cy="45" rx="28" ry="9" stroke="#00d4e0" stroke-width="2.5" stroke-dasharray="4 3"/>
+          <!-- Anchor pin -->
+          <line x1="50" y1="71" x2="50" y2="88" stroke="#00d4e0" stroke-width="3" stroke-linecap="round"/>
+          <line x1="38" y1="82" x2="62" y2="82" stroke="#00d4e0" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <strong style="font-size:21px;color:var(--text)">Your Data</strong>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Grounded in reality, not guessing</p>
+      </div>
+
+      <!-- 3: Verifiably correct -->
+      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
+        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
+          <!-- Shield -->
+          <path d="M 50,10 L 82,24 L 82,52 C 82,70 66,84 50,90 C 34,84 18,70 18,52 L 18,24 Z" stroke="#00d4e0" stroke-width="2.5"/>
+          <!-- Checkmark inside shield -->
+          <polyline points="34,50 45,62 68,36" stroke="#00d4e0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <strong style="font-size:21px;color:var(--text)">Verifiably Correct</strong>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">The answer must be provably right</p>
+      </div>
+
+      <!-- 4: Explainability -->
+      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
+        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
+          <!-- Document / code lines -->
+          <rect x="18" y="10" width="52" height="65" rx="6" stroke="#6b7280" stroke-width="2.5"/>
+          <line x1="28" y1="26" x2="58" y2="26" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="28" y1="36" x2="50" y2="36" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
+          <line x1="28" y1="46" x2="54" y2="46" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="28" y1="56" x2="44" y2="56" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
+          <!-- Magnifying glass overlay -->
+          <circle cx="68" cy="72" r="18" fill="var(--bg)" stroke="#00d4e0" stroke-width="2.5"/>
+          <line x1="81" y1="85" x2="92" y2="96" stroke="#00d4e0" stroke-width="3.5" stroke-linecap="round"/>
+          <!-- Eye inside glass -->
+          <path d="M 58,72 C 62,66 74,66 78,72 C 74,78 62,78 58,72 Z" stroke="#00d4e0" stroke-width="2"/>
+          <circle cx="68" cy="72" r="3" fill="#00d4e0"/>
+        </svg>
+        <strong style="font-size:21px;color:var(--text)">Show Your Work</strong>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Show the query, show the numbers</p>
+      </div>
+
+    </div>
   </section>
 
   <!-- ── SLIDE 28: Veezoo ───────────────────────────────────────── -->
