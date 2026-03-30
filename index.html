@@ -748,21 +748,86 @@
   </section>
 
   <!-- ── SLIDE 26: AI Introduction ─────────────────────────────── -->
-  <section class="slide text-slide" id="slide-26">
+  <section class="slide" id="slide-26" style="flex-direction:column;align-items:stretch;padding:60px 100px 64px">
     <div class="slide-header"></div>
-    <div class="section-label">Part 3 — How You Answer Data Questions</div>
-    <div class="big-heading">
-      I've shown you how to build it yourself.<br>
-      But what about putting data in<br>
-      <span style="color:var(--accent)">everyone's hands?</span>
+    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;flex-shrink:0">Part 3 — How You Answer Data Questions</div>
+    <div style="font-size:52px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:44px;flex-shrink:0">
+      Putting data in <span style="color:var(--accent)">everyone's hands</span>
     </div>
-    <ul class="text-points">
-      <li>A tool you can easily pick up is powerful — but it still requires training and a skill curve</li>
-      <li>To reach <strong>100% of the workforce</strong>, we need a different interface: natural language</li>
-      <li>AI makes it possible to ask "which region had the highest growth last quarter?" — and just get the answer</li>
-      <li>But: <strong>where does trust come from</strong> when you didn't do the analysis yourself?</li>
-      <li>I bet all of you have caught ChatGPT, Gemini, or Claude <strong>cheating, hallucinating, or simply wrong</strong></li>
-    </ul>
+
+    <!-- 5 icon cards -->
+    <div style="display:flex;gap:28px;flex:1;min-height:0;align-items:stretch">
+
+      <!-- 1: Learning Curve -->
+      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:36px 20px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
+          <line x1="12" y1="85" x2="88" y2="85" stroke="#e5e7eb" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="12" y1="15" x2="12" y2="85" stroke="#e5e7eb" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 12,83 C 32,82 38,78 44,68 C 51,54 56,30 88,16" stroke="#00d4e0" stroke-width="3.5" stroke-linecap="round"/>
+          <polyline points="84,10 88,16 82,18" fill="none" stroke="#00d4e0" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+        <strong style="font-size:21px;color:var(--text)">Learning Curve</strong>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Even great tools take time to master</p>
+      </div>
+
+      <!-- 2: Just Ask -->
+      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:36px 20px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
+          <rect x="8" y="12" width="52" height="36" rx="10" stroke="#00d4e0" stroke-width="2.5"/>
+          <path d="M 18,48 L 12,62 L 28,48" stroke="#00d4e0" stroke-width="2.5" stroke-linejoin="round"/>
+          <line x1="18" y1="26" x2="50" y2="26" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
+          <line x1="18" y1="36" x2="40" y2="36" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
+          <rect x="40" y="52" width="52" height="36" rx="10" stroke="#6b7280" stroke-width="2.5"/>
+          <path d="M 72,52 L 80,38 L 88,52" stroke="#6b7280" stroke-width="2.5" stroke-linejoin="round"/>
+          <line x1="50" y1="66" x2="82" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="50" y1="76" x2="70" y2="76" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <strong style="font-size:21px;color:var(--text)">Just Ask</strong>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Natural language as a data interface</p>
+      </div>
+
+      <!-- 3: Instant Answers -->
+      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:36px 20px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
+          <circle cx="42" cy="44" r="27" stroke="#00d4e0" stroke-width="3"/>
+          <line x1="62" y1="64" x2="84" y2="86" stroke="#00d4e0" stroke-width="4" stroke-linecap="round"/>
+          <polyline points="30,45 39,54 57,33" stroke="#00d4e0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <strong style="font-size:21px;color:var(--text)">Instant Answers</strong>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Ask a question, get the answer</p>
+      </div>
+
+      <!-- 4: Blind Trust? -->
+      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:36px 20px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
+          <path d="M 8,50 C 20,28 80,28 92,50 C 80,72 20,72 8,50 Z" stroke="#6b7280" stroke-width="2.5"/>
+          <circle cx="50" cy="50" r="12" stroke="#6b7280" stroke-width="2.5"/>
+          <line x1="16" y1="22" x2="84" y2="78" stroke="#00d4e0" stroke-width="3" stroke-linecap="round"/>
+          <text x="50" y="97" text-anchor="middle" font-size="18" font-weight="700" fill="#00d4e0" font-family="Inter,sans-serif">?</text>
+        </svg>
+        <strong style="font-size:21px;color:var(--text)">Blind Trust?</strong>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Trust without doing the work yourself</p>
+      </div>
+
+      <!-- 5: AI Lies -->
+      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:36px 20px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
+          <rect x="20" y="30" width="60" height="52" rx="8" stroke="#6b7280" stroke-width="2.5"/>
+          <line x1="50" y1="30" x2="50" y2="18" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="50" cy="14" r="4" fill="#6b7280"/>
+          <line x1="31" y1="46" x2="41" y2="56" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="41" y1="46" x2="31" y2="56" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="59" y1="46" x2="69" y2="56" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="69" y1="46" x2="59" y2="56" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 32,68 Q 36,74 40,68 Q 44,62 48,68 Q 52,74 56,68 Q 60,62 64,68 Q 68,74 68,68" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 70,6 L 86,34 L 54,34 Z" fill="#f59e0b"/>
+          <text x="70" y="29" text-anchor="middle" font-size="14" font-weight="900" fill="white" font-family="Inter,sans-serif">!</text>
+        </svg>
+        <strong style="font-size:21px;color:var(--text)">AI Lies</strong>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">You've caught it hallucinating before</p>
+      </div>
+
+    </div>
   </section>
 
   <!-- ── SLIDE 27: Reliable AI ─────────────────────────────────── -->
