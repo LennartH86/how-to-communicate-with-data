@@ -449,49 +449,125 @@
   <!-- ── SLIDE 19: Pre-attentive Overview ──────────────────────── -->
   <section class="slide" id="slide-19">
     <div class="slide-header"></div>
-    <div class="slide-center" style="gap:32px">
+    <div class="slide-center" style="gap:28px;padding-top:44px">
       <p class="label">Pre-attentive Attributes — The Full Toolkit</p>
       <div class="pa-grid">
+
+        <!-- Length -->
         <div class="pa-card">
-          <div class="pa-icon">🎨</div>
-          <div class="pa-name">Color (Hue)</div>
-          <div class="pa-desc">Categorical differences — "the red one" stands out from blue ones</div>
-        </div>
-        <div class="pa-card">
-          <div class="pa-icon">🌓</div>
-          <div class="pa-name">Intensity</div>
-          <div class="pa-desc">Light vs. dark shades encode magnitude or emphasis</div>
-        </div>
-        <div class="pa-card">
-          <div class="pa-icon">⬛</div>
-          <div class="pa-name">Size / Area</div>
-          <div class="pa-desc">Larger objects appear more important — used in bubble charts</div>
-        </div>
-        <div class="pa-card">
-          <div class="pa-icon">📏</div>
+          <svg viewBox="0 0 150 110" height="120"><rect x="10" y="84" width="20" height="22" rx="3" fill="#4b5563"/><rect x="38" y="66" width="20" height="40" rx="3" fill="#4b5563"/><rect x="66" y="46" width="20" height="60" rx="3" fill="#4b5563"/><rect x="94" y="24" width="20" height="82" rx="3" fill="#4b5563"/><rect x="122" y="4"  width="20" height="102" rx="3" fill="#4b5563"/></svg>
           <div class="pa-name">Length</div>
-          <div class="pa-desc">The foundation of bar charts — longer = more</div>
         </div>
+
+        <!-- Width -->
         <div class="pa-card">
-          <div class="pa-icon">◆</div>
-          <div class="pa-name">Shape</div>
-          <div class="pa-desc">Circles, squares, triangles — categorical encoding in scatter plots</div>
+          <svg viewBox="0 0 150 110" height="120"><line x1="20"  y1="10" x2="20"  y2="100" stroke="#4b5563" stroke-width="3"  stroke-linecap="round"/><line x1="48"  y1="10" x2="48"  y2="100" stroke="#4b5563" stroke-width="3"  stroke-linecap="round"/><line x1="75"  y1="10" x2="75"  y2="100" stroke="#1f2937" stroke-width="13" stroke-linecap="round"/><line x1="102" y1="10" x2="102" y2="100" stroke="#4b5563" stroke-width="3"  stroke-linecap="round"/><line x1="130" y1="10" x2="130" y2="100" stroke="#4b5563" stroke-width="3"  stroke-linecap="round"/></svg>
+          <div class="pa-name">Width</div>
         </div>
+
+        <!-- Orientation -->
         <div class="pa-card">
-          <div class="pa-icon">🔤</div>
-          <div class="pa-name">Bold / Weight</div>
-          <div class="pa-desc">Bold text draws the eye before regular weight — hierarchy in labels</div>
-        </div>
-        <div class="pa-card">
-          <div class="pa-icon">📍</div>
-          <div class="pa-name">Position</div>
-          <div class="pa-desc">The most precise pre-attentive attribute — the foundation of axes</div>
-        </div>
-        <div class="pa-card">
-          <div class="pa-icon">〰️</div>
+          <svg viewBox="0 0 150 110" height="120">
+            <line x1="18"  y1="5"  x2="18"  y2="30"  stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="50"  y1="5"  x2="50"  y2="30"  stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="82"  y1="5"  x2="82"  y2="30"  stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="114" y1="5"  x2="114" y2="30"  stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="18"  y1="40" x2="18"  y2="65"  stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="50"  y1="40" x2="50"  y2="65"  stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="68"  y1="52" x2="96"  y2="52"  stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+            <line x1="114" y1="40" x2="114" y2="65"  stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="18"  y1="75" x2="18"  y2="100" stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="50"  y1="75" x2="50"  y2="100" stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="82"  y1="75" x2="82"  y2="100" stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+            <line x1="114" y1="75" x2="114" y2="100" stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
+          </svg>
           <div class="pa-name">Orientation</div>
-          <div class="pa-desc">A diagonal line in a grid of horizontal lines jumps out immediately</div>
         </div>
+
+        <!-- Size -->
+        <div class="pa-card">
+          <svg viewBox="0 0 150 110" height="120">
+            <circle cx="22" cy="16" r="7" fill="#4b5563"/><circle cx="58" cy="16" r="7" fill="#4b5563"/><circle cx="94" cy="16" r="7" fill="#4b5563"/><circle cx="130" cy="16" r="7" fill="#4b5563"/>
+            <circle cx="22" cy="55" r="7" fill="#4b5563"/><circle cx="58" cy="55" r="7" fill="#4b5563"/><circle cx="94" cy="55" r="22" fill="#4b5563"/><circle cx="130" cy="55" r="7" fill="#4b5563"/>
+            <circle cx="22" cy="94" r="7" fill="#4b5563"/><circle cx="58" cy="94" r="7" fill="#4b5563"/><circle cx="94" cy="94" r="7" fill="#4b5563"/><circle cx="130" cy="94" r="7" fill="#4b5563"/>
+          </svg>
+          <div class="pa-name">Size</div>
+        </div>
+
+        <!-- Shape -->
+        <div class="pa-card">
+          <svg viewBox="0 0 150 110" height="120">
+            <circle cx="22" cy="16" r="8" fill="#4b5563"/><circle cx="58" cy="16" r="8" fill="#4b5563"/><circle cx="94" cy="16" r="8" fill="#4b5563"/><circle cx="130" cy="16" r="8" fill="#4b5563"/>
+            <circle cx="22" cy="55" r="8" fill="#4b5563"/><circle cx="58" cy="55" r="8" fill="#4b5563"/><polygon points="94,36 79,66 109,66" fill="#1f2937"/><circle cx="130" cy="55" r="8" fill="#4b5563"/>
+            <circle cx="22" cy="94" r="8" fill="#4b5563"/><circle cx="58" cy="94" r="8" fill="#4b5563"/><circle cx="94" cy="94" r="8" fill="#4b5563"/><circle cx="130" cy="94" r="8" fill="#4b5563"/>
+          </svg>
+          <div class="pa-name">Shape</div>
+        </div>
+
+        <!-- Enclosure -->
+        <div class="pa-card">
+          <svg viewBox="0 0 150 110" height="120">
+            <rect x="80" y="3" width="34" height="105" rx="5" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+            <circle cx="22" cy="16" r="7" fill="#4b5563"/><circle cx="58" cy="16" r="7" fill="#4b5563"/><circle cx="97" cy="16" r="7" fill="#4b5563"/><circle cx="130" cy="16" r="7" fill="#4b5563"/>
+            <circle cx="22" cy="55" r="7" fill="#4b5563"/><circle cx="58" cy="55" r="7" fill="#4b5563"/><circle cx="97" cy="55" r="7" fill="#4b5563"/><circle cx="130" cy="55" r="7" fill="#4b5563"/>
+            <circle cx="22" cy="94" r="7" fill="#4b5563"/><circle cx="58" cy="94" r="7" fill="#4b5563"/><circle cx="97" cy="94" r="7" fill="#4b5563"/><circle cx="130" cy="94" r="7" fill="#4b5563"/>
+          </svg>
+          <div class="pa-name">Enclosure</div>
+        </div>
+
+        <!-- Position -->
+        <div class="pa-card">
+          <svg viewBox="0 0 150 110" height="120">
+            <circle cx="22"  cy="26"  r="7" fill="#4b5563"/>
+            <circle cx="55"  cy="70"  r="7" fill="#4b5563"/>
+            <circle cx="30"  cy="95"  r="7" fill="#4b5563"/>
+            <circle cx="80"  cy="14"  r="7" fill="#4b5563"/>
+            <circle cx="105" cy="58"  r="7" fill="#4b5563"/>
+            <circle cx="128" cy="36"  r="7" fill="#4b5563"/>
+            <circle cx="70"  cy="88"  r="7" fill="#4b5563"/>
+            <circle cx="136" cy="84"  r="7" fill="#4b5563"/>
+            <circle cx="44"  cy="46"  r="7" fill="#4b5563"/>
+          </svg>
+          <div class="pa-name">Position</div>
+        </div>
+
+        <!-- Grouping -->
+        <div class="pa-card">
+          <svg viewBox="0 0 150 110" height="120">
+            <circle cx="24"  cy="30"  r="7" fill="#4b5563"/>
+            <circle cx="44"  cy="20"  r="7" fill="#4b5563"/>
+            <circle cx="26"  cy="52"  r="7" fill="#4b5563"/>
+            <circle cx="46"  cy="44"  r="7" fill="#4b5563"/>
+            <circle cx="36"  cy="68"  r="7" fill="#4b5563"/>
+            <circle cx="102" cy="52"  r="7" fill="#4b5563"/>
+            <circle cx="122" cy="42"  r="7" fill="#4b5563"/>
+            <circle cx="134" cy="64"  r="7" fill="#4b5563"/>
+            <circle cx="108" cy="74"  r="7" fill="#4b5563"/>
+            <circle cx="124" cy="86"  r="7" fill="#4b5563"/>
+          </svg>
+          <div class="pa-name">Grouping</div>
+        </div>
+
+        <!-- Color Hue -->
+        <div class="pa-card">
+          <svg viewBox="0 0 150 110" height="120">
+            <circle cx="22" cy="16" r="7" fill="#9ca3af"/><circle cx="58" cy="16" r="7" fill="#9ca3af"/><circle cx="94" cy="16" r="7" fill="#9ca3af"/><circle cx="130" cy="16" r="7" fill="#9ca3af"/>
+            <circle cx="22" cy="55" r="7" fill="#9ca3af"/><circle cx="58" cy="55" r="7" fill="#9ca3af"/><circle cx="94" cy="55" r="7" fill="#ef4444"/><circle cx="130" cy="55" r="7" fill="#9ca3af"/>
+            <circle cx="22" cy="94" r="7" fill="#9ca3af"/><circle cx="58" cy="94" r="7" fill="#9ca3af"/><circle cx="94" cy="94" r="7" fill="#9ca3af"/><circle cx="130" cy="94" r="7" fill="#9ca3af"/>
+          </svg>
+          <div class="pa-name">Color Hue</div>
+        </div>
+
+        <!-- Color Intensity -->
+        <div class="pa-card">
+          <svg viewBox="0 0 150 110" height="120">
+            <circle cx="22"  cy="16" r="7" fill="#d1d5db"/><circle cx="58"  cy="16" r="7" fill="#c3c9d3"/><circle cx="94"  cy="16" r="7" fill="#d1d5db"/><circle cx="130" cy="16" r="7" fill="#b8bfc9"/>
+            <circle cx="22"  cy="55" r="7" fill="#c3c9d3"/><circle cx="58"  cy="55" r="7" fill="#d1d5db"/><circle cx="94"  cy="55" r="7" fill="#d1d5db"/><circle cx="130" cy="55" r="7" fill="#111827"/>
+            <circle cx="22"  cy="94" r="7" fill="#d1d5db"/><circle cx="58"  cy="94" r="7" fill="#b8bfc9"/><circle cx="94"  cy="94" r="7" fill="#c3c9d3"/><circle cx="130" cy="94" r="7" fill="#d1d5db"/>
+          </svg>
+          <div class="pa-name">Color Intensity</div>
+        </div>
+
       </div>
     </div>
   </section>

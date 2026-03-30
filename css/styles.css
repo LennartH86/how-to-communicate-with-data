@@ -688,22 +688,28 @@ button { cursor: pointer; font-family: var(--font); }
 /* ---------- Slide 19: Pre-attentive Overview ---------- */
 #slide-19 .pa-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  max-width: 1700px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  max-width: 1760px;
   width: 100%;
 }
 #slide-19 .pa-card {
-  background: var(--surface);
+  background: white;
   border-radius: var(--radius-lg);
-  padding: 44px 36px;
+  padding: 28px 20px 20px;
   border: 2px solid var(--border);
-  text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
-#slide-19 .pa-icon { font-size: 64px; line-height: 1; }
-#slide-19 .pa-name { font-size: 22px; font-weight: 700; }
-#slide-19 .pa-desc { font-size: 17px; color: var(--text-muted); line-height: 1.5; }
+#slide-19 .pa-card svg { display: block; }
+#slide-19 .pa-name {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+}
 
 /* ---------- YouTube / Video Slides ---------- */
 .video-slide {
