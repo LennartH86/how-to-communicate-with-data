@@ -224,6 +224,20 @@
       .attr('font-weight', 600)
       .attr('dy', '1.2em');
 
+    // Exaggerate max/min bars so they stand out without colour
+    const BOOST  = 40; // max bar this many px taller
+    const SHRINK = 40; // min bar this many px shorter
+    const barY = d => {
+      if (d.value === maxVal) return yScale(d.value) - BOOST;
+      if (d.value === minVal) return yScale(d.value) + SHRINK;
+      return yScale(d.value);
+    };
+    const barH = d => {
+      if (d.value === maxVal) return innerH - yScale(d.value) + BOOST;
+      if (d.value === minVal) return innerH - yScale(d.value) - SHRINK;
+      return innerH - yScale(d.value);
+    };
+
     // Bars — all neutral to start
     const bars = g.selectAll('.bar')
       .data(totals)
@@ -231,9 +245,9 @@
       .append('rect')
       .attr('class', d => 'bar' + (d.value === maxVal ? ' bar-max' : d.value === minVal ? ' bar-min' : ''))
       .attr('x', d => xScale(d.month))
-      .attr('y', d => yScale(d.value))
+      .attr('y', barY)
       .attr('width', xScale.bandwidth())
-      .attr('height', d => innerH - yScale(d.value))
+      .attr('height', barH)
       .attr('rx', 8)
       .attr('fill', '#c8d0db')
       .attr('opacity', 0.85);
