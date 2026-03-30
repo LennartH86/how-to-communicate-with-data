@@ -663,42 +663,57 @@
       <p class="subtitle" style="text-align:center;max-width:1300px">
         Every insight follows the same cycle — and the cycle never really ends
       </p>
-      <div class="workflow-diagram">
-        <div class="workflow-step">
-          <div class="workflow-circle accent-bg">❓</div>
-          <div class="workflow-step-label">Question</div>
-          <div class="workflow-step-sub">Start with a business question worth answering</div>
-        </div>
-        <div class="workflow-arrow">→</div>
-        <div class="workflow-step">
-          <div class="workflow-circle">🗄️</div>
-          <div class="workflow-step-label">Get Data</div>
-          <div class="workflow-step-sub">Collect, clean, and connect relevant data sources</div>
-        </div>
-        <div class="workflow-arrow">→</div>
-        <div class="workflow-step">
-          <div class="workflow-circle">🔍</div>
-          <div class="workflow-step-label">Explore</div>
-          <div class="workflow-step-sub">Visualize, query, and investigate patterns</div>
-        </div>
-        <div class="workflow-arrow">→</div>
-        <div class="workflow-step">
-          <div class="workflow-circle">💡</div>
-          <div class="workflow-step-label">Insight</div>
-          <div class="workflow-step-sub">Surface a finding that is surprising or actionable</div>
-        </div>
-        <div class="workflow-arrow">→</div>
-        <div class="workflow-step">
-          <div class="workflow-circle">🚀</div>
-          <div class="workflow-step-label">Act</div>
-          <div class="workflow-step-sub">Communicate the insight and drive a decision</div>
-        </div>
-        <div class="workflow-arrow" style="color:var(--text-muted)">↩</div>
-        <div class="workflow-step" style="opacity:0.6">
-          <div class="workflow-circle">🔁</div>
-          <div class="workflow-step-label">New Question</div>
-          <div class="workflow-step-sub">Every answer creates new questions</div>
-        </div>
+      <div style="flex:1;width:100%;min-height:0;display:flex;align-items:center;justify-content:center">
+        <svg viewBox="0 0 1100 760" style="width:min(1100px,100%);height:auto;overflow:visible" aria-hidden="true">
+          <defs>
+            <marker id="wf-arrow" markerWidth="14" markerHeight="10" refX="14" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+              <polygon points="0 0, 14 5, 0 10" fill="#00d4e0"/>
+            </marker>
+          </defs>
+
+          <!-- Background orbit circle -->
+          <circle cx="550" cy="395" r="250" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="10,6"/>
+
+          <!-- Center: cycling arrow -->
+          <text x="550" y="395" text-anchor="middle" dominant-baseline="central" font-size="64" fill="#00d4e0" opacity="0.18" font-family="sans-serif">↻</text>
+
+          <!-- Arc arrows (clockwise: Question → Get Data → Explore → Insight → Act → Question) -->
+          <path d="M 599 180 A 250 250 0 0 1 740 283" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+          <path d="M 769 375 A 250 250 0 0 1 716 540" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+          <path d="M 637 597 A 250 250 0 0 1 463 597" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+          <path d="M 384 540 A 250 250 0 0 1 331 375" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+          <path d="M 361 283 A 250 250 0 0 1 502 180" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+
+          <!-- N0: Question (550, 145) — top -->
+          <circle cx="550" cy="145" r="62" fill="#00d4e0"/>
+          <text x="550" y="145" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">❓</text>
+          <text x="550" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Question</text>
+          <text x="550" y="61" text-anchor="middle" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Start with a clear business question</text>
+
+          <!-- N1: Get Data (788, 318) — upper right -->
+          <circle cx="788" cy="318" r="62" fill="#00d4e0"/>
+          <text x="788" y="318" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">🗄️</text>
+          <text x="864" y="296" text-anchor="start" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Get Data</text>
+          <text x="864" y="319" text-anchor="start" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Collect &amp; connect data sources</text>
+
+          <!-- N2: Explore (697, 597) — lower right -->
+          <circle cx="697" cy="597" r="62" fill="#00d4e0"/>
+          <text x="697" y="597" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">🔍</text>
+          <text x="740" y="676" text-anchor="start" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Explore</text>
+          <text x="740" y="699" text-anchor="start" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Visualize &amp; investigate patterns</text>
+
+          <!-- N3: Insight (403, 597) — lower left -->
+          <circle cx="403" cy="597" r="62" fill="#00d4e0"/>
+          <text x="403" y="597" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">💡</text>
+          <text x="360" y="676" text-anchor="end" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Insight</text>
+          <text x="360" y="699" text-anchor="end" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Surface a surprising finding</text>
+
+          <!-- N4: Act (312, 318) — upper left -->
+          <circle cx="312" cy="318" r="62" fill="#00d4e0"/>
+          <text x="312" y="318" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">🚀</text>
+          <text x="236" y="296" text-anchor="end" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Act</text>
+          <text x="236" y="319" text-anchor="end" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Communicate &amp; drive a decision</text>
+        </svg>
       </div>
     </div>
   </section>
