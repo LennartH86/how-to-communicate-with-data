@@ -603,7 +603,15 @@
   <!-- ── SLIDE 22: QR Code ─────────────────────────────────────── -->
   <section class="slide" id="slide-22">
     <div class="slide-header"></div>
-    <div class="slide-center">
+    <div class="slide-center" style="gap:32px">
+      <div style="text-align:center">
+        <h2 style="font-size:52px;font-weight:900;color:var(--text);letter-spacing:-0.02em;margin:0 0 12px">
+          Our World in Data needs <span style="color:var(--accent)">your</span> data
+        </h2>
+        <p style="font-size:26px;color:var(--text-muted);font-weight:500;margin:0">
+          Scan the QR code and answer the following questions
+        </p>
+      </div>
       <img
         src="assets/images/qr-code.png"
         alt="QR Code"
@@ -611,7 +619,7 @@
         onerror="this.style.display='none';document.getElementById('qr-placeholder').style.display='flex'">
       <div id="qr-placeholder" style="
         display:none;
-        width:520px;height:520px;
+        width:420px;height:420px;
         background:var(--surface);
         border:4px dashed var(--border);
         border-radius:20px;
@@ -623,7 +631,6 @@
         <div><strong>QR Code</strong></div>
         <div>Place <code>assets/images/qr-code.png</code><br>to display here</div>
       </div>
-      <div class="qr-label">Scan to access today's resources</div>
     </div>
   </section>
 
