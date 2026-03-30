@@ -1013,117 +1013,83 @@
   <!-- ── SLIDE 31: Summary ──────────────────────────────────────── -->
   <section class="slide" id="slide-31" style="flex-direction:column;align-items:center;justify-content:center;padding:52px 100px">
     <div class="slide-header"></div>
-    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;text-align:center">What We Learned Today</div>
+    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;text-align:center">What You Learned Today</div>
     <div style="font-size:52px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:44px;text-align:center">
-      Six ideas worth <span style="color:var(--accent)">remembering</span>
+      Three things you now <span style="color:var(--accent)">understand</span>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;width:100%">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;width:100%">
 
-      <!-- 1: Visual Encoding -->
-      <div class="summary-card" style="background:var(--surface);border-radius:20px;border:2px solid var(--border);border-top:4px solid var(--accent);padding:32px 28px;display:flex;flex-direction:column;gap:14px">
-        <svg viewBox="0 0 100 100" width="56" height="56" fill="none">
-          <!-- Three circles: color encoding -->
-          <circle cx="26" cy="50" r="18" fill="#00d4e0" opacity="0.9"/>
-          <circle cx="52" cy="50" r="18" fill="#0ea5e9" opacity="0.7"/>
-          <circle cx="78" cy="50" r="18" fill="#111827" opacity="0.15" stroke="#111827" stroke-width="2"/>
-          <!-- Size indicator: small arrow -->
-          <line x1="8" y1="84" x2="92" y2="84" stroke="#e5e7eb" stroke-width="1.5" stroke-linecap="round"/>
-          <polyline points="86,80 92,84 86,88" fill="none" stroke="#e5e7eb" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- 1: Data Visualization -->
+      <div style="background:var(--surface);border-radius:20px;border:2px solid var(--border);border-top:4px solid var(--accent);padding:40px 32px;display:flex;flex-direction:column;gap:18px">
+        <svg viewBox="0 0 100 100" width="60" height="60" fill="none">
+          <!-- Eye outline -->
+          <path d="M 10,50 C 25,20 75,20 90,50 C 75,80 25,80 10,50 Z" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Pupil -->
+          <circle cx="50" cy="50" r="13" stroke="#00d4e0" stroke-width="2.5"/>
+          <!-- Iris dot -->
+          <circle cx="50" cy="50" r="5" fill="#00d4e0"/>
+          <!-- Neural spark lines around eye -->
+          <line x1="50" y1="10" x2="50" y2="18" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="78" y1="22" x2="72" y2="28" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="22" y1="22" x2="28" y2="28" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <strong style="font-size:20px;color:var(--text)">Visual Encoding</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Color, size, and position carry meaning before a word is read</p>
+        <div>
+          <strong style="font-size:21px;color:var(--text);display:block;margin-bottom:10px">What makes data visualization so important</strong>
+          <p style="font-size:15px;color:var(--text-muted);line-height:1.65;margin:0">
+            Our visual cortex processes images far faster than any number or table. Pre-attentive attributes — color, size, position — create meaning before we consciously read. A great chart isn't decoration; it's communication that bypasses cognitive effort entirely.
+          </p>
+        </div>
       </div>
 
-      <!-- 2: Always Visualize -->
-      <div class="summary-card" style="background:var(--surface);border-radius:20px;border:2px solid var(--border);border-top:4px solid var(--accent);padding:32px 28px;display:flex;flex-direction:column;gap:14px">
-        <svg viewBox="0 0 100 100" width="56" height="56" fill="none">
-          <!-- Scatter plot: two clusters that look identical statistically -->
-          <line x1="12" y1="88" x2="88" y2="88" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round"/>
-          <line x1="12" y1="12" x2="12" y2="88" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round"/>
-          <!-- Dino-shaped dots (rough cluster) -->
-          <circle cx="28" cy="60" r="3.5" fill="#00d4e0"/>
-          <circle cx="36" cy="44" r="3.5" fill="#00d4e0"/>
-          <circle cx="30" cy="72" r="3.5" fill="#00d4e0"/>
-          <circle cx="44" cy="34" r="3.5" fill="#00d4e0"/>
-          <circle cx="52" cy="58" r="3.5" fill="#00d4e0"/>
-          <circle cx="60" cy="40" r="3.5" fill="#00d4e0"/>
-          <circle cx="46" cy="72" r="3.5" fill="#00d4e0"/>
-          <circle cx="68" cy="56" r="3.5" fill="#00d4e0"/>
-          <circle cx="74" cy="70" r="3.5" fill="#00d4e0"/>
-          <circle cx="62" cy="76" r="3.5" fill="#00d4e0"/>
-          <!-- Mean line (identical to other dataset) -->
-          <line x1="20" y1="78" x2="84" y2="40" stroke="#111827" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round" opacity="0.4"/>
+      <!-- 2: Mental Models -->
+      <div style="background:var(--surface);border-radius:20px;border:2px solid var(--border);border-top:4px solid var(--accent);padding:40px 32px;display:flex;flex-direction:column;gap:18px">
+        <svg viewBox="0 0 100 100" width="60" height="60" fill="none">
+          <!-- Brain outline (two lobes) -->
+          <path d="M 50,22 C 50,22 36,14 26,24 C 16,34 18,50 26,58 C 34,66 50,72 50,72" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 50,22 C 50,22 64,14 74,24 C 84,34 82,50 74,58 C 66,66 50,72 50,72" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Center fold -->
+          <line x1="50" y1="22" x2="50" y2="72" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round"/>
+          <!-- Synapse dots -->
+          <circle cx="32" cy="40" r="3.5" fill="#00d4e0" opacity="0.7"/>
+          <circle cx="40" cy="54" r="3.5" fill="#00d4e0" opacity="0.7"/>
+          <circle cx="68" cy="40" r="3.5" fill="#00d4e0" opacity="0.7"/>
+          <circle cx="60" cy="54" r="3.5" fill="#00d4e0" opacity="0.7"/>
+          <!-- Connection lines between synapses -->
+          <line x1="32" y1="40" x2="40" y2="54" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          <line x1="68" y1="40" x2="60" y2="54" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
         </svg>
-        <strong style="font-size:20px;color:var(--text)">Always Visualize</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Same statistics, completely different shapes — charts reveal what numbers hide</p>
+        <div>
+          <strong style="font-size:21px;color:var(--text);display:block;margin-bottom:10px">How we think about the world</strong>
+          <p style="font-size:15px;color:var(--text-muted);line-height:1.65;margin:0">
+            The same data tells different stories depending on who is looking. Our priors, experiences, and frameworks determine which patterns we notice and which we ignore. Effective data communication starts with understanding your audience's mental model — not just your own.
+          </p>
+        </div>
       </div>
 
-      <!-- 3: Pre-attentive Attributes -->
-      <div class="summary-card" style="background:var(--surface);border-radius:20px;border:2px solid var(--border);border-top:4px solid var(--accent);padding:32px 28px;display:flex;flex-direction:column;gap:14px">
-        <svg viewBox="0 0 100 100" width="56" height="56" fill="none">
-          <!-- Grid of muted dots -->
-          <circle cx="22" cy="28" r="5" fill="#d1d5db"/>
-          <circle cx="40" cy="28" r="5" fill="#d1d5db"/>
-          <circle cx="58" cy="28" r="5" fill="#d1d5db"/>
-          <circle cx="76" cy="28" r="5" fill="#d1d5db"/>
-          <circle cx="22" cy="50" r="5" fill="#d1d5db"/>
-          <circle cx="40" cy="50" r="5" fill="#d1d5db"/>
-          <circle cx="58" cy="50" r="5" fill="#d1d5db"/>
-          <circle cx="76" cy="50" r="5" fill="#d1d5db"/>
-          <circle cx="22" cy="72" r="5" fill="#d1d5db"/>
-          <circle cx="40" cy="72" r="5" fill="#d1d5db"/>
-          <!-- One accent dot — pops immediately -->
-          <circle cx="58" cy="72" r="7" fill="#00d4e0"/>
-          <circle cx="76" cy="72" r="5" fill="#d1d5db"/>
-        </svg>
-        <strong style="font-size:20px;color:var(--text)">Pre-attentive Attributes</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">The eye sees contrast before the brain reads — design for instant attention</p>
-      </div>
-
-      <!-- 4: Analytics Workflow -->
-      <div class="summary-card" style="background:var(--surface);border-radius:20px;border:2px solid var(--border);border-top:4px solid var(--accent);padding:32px 28px;display:flex;flex-direction:column;gap:14px">
-        <svg viewBox="0 0 100 100" width="56" height="56" fill="none">
-          <!-- Circular arrows cycle -->
-          <path d="M 50,14 A 36,36 0 1 1 14,50" stroke="#00d4e0" stroke-width="3" stroke-linecap="round"/>
-          <polyline points="44,8 50,14 44,20" fill="none" stroke="#00d4e0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-          <!-- Center dot -->
-          <circle cx="50" cy="50" r="6" fill="#00d4e0"/>
-        </svg>
-        <strong style="font-size:20px;color:var(--text)">Analytics Workflow</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Question → Data → Insight → Act — and repeat. The cycle never ends</p>
-      </div>
-
-      <!-- 5: Trust -->
-      <div class="summary-card" style="background:var(--surface);border-radius:20px;border:2px solid var(--border);border-top:4px solid var(--accent);padding:32px 28px;display:flex;flex-direction:column;gap:14px">
-        <svg viewBox="0 0 100 100" width="56" height="56" fill="none">
+      <!-- 3: Trust & AI -->
+      <div style="background:var(--surface);border-radius:20px;border:2px solid var(--border);border-top:4px solid var(--accent);padding:40px 32px;display:flex;flex-direction:column;gap:18px">
+        <svg viewBox="0 0 100 100" width="60" height="60" fill="none">
           <!-- Shield -->
-          <path d="M 50,10 L 80,22 L 80,50 C 80,68 66,80 50,88 C 34,80 20,68 20,50 L 20,22 Z" stroke="#00d4e0" stroke-width="2.5"/>
-          <!-- Heart inside shield -->
-          <path d="M 50,62 C 50,62 34,52 34,42 C 34,36 40,32 50,40 C 60,32 66,36 66,42 C 66,52 50,62 50,62 Z" fill="#00d4e0" opacity="0.85"/>
+          <path d="M 50,12 L 78,24 L 78,52 C 78,68 65,80 50,88 C 35,80 22,68 22,52 L 22,24 Z" stroke="#00d4e0" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- AI chip inside shield -->
+          <rect x="36" y="38" width="28" height="24" rx="4" stroke="#00d4e0" stroke-width="2"/>
+          <!-- Chip pins -->
+          <line x1="40" y1="38" x2="40" y2="34" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="50" y1="38" x2="50" y2="34" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="60" y1="38" x2="60" y2="34" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="40" y1="62" x2="40" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="50" y1="62" x2="50" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <line x1="60" y1="62" x2="60" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          <!-- Checkmark inside chip -->
+          <polyline points="40,51 47,58 62,44" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <strong style="font-size:20px;color:var(--text)">Trust is Everything</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Show your work — transparency is what makes insights believable</p>
-      </div>
-
-      <!-- 6: AI + Visual Analytics -->
-      <div class="summary-card" style="background:var(--surface);border-radius:20px;border:2px solid var(--border);border-top:4px solid var(--accent);padding:32px 28px;display:flex;flex-direction:column;gap:14px">
-        <svg viewBox="0 0 100 100" width="56" height="56" fill="none">
-          <!-- Bar chart (Visual Analytics) -->
-          <line x1="10" y1="78" x2="52" y2="78" stroke="#e5e7eb" stroke-width="1.5" stroke-linecap="round"/>
-          <rect x="14" y="54" width="10" height="24" rx="2" fill="#00d4e0" opacity="0.5"/>
-          <rect x="28" y="40" width="10" height="38" rx="2" fill="#00d4e0"/>
-          <rect x="42" y="48" width="10" height="30" rx="2" fill="#00d4e0" opacity="0.7"/>
-          <!-- Plus -->
-          <text x="57" y="56" font-size="18" font-weight="900" fill="#00d4e0" font-family="Inter,sans-serif">+</text>
-          <!-- Chat bubble (AI) -->
-          <rect x="64" y="38" width="30" height="22" rx="7" stroke="#00d4e0" stroke-width="2.5"/>
-          <path d="M 72,60 L 68,70 L 78,60" stroke="#00d4e0" stroke-width="2" stroke-linejoin="round"/>
-          <line x1="70" y1="46" x2="88" y2="46" stroke="#00d4e0" stroke-width="1.8" stroke-linecap="round"/>
-          <line x1="70" y1="53" x2="82" y2="53" stroke="#00d4e0" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-        <strong style="font-size:20px;color:var(--text)">AI + Visual Analytics</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Two tools that together reach every person in the organisation</p>
+        <div>
+          <strong style="font-size:21px;color:var(--text);display:block;margin-bottom:10px">Who actually benefits from AI advancements</strong>
+          <p style="font-size:15px;color:var(--text-muted);line-height:1.65;margin:0">
+            AI can deliver instant answers at scale — but only if people believe them. Without explainability and grounding in verified data, AI insights get ignored or misused. The organizations that win with AI are the ones that build trust through full transparency.
+          </p>
+        </div>
       </div>
 
     </div>
@@ -1145,10 +1111,9 @@
          style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:48px 48px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;text-decoration:none;transition:border-color .2s,transform .2s"
          onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'"
          onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
-        <!-- Tableau wordmark: icon + logotype -->
-        <div style="display:flex;align-items:center;gap:16px;height:72px">
-          <img src="assets/images/tableau-logo.png" alt="" style="height:64px;width:64px;object-fit:contain"/>
-          <span style="font-size:42px;font-weight:800;color:#1f3864;letter-spacing:-.01em">Tableau</span>
+        <!-- Tableau official wordmark -->
+        <div style="display:flex;align-items:center;height:72px">
+          <img src="assets/images/tableau-wordmark-real.png" alt="Tableau" style="height:60px;width:auto;object-fit:contain"/>
         </div>
         <div style="font-size:20px;color:var(--accent);font-weight:500">public.tableau.com</div>
         <p style="font-size:17px;color:var(--text-muted);margin:0;line-height:1.6">
