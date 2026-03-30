@@ -733,24 +733,35 @@
 
     <!-- Newman Squiggle SVG -->
     <div style="flex:1;min-height:0;display:flex;align-items:center">
-      <svg viewBox="0 0 1760 480" style="width:100%;height:auto" aria-hidden="true">
-        <path d="M 75,250
-                 C 110,120 220,390 240,248
-                 C 260,70 130,420 120,252
-                 C 100,80 200,460 210,250
-                 C 230,60 170,440 155,252
-                 C 140,90 260,420 265,252
-                 C 285,100 230,390 220,255
-                 C 230,105 340,400 350,252
-                 C 365,100 295,390 288,255
-                 C 300,115 390,385 405,252
-                 C 420,120 460,375 470,254
-                 C 485,140 525,360 540,256
-                 C 555,160 595,340 615,258
-                 C 635,200 660,305 685,262
-                 C 730,256 830,254 960,254
-                 C 1100,254 1400,254 1720,254"
-          fill="none" stroke="#111827" stroke-width="2.5"
+      <!--
+        Path design: each C segment is a full oval loop.
+        Dense cluster (x=75–240): alternating rightward/leftward oval loops,
+          CP1 & CP2 symmetrically far above/below → clear circular loops.
+        Transition (x=240–520): rightward ovals getting progressively smaller.
+        Waves → nearly straight → clean line.
+      -->
+      <svg viewBox="0 0 1760 600" style="width:100%;height:auto" aria-hidden="true">
+        <path d="
+          M 200,315
+          C 345,140 345,490 215,315
+          C 72,140  72,490  200,315
+          C 325,165 325,465 212,315
+          C 88,165  88,465  205,315
+          C 310,190 310,440 215,315
+          C 98,190  98,440  208,315
+          C 295,205 305,425 228,316
+          C 375,155 385,475 265,317
+          C 420,150 432,480 295,318
+          C 445,175 455,458 332,318
+          C 465,198 475,435 372,319
+          C 492,225 500,408 418,320
+          C 515,255 522,390 462,322
+          C 542,278 548,368 498,325
+          C 564,308 615,348 650,330
+          C 694,316 738,346 770,330
+          C 835,326 940,326 1060,327
+          C 1220,327 1480,327 1720,327"
+          fill="none" stroke="#111827" stroke-width="2.2"
           stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
