@@ -937,35 +937,69 @@
   </section>
 
   <!-- ── SLIDE 29: Both Solutions ──────────────────────────────── -->
-  <section class="slide" id="slide-29">
+  <section class="slide" id="slide-29" style="flex-direction:column;align-items:center;justify-content:center;padding:60px 120px">
     <div class="slide-header"></div>
-    <div class="slide-center" style="gap:32px">
-      <p class="label">The Complete Picture</p>
-      <p class="subtitle" style="text-align:center;max-width:1300px">
-        We need both approaches side by side to reach <strong>100% of the workforce</strong>
-      </p>
-      <div class="solutions-row">
-        <div class="solution-card">
-          <div class="solution-icon">📊</div>
-          <div class="solution-title">Visual Analytics</div>
-          <p class="solution-desc">
-            Tableau, Power BI, and similar tools for analysts and data-fluent users
-            who want to explore, build, and tell stories with data.
-            Deep insights, rich visuals, full control.
-          </p>
-        </div>
-        <div class="plus-sign">+</div>
-        <div class="solution-card accent-border">
-          <div class="solution-icon">💬</div>
-          <div class="solution-title">Natural Language AI</div>
-          <p class="solution-desc">
-            Veezoo and similar tools for business users who need quick,
-            trusted answers without building a dashboard.
-            Instant answers, verified results, zero learning curve.
-          </p>
-        </div>
+    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;text-align:center">The Complete Picture</div>
+    <div style="font-size:56px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:52px;text-align:center">
+      Two tools, <span style="color:var(--accent)">100% of the workforce</span>
+    </div>
+
+    <div style="display:flex;gap:60px;width:100%;align-items:stretch">
+
+      <!-- Visual Analytics -->
+      <div class="solution-card" style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:44px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px">
+        <svg viewBox="0 0 100 100" width="96" height="96" fill="none">
+          <!-- Bar chart with 3 bars -->
+          <line x1="12" y1="88" x2="88" y2="88" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round"/>
+          <rect x="16" y="52" width="18" height="36" rx="3" fill="#00d4e0" opacity="0.4"/>
+          <rect x="41" y="30" width="18" height="58" rx="3" fill="#00d4e0"/>
+          <rect x="66" y="42" width="18" height="46" rx="3" fill="#00d4e0" opacity="0.65"/>
+          <!-- Trend line over bars -->
+          <path d="M 20,58 C 38,44 54,36 84,30" stroke="#111827" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 3"/>
+          <!-- Axis -->
+          <line x1="12" y1="20" x2="12" y2="88" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <strong style="font-size:28px;font-weight:800;color:var(--text)">Visual Analytics</strong>
+        <p style="font-size:18px;color:var(--text-muted);line-height:1.6;margin:0">
+          For analysts and data-fluent users.<br>
+          Explore, build, and tell stories with data.<br>
+          <em>Deep insights · Rich visuals · Full control</em>
+        </p>
+        <div style="margin-top:8px;font-size:16px;color:var(--text-muted);font-weight:500">Tableau · Power BI · Qlik</div>
       </div>
-      <div class="outcome-badge">Together = 100% of the workforce empowered by data</div>
+
+      <!-- Plus sign -->
+      <div style="display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:72px;font-weight:900;color:var(--accent);width:60px">+</div>
+
+      <!-- Natural Language AI -->
+      <div class="solution-card accent-border" style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--accent);padding:44px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px">
+        <svg viewBox="0 0 100 100" width="96" height="96" fill="none">
+          <!-- Chat bubble from user -->
+          <rect x="8" y="10" width="56" height="34" rx="10" stroke="#00d4e0" stroke-width="2.5"/>
+          <path d="M 20,44 L 14,58 L 32,44" stroke="#00d4e0" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- Text lines in user bubble -->
+          <line x1="18" y1="23" x2="54" y2="23" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
+          <line x1="18" y1="33" x2="42" y2="33" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
+          <!-- AI reply bubble with checkmark -->
+          <rect x="36" y="56" width="56" height="34" rx="10" stroke="#00d4e0" stroke-width="2.5"/>
+          <path d="M 72,56 L 82,42 L 90,56" stroke="#00d4e0" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- Checkmark in reply -->
+          <polyline points="48,74 57,83 76,64" stroke="#00d4e0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <strong style="font-size:28px;font-weight:800;color:var(--text)">Natural Language AI</strong>
+        <p style="font-size:18px;color:var(--text-muted);line-height:1.6;margin:0">
+          For every business user without training.<br>
+          Ask a question, get a verified answer.<br>
+          <em>Instant · Grounded · Explainable</em>
+        </p>
+        <div style="margin-top:8px;font-size:16px;color:var(--text-muted);font-weight:500">Veezoo · ThoughtSpot · AtScale</div>
+      </div>
+
+    </div>
+
+    <!-- Outcome -->
+    <div style="margin-top:40px;background:var(--accent);color:white;padding:16px 56px;border-radius:50px;font-size:22px;font-weight:700;letter-spacing:.01em">
+      Together → 100% of the workforce empowered by data
     </div>
   </section>
 
