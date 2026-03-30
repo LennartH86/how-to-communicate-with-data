@@ -1130,37 +1130,56 @@
   </section>
 
   <!-- ── SLIDE 32: Links ───────────────────────────────────────── -->
-  <section class="slide" id="slide-32">
+  <section class="slide" id="slide-32" style="flex-direction:column;align-items:center;justify-content:center;padding:60px 120px">
     <div class="slide-header"></div>
-    <div class="slide-center" style="gap:48px">
-      <p class="label">Explore Further</p>
-      <div class="links-row">
-        <a href="https://public.tableau.com/views/Hands-On-Challenge-World-Indicators/DIY"
-           target="_blank" class="link-card">
-          <img src="assets/images/tableau-logo.png" alt="Tableau" style="width:96px;height:96px;object-fit:contain"/>
-          <div class="link-title">Tableau Public</div>
-          <div class="link-url">public.tableau.com</div>
-          <p style="font-size:17px;color:var(--text-muted);text-align:center">
-            Explore the Hands-On Challenge workbook and thousands of public visualizations
-          </p>
-        </a>
-        <a href="https://www.veezoo.com" target="_blank" class="link-card">
-          <img src="assets/images/veezoo-logo.svg" alt="Veezoo" style="height:64px;width:auto;object-fit:contain"/>
-          <div class="link-title" style="visibility:hidden;height:0;margin:0">Veezoo</div>
-          <div class="link-url">veezoo.com</div>
-          <p style="font-size:17px;color:var(--text-muted);text-align:center">
-            Natural language analytics — ask your data questions, get verified answers
-          </p>
-        </a>
-      </div>
-      <a href="http://bit.ly/hands-on-challenge" target="_blank" style="
-        display:inline-flex;align-items:center;gap:12px;
-        background:var(--accent);color:white;padding:18px 48px;
-        border-radius:40px;font-size:24px;font-weight:700;text-decoration:none;
-        box-shadow:0 4px 24px rgba(0,212,224,0.4)">
-        🔗 &nbsp; bit.ly/hands-on-challenge — Today's Workbook
-      </a>
+    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;text-align:center">Explore Further</div>
+    <div style="font-size:52px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:52px;text-align:center">
+      Keep going with <span style="color:var(--accent)">these resources</span>
     </div>
+
+    <div style="display:flex;gap:48px;width:100%;margin-bottom:44px">
+
+      <!-- Tableau card -->
+      <a href="https://public.tableau.com/views/Hands-On-Challenge-World-Indicators/DIY"
+         target="_blank"
+         style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:48px 48px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;text-decoration:none;transition:border-color .2s,transform .2s"
+         onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'"
+         onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <!-- Tableau wordmark: icon + logotype -->
+        <div style="display:flex;align-items:center;gap:16px;height:72px">
+          <img src="assets/images/tableau-logo.png" alt="" style="height:64px;width:64px;object-fit:contain"/>
+          <span style="font-size:42px;font-weight:800;color:#1f3864;letter-spacing:-.01em">Tableau</span>
+        </div>
+        <div style="font-size:20px;color:var(--accent);font-weight:500">public.tableau.com</div>
+        <p style="font-size:17px;color:var(--text-muted);margin:0;line-height:1.6">
+          Explore the Hands-On Challenge workbook and thousands of public visualizations
+        </p>
+      </a>
+
+      <!-- Veezoo card -->
+      <a href="https://www.veezoo.com" target="_blank"
+         style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:48px 48px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;text-decoration:none;transition:border-color .2s,transform .2s"
+         onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'"
+         onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <div style="display:flex;align-items:center;height:72px">
+          <img src="assets/images/veezoo-logo.svg" alt="Veezoo" style="height:52px;width:auto;object-fit:contain"/>
+        </div>
+        <div style="font-size:20px;color:var(--accent);font-weight:500">veezoo.com</div>
+        <p style="font-size:17px;color:var(--text-muted);margin:0;line-height:1.6">
+          Natural language analytics — ask your data questions, get verified answers
+        </p>
+      </a>
+
+    </div>
+
+    <!-- CTA button -->
+    <a href="http://bit.ly/hands-on-challenge" target="_blank" style="
+      display:inline-flex;align-items:center;gap:14px;
+      background:var(--accent);color:white;padding:18px 52px;
+      border-radius:40px;font-size:22px;font-weight:700;text-decoration:none;
+      box-shadow:0 4px 24px rgba(0,212,224,0.4)">
+      🔗 &nbsp; bit.ly/hands-on-challenge — Today's Workbook
+    </a>
   </section>
 
   <!-- ── SLIDE 33: Thank You ───────────────────────────────────── -->
