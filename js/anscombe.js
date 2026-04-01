@@ -163,8 +163,8 @@
   // ── Event listeners ───────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 11) renderTable();
-      if (e.detail.slide === 12) {
+      if (e.detail.slide === 12) renderTable();
+      if (e.detail.slide === 13) {
         if (typeof d3 !== 'undefined') {
           renderScatter();
         } else {
