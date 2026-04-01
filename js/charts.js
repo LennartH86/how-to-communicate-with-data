@@ -133,7 +133,7 @@
     const line = d3.line()
       .x((d, i) => xScale(MONTHS[i]))
       .y(d => yScale(d))
-      .curve(d3.curveMonotoneX);
+      .curve(d3.curveLinear);
 
     MODELS.forEach(model => {
       // Line
