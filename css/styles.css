@@ -917,7 +917,7 @@ button { cursor: pointer; font-family: var(--font); }
 }
 #slide-29 .veezoo-overlay {
   position: absolute;
-  bottom: 60px; left: 80px;
+  bottom: 60px; right: 80px;
   z-index: 2;
   background: rgba(255,255,255,0.95);
   backdrop-filter: blur(12px);
