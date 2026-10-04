@@ -1,5 +1,5 @@
 /**
- * Number Grid with exactly 11 twos (Slide 17)
+ * Number Grid with exactly 11 twos (Slide 19)
  */
 (function () {
   'use strict';
@@ -59,7 +59,7 @@
         grid.classList.toggle('highlight-off', !highlighted);
         grid.classList.toggle('highlight-on',   highlighted);
         highlightBtn.classList.toggle('active', highlighted);
-        highlightBtn.textContent = highlighted ? '✓ Hide Highlight' : 'Highlight 2s';
+        highlightBtn.textContent = highlighted ? 'Hide highlight' : 'Highlight 2s';
       });
     }
 
@@ -71,10 +71,10 @@
       revealBtn.addEventListener('click', () => {
         revealed = !revealed;
         revealBtn.classList.toggle('active', revealed);
-        revealBtn.textContent = revealed ? '✓ Hide Answer' : 'Reveal Answer';
+        revealBtn.textContent = revealed ? 'Hide answer' : 'Reveal answer';
         prompt.innerHTML = revealed
-          ? `There are <strong style="color:var(--accent)">${TWO_COUNT} twos</strong> in this grid`
-          : `How many <strong style="color:var(--accent)">2s</strong> are hidden in this grid?`;
+          ? `There are <strong>${TWO_COUNT} twos</strong> in this grid`
+          : `How many <strong>2s</strong> are hidden in this grid?`;
       });
     }
   }

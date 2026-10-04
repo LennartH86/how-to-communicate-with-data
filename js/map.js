@@ -54,7 +54,7 @@
       .attr('width', '100%')
       .attr('height', '100%')
       .attr('viewBox', `0 0 ${width} ${height}`)
-      .style('background', '#f5f7fa');
+      .style('background', '#f9fafb');
 
     const projection = d3.geoNaturalEarth1()
       .scale(width / 6.5)
@@ -73,7 +73,7 @@
           .datum(d3.geoGraticule()())
           .attr('d', path)
           .attr('fill', 'none')
-          .attr('stroke', '#e2e6ed')
+          .attr('stroke', '#e5e7eb')
           .attr('stroke-width', 0.5);
 
         // Countries
@@ -83,7 +83,7 @@
           .append('path')
           .attr('class', 'country')
           .attr('d', path)
-          .attr('fill', '#edf0f5')
+          .attr('fill', '#f3f4f6')
           .attr('stroke', '#d1d5db')
           .attr('stroke-width', 0.7);
 
@@ -110,14 +110,14 @@
         cityGroup.append('circle')
           .attr('r', 10)
           .attr('fill', 'none')
-          .attr('stroke', '#00d4e0')
+          .attr('stroke', '#00b4d8')
           .attr('stroke-width', 1.5)
           .attr('opacity', 0.4);
 
         // Core dot
         cityGroup.append('circle')
           .attr('r', 5)
-          .attr('fill', '#00d4e0')
+          .attr('fill', '#00b4d8')
           .attr('stroke', 'white')
           .attr('stroke-width', 1.5)
           .style('cursor', 'pointer');
@@ -127,10 +127,10 @@
           .append('div')
           .style('position', 'absolute')
           .style('background', 'white')
-          .style('border', '1.5px solid #e2e6ed')
+          .style('border', '1px solid #e5e7eb')
           .style('border-radius', '8px')
           .style('padding', '6px 14px')
-          .style('font-size', '16px')
+          .style('font-size', '16px').style('font-family', 'Inter, system-ui, sans-serif')
           .style('font-weight', '600')
           .style('pointer-events', 'none')
           .style('opacity', 0)

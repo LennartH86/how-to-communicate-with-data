@@ -23,6 +23,14 @@
     showSlide(currentSlide, false);
     applyScale();
 
+    // The chart modules register their `slidechange` listeners in their own
+    // DOMContentLoaded handlers, which run after this one. Re-fire the initial
+    // event on the next tick so a deck opened (or refreshed) at #slide-N renders
+    // that slide's content. Renderers are guarded, so a second event is harmless.
+    setTimeout(() => {
+      document.dispatchEvent(new CustomEvent('slidechange', { detail: { slide: currentSlide } }));
+    }, 0);
+
     // Events
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('resize', applyScale);
@@ -159,7 +167,7 @@
     // Don't navigate when clicking interactive elements
     const tag = e.target.tagName.toLowerCase();
     if (['button', 'a', 'input', 'select', 'textarea', 'label'].includes(tag)) return;
-    if (e.target.closest('button, a, input, select, .toggle-btn, iframe, .tableauPlaceholder, .bp-rule')) return;
+    if (e.target.closest('button, a, input, select, .toggle-btn, iframe, .bp-rule, .def-pill')) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const relX = (e.clientX - rect.left) / rect.width;

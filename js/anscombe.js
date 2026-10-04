@@ -1,5 +1,5 @@
 /**
- * Anscombe Quartet — Table (Slide 11) and Scatter Plot (Slide 12)
+ * Anscombe Quartet — Table (Slide 13) and Scatter Plot (Slide 14)
  */
 (function () {
   'use strict';
@@ -16,7 +16,7 @@
     return data;
   }
 
-  // ── Table (Slide 11) ──────────────────────────────────────────────────────
+  // ── Table (Slide 13) ──────────────────────────────────────────────────────
   async function renderTable() {
     if (tableRendered) return;
     const container = document.getElementById('anscombe-table-container');
@@ -26,7 +26,7 @@
 
     // Build combined table: rows are observations, columns are dataset pairs
     const n = d.datasets[0].points.length;
-    let html = `<table class="data-table"><thead><tr>
+    let html = `<div class="table-frame"><table class="data-table"><thead><tr>
       <th>n</th>
       <th>I — x</th><th>I — y</th>
       <th>II — x</th><th>II — y</th>
@@ -43,26 +43,26 @@
     }
 
     // Stats row
-    html += `<tr style="border-top:2px solid var(--border);background:rgba(0,212,224,0.08)">
-      <td style="font-weight:700">Stats</td>
-      <td colspan="2" style="font-size:17px;color:var(--text-muted)">
+    html += `<tr class="is-stats">
+      <td style="font-weight:700;color:var(--text)">Stats</td>
+      <td colspan="2">
         Mean x=9.0, Mean y≈7.50<br>Var x=11.0, Var y≈4.12<br>Corr≈0.816
       </td>
-      <td colspan="2" style="font-size:17px;color:var(--text-muted)">
+      <td colspan="2">
         Mean x=9.0, Mean y≈7.50<br>Var x=11.0, Var y≈4.12<br>Corr≈0.816
       </td>
-      <td colspan="2" style="font-size:17px;color:var(--text-muted)">
+      <td colspan="2">
         Mean x=9.0, Mean y≈7.50<br>Var x=11.0, Var y≈4.12<br>Corr≈0.816
       </td>
-      <td colspan="2" style="font-size:17px;color:var(--text-muted)">
+      <td colspan="2">
         Mean x=9.0, Mean y≈7.50<br>Var x=11.0, Var y≈4.12<br>Corr≈0.816
       </td>
     </tr>`;
-    html += '</tbody></table>';
+    html += '</tbody></table></div>';
     container.innerHTML = html;
   }
 
-  // ── Scatter (Slide 12) ────────────────────────────────────────────────────
+  // ── Scatter (Slide 14) ────────────────────────────────────────────────────
   async function renderScatter() {
     if (scatterRendered) return;
     const container = document.getElementById('anscombe-scatter');
@@ -106,13 +106,13 @@
         .attr('transform', `translate(0,${innerH})`)
         .call(d3.axisBottom(xScale).ticks(6).tickSize(-innerH))
         .call(ax => ax.select('.domain').remove())
-        .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
+        .call(ax => ax.selectAll('.tick line').attr('stroke', '#e5e7eb').attr('stroke-dasharray', '3,3'));
 
       g.append('g')
         .attr('class', 'axis')
         .call(d3.axisLeft(yScale).ticks(6).tickSize(-innerW))
         .call(ax => ax.select('.domain').remove())
-        .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
+        .call(ax => ax.selectAll('.tick line').attr('stroke', '#e5e7eb').attr('stroke-dasharray', '3,3'));
 
       // Regression line
       const regLine = g.append('line')
@@ -135,7 +135,7 @@
         .attr('cx', p => xScale(p.x))
         .attr('cy', p => yScale(p.y))
         .attr('r', 6)
-        .attr('fill', '#00d4e0')
+        .attr('fill', '#00b4d8')
         .attr('stroke', 'white')
         .attr('stroke-width', 2)
         .attr('opacity', 0.85);
@@ -152,7 +152,7 @@
       btn.addEventListener('click', () => {
         regressionVisible = !regressionVisible;
         btn.classList.toggle('active', regressionVisible);
-        btn.textContent = regressionVisible ? '✓ Hide Regression Lines' : 'Show Regression Lines';
+        btn.textContent = regressionVisible ? 'Hide regression lines' : 'Show regression lines';
         container.querySelectorAll('.reg-line').forEach(line => {
           d3.select(line).attr('opacity', regressionVisible ? 1 : 0);
         });

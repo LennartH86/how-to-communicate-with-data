@@ -1,5 +1,5 @@
 /**
- * Car sales charts (Slide 15) and quarterly bar chart with highlights (Slide 18)
+ * Car sales table + line chart (Slide 17) and monthly bar chart with highlights (Slide 20)
  */
 (function () {
   'use strict';
@@ -16,17 +16,17 @@
   const MODELS = [
     {
       name: 'Car 1',
-      color: '#00d4e0',
+      color: '#00b4d8',
       sales: [2200,3100,1900,2800,3400,4100,2600,3500,1800,3200,4000,2500,3800,2100,3600,2200,3100,2400,3900,2700]
     },
     {
       name: 'Car 2',
-      color: '#0ea5e9',
+      color: '#7c3aed',
       sales: [2800,1800,2100,1600,3800,2900,3200,2100,2400,3600,2200,3100,2400,1800,2800,3500,2600,1900,2300,3400]
     },
     {
       name: 'Car 3',
-      color: '#22c55e',
+      color: '#f59e0b',
       sales: [1500,2400,2600,3100,1200,2200,1800,2800,3000,2100,1900,2800,1600,3400,2300,2100,1400,3200,2800,1700]
     }
   ];
@@ -37,14 +37,14 @@
   let answerRevealed     = false;
   let tabsInitialized    = false;
 
-  // ── Slide 15: Table ───────────────────────────────────────────────────────
+  // ── Slide 17: Table ───────────────────────────────────────────────────────
   function renderSalesTable(revealed) {
     const container = document.getElementById('sales-table-container');
     if (!container) return;
     salesTableRendered = true;
 
     const car1WinMonths = [];
-    let html = `<div style="overflow-y:auto;border-radius:12px;border:2px solid var(--border)">
+    let html = `<div class="table-frame" style="overflow-y:auto">
       <table class="data-table" style="font-size:18px;min-width:700px">
         <thead>
           <tr>
@@ -61,8 +61,8 @@
       const car1Wins = maxIdx === 0;
       if (car1Wins) car1WinMonths.push(month);
 
-      const rowStyle = revealed && car1Wins ? 'background:rgba(0,212,224,0.08);' : '';
-      html += `<tr style="${rowStyle}">`;
+      const rowClass = revealed && car1Wins ? ' class="is-highlight"' : '';
+      html += `<tr${rowClass}>`;
       html += `<td style="font-weight:600;text-align:left;padding-left:24px">${month}</td>`;
       vals.forEach((v, j) => {
         const highlight = revealed && car1Wins && j === 0;
@@ -75,14 +75,14 @@
 
     html += `</tbody></table></div>`;
     if (revealed) {
-      html += `<p style="margin-top:16px;font-size:20px;color:var(--text-muted);text-align:center">
+      html += `<p style="margin-top:16px;font-size:20px;color:var(--text-2);text-align:center">
         <strong style="color:var(--accent)">Car 1 leads in ${car1WinMonths.length} of ${MONTHS.length} months: ${car1WinMonths.join(', ')}</strong>
       </p>`;
     }
     container.innerHTML = html;
   }
 
-  // ── Slide 15: Line Chart ──────────────────────────────────────────────────
+  // ── Slide 17: Line Chart ──────────────────────────────────────────────────
   function renderSalesChart() {
     if (salesChartRendered) return;
     const container = document.getElementById('sales-chart-container');
@@ -119,12 +119,12 @@
       .call(d3.axisLeft(yScale).ticks(5).tickSize(-innerW)
         .tickFormat(d => (d / 1000).toFixed(1) + 'k'))
       .call(ax => ax.select('.domain').remove())
-      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
+      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e5e7eb').attr('stroke-dasharray', '3,3'));
 
     g.append('g').attr('class', 'axis')
       .attr('transform', `translate(0,${innerH})`)
       .call(d3.axisBottom(xScale).tickSize(0))
-      .call(ax => ax.select('.domain').attr('stroke', '#e2e6ed'))
+      .call(ax => ax.select('.domain').attr('stroke', '#e5e7eb'))
       .selectAll('text')
         .attr('font-size', 13)
         .attr('dy', '1.2em');
@@ -156,20 +156,25 @@
         .attr('stroke', 'white')
         .attr('stroke-width', 2);
 
-      // End label
+      // End label: a series-coloured marker carries identity, the text stays in ink
       const lastX = xScale(MONTHS[MONTHS.length - 1]);
       const lastY = yScale(model.sales[model.sales.length - 1]);
+      g.append('circle')
+        .attr('cx', lastX + 18)
+        .attr('cy', lastY)
+        .attr('r', 5)
+        .attr('fill', model.color);
       g.append('text')
-        .attr('x', lastX + 10)
+        .attr('x', lastX + 30)
         .attr('y', lastY + 5)
         .attr('font-size', 16)
-        .attr('font-weight', 700)
-        .attr('fill', model.color)
+        .attr('font-weight', 600)
+        .attr('fill', '#111827')
         .text(model.name);
     });
   }
 
-  // ── Slide 18: Bar Chart with min/max highlight ────────────────────────────
+  // ── Slide 20: Bar Chart with min/max highlight ────────────────────────────
   function renderBarChart() {
     if (barChartRendered) return;
     const container = document.getElementById('sales-bar-chart');
@@ -213,12 +218,12 @@
       .call(d3.axisLeft(yScale).ticks(5).tickSize(-innerW)
         .tickFormat(d => (d / 1000).toFixed(0) + 'k'))
       .call(ax => ax.select('.domain').remove())
-      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
+      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e5e7eb').attr('stroke-dasharray', '3,3'));
 
     g.append('g').attr('class', 'axis')
       .attr('transform', `translate(0,${innerH})`)
       .call(d3.axisBottom(xScale).tickSize(0))
-      .call(ax => ax.select('.domain').attr('stroke', '#e2e6ed'))
+      .call(ax => ax.select('.domain').attr('stroke', '#e5e7eb'))
       .selectAll('text')
       .attr('font-size', 16)
       .attr('font-weight', 600)
@@ -249,12 +254,12 @@
       .attr('width', xScale.bandwidth())
       .attr('height', barH)
       .attr('rx', 8)
-      .attr('fill', '#c8d0db')
+      .attr('fill', '#d1d5db')
       .attr('opacity', 0.85);
 
     // Legend — hidden until highlighted
     const legendData = [
-      { color: '#00d4e0', label: 'Highest month' },
+      { color: '#00b4d8', label: 'Highest month' },
       { color: '#ef4444', label: 'Lowest month' }
     ];
     const legendG = svg.append('g')
@@ -265,7 +270,7 @@
       legendG.append('rect').attr('x', lx).attr('y', 0)
         .attr('width', 18).attr('height', 18).attr('rx', 4).attr('fill', item.color);
       legendG.append('text').attr('x', lx + 26).attr('y', 14)
-        .attr('font-size', 17).attr('fill', '#374151').text(item.label);
+        .attr('font-size', 17).attr('fill', '#6b7280').text(item.label);
     });
 
     // Toggle button
@@ -275,14 +280,14 @@
       btn.addEventListener('click', () => {
         barsHighlighted = !barsHighlighted;
         btn.classList.toggle('active', barsHighlighted);
-        btn.textContent = barsHighlighted ? '✓ Remove Highlight' : 'Highlight Extremes';
+        btn.textContent = barsHighlighted ? 'Remove highlight' : 'Highlight extremes';
 
         bars.transition().duration(400)
           .attr('fill', d => {
-            if (!barsHighlighted) return '#c8d0db';
-            if (d.value === maxVal) return '#00d4e0';
+            if (!barsHighlighted) return '#d1d5db';
+            if (d.value === maxVal) return '#00b4d8';
             if (d.value === minVal) return '#ef4444';
-            return '#dde3ec';
+            return '#e5e7eb';
           })
           .attr('opacity', d => {
             if (!barsHighlighted) return 0.85;
@@ -290,7 +295,7 @@
           })
           .attr('stroke', d => {
             if (!barsHighlighted) return 'none';
-            if (d.value === maxVal) return '#00a8b5';
+            if (d.value === maxVal) return '#0096c7';
             if (d.value === minVal) return '#b91c1c';
             return 'none';
           })
@@ -301,7 +306,7 @@
     }
   }
 
-  // ── Slide 15 tabs + reveal ────────────────────────────────────────────────
+  // ── Slide 17 tabs + reveal ────────────────────────────────────────────────
   function initTabs() {
     if (tabsInitialized) return;
     tabsInitialized = true;
@@ -336,7 +341,7 @@
         const visible = approachCards.style.display !== 'none';
         approachCards.style.display = visible ? 'none' : '';
         approachBtn.classList.toggle('active', !visible);
-        approachBtn.textContent = visible ? 'Show Approaches' : '✓ Hide Approaches';
+        approachBtn.textContent = visible ? 'Show approaches' : 'Hide approaches';
         // Shrink table when approaches shown, expand when hidden
         if (tableEl) tableEl.style.maxHeight = visible ? '520px' : '280px';
         if (chartEl) chartEl.style.maxHeight = visible ? '520px' : '280px';
@@ -347,7 +352,7 @@
       revealBtn.addEventListener('click', () => {
         answerRevealed = !answerRevealed;
         revealBtn.classList.toggle('active', answerRevealed);
-        revealBtn.textContent = answerRevealed ? '✓ Hide Answer' : 'Reveal Answer';
+        revealBtn.textContent = answerRevealed ? 'Hide answer' : 'Reveal answer';
         renderSalesTable(answerRevealed);
         // Switch to table view
         tableBtn.classList.add('active');

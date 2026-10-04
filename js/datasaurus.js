@@ -1,5 +1,5 @@
 /**
- * Datasaurus Dozen — Table (Slide 13) and Scatter Grid (Slide 14)
+ * Datasaurus Dozen — Table (Slide 15) and Scatter Grid (Slide 16)
  */
 (function () {
   'use strict';
@@ -32,7 +32,7 @@
     return Math.sqrt(arr.reduce((a, b) => a + (b - m) ** 2, 0) / arr.length);
   }
 
-  // ── Table (Slide 13) ──────────────────────────────────────────────────────
+  // ── Table (Slide 15) ──────────────────────────────────────────────────────
   async function renderTable() {
     if (dsTableRendered) return;
     const container = document.getElementById('datasaurus-table-container');
@@ -40,7 +40,7 @@
     const d = await loadData();
     dsTableRendered = true;
 
-    let html = `<div style="max-height:780px;overflow-y:auto;border-radius:12px;border:2px solid var(--border)">
+    let html = `<div class="table-frame" style="max-height:780px;overflow-y:auto">
     <table class="data-table" style="font-size:19px">
       <thead><tr>
         <th style="text-align:left;padding-left:32px">Dataset</th>
@@ -59,7 +59,7 @@
     });
 
     html += `</tbody></table></div>
-    <p style="margin-top:24px;font-size:20px;color:var(--text-muted);text-align:center">
+    <p style="margin-top:24px;font-size:20px;color:var(--text-2);text-align:center">
       <strong>All 13 datasets share nearly identical summary statistics</strong> — yet they look completely different when visualised.
     </p>`;
     container.innerHTML = html;
@@ -95,12 +95,12 @@
       .attr('transform', `translate(0,${inner})`)
       .call(d3.axisBottom(xScale).ticks(5).tickSize(-inner))
       .call(ax => ax.select('.domain').remove())
-      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
+      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e5e7eb').attr('stroke-dasharray', '3,3'));
 
     g.append('g').attr('class', 'axis')
       .call(d3.axisLeft(yScale).ticks(5).tickSize(-inner))
       .call(ax => ax.select('.domain').remove())
-      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
+      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e5e7eb').attr('stroke-dasharray', '3,3'));
 
     // Regression line — global, identical on all panels
     g.append('line')
@@ -118,7 +118,7 @@
       .attr('cx', p => xScale(p.x))
       .attr('cy', p => yScale(p.y))
       .attr('r', isDino ? 5 : 4)
-      .attr('fill', isDino ? '#00d4e0' : '#0ea5e9')
+      .attr('fill', isDino ? '#00b4d8' : '#0096c7')
       .attr('stroke', 'white')
       .attr('stroke-width', isDino ? 1.5 : 1)
       .attr('opacity', 0.85);
@@ -126,7 +126,7 @@
     parentEl.appendChild(wrapper);
   }
 
-  // ── Scatter (Slide 14) ────────────────────────────────────────────────────
+  // ── Scatter (Slide 16) ────────────────────────────────────────────────────
   async function renderScatter() {
     if (dsScatterRendered) return;
     const grid     = document.getElementById('datasaurus-scatter');
@@ -166,7 +166,7 @@
       regBtn.addEventListener('click', () => {
         dsRegressionVisible = !dsRegressionVisible;
         regBtn.classList.toggle('active', dsRegressionVisible);
-        regBtn.textContent = dsRegressionVisible ? '✓ Hide Regression Lines' : 'Show Regression Lines';
+        regBtn.textContent = dsRegressionVisible ? 'Hide regression lines' : 'Show regression lines';
         document.querySelectorAll('.ds-reg-line').forEach(line => {
           d3.select(line).attr('opacity', dsRegressionVisible ? 1 : 0);
         });
@@ -181,7 +181,7 @@
         grid.style.display     = dinoVisible ? 'none' : 'grid';
         dinoCont.style.display = dinoVisible ? 'flex'  : 'none';
         dinoBtn.classList.toggle('active', dinoVisible);
-        dinoBtn.textContent = dinoVisible ? '🦕 Hide Dinosaur' : '🦕 Show Dinosaur';
+        dinoBtn.textContent = dinoVisible ? 'Hide the dinosaur' : 'Show the dinosaur';
       });
     }
   }
