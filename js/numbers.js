@@ -81,7 +81,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 18) renderGrid();
+      if (e.detail.slide === 19) renderGrid();
     });
   });
 })();

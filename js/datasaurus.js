@@ -189,8 +189,8 @@
   // ── Event Listeners ───────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 14) renderTable();
-      if (e.detail.slide === 15) {
+      if (e.detail.slide === 15) renderTable();
+      if (e.detail.slide === 16) {
         if (typeof d3 !== 'undefined') renderScatter();
         else setTimeout(renderScatter, 300);
       }

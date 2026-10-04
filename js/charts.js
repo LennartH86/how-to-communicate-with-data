@@ -361,11 +361,11 @@
   // ── Init ──────────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 16) {
+      if (e.detail.slide === 17) {
         if (!salesTableRendered) renderSalesTable(false);
         initTabs();
       }
-      if (e.detail.slide === 19) {
+      if (e.detail.slide === 20) {
         if (typeof d3 !== 'undefined') renderBarChart();
         else setTimeout(renderBarChart, 300);
       }

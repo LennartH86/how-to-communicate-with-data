@@ -159,7 +159,7 @@
     // Don't navigate when clicking interactive elements
     const tag = e.target.tagName.toLowerCase();
     if (['button', 'a', 'input', 'select', 'textarea', 'label'].includes(tag)) return;
-    if (e.target.closest('button, a, input, select, .toggle-btn, iframe, .tableauPlaceholder')) return;
+    if (e.target.closest('button, a, input, select, .toggle-btn, iframe, .tableauPlaceholder, .bp-rule')) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const relX = (e.clientX - rect.left) / rect.width;
