@@ -1,6 +1,6 @@
 # Proposal v3: the "why AI gets company data wrong" block, deck coherency, Veezoo restyle
 
-Status: proposal only, nothing in `index.html` has been changed. Written 2026-10-04 on branch `ai-first-rework` (HEAD `1fbe278`), revised the same day after Lennart's decisions. Intended reader: Lennart first, then the agent that implements it.
+Status: implemented on 2026-10-04 (commits 4c226a6 and b4e9ddc on `ai-first-rework`). Kept as the record of the reasoning and as the source register for the numbers on slides 26 to 28.
 
 Audience: **MBA business students.** Consequence for everything below: no SQL, no "text-to-SQL", no "knowledge graph", no "ontology", no "semantic layer", no architecture diagrams, no benchmark names on the slides. Those words may appear only in source footnotes and speaker notes. The argument is made in business language: definitions, trust, "what is a customer".
 
@@ -191,7 +191,7 @@ Everything needed exists on `main` and in `Research/brand/`:
 - `Research/brand/veezoo-brand-css.md`: drop-in CSS for standalone HTML pages.
 - `Research/brand/hero-background-reference.html`: static reproduction of the website hero (mesh, blobs, glass panels, grid, grain).
 - `Research/brand/grain.png`: grain texture tile (160×160, tile at 80px).
-- `Research/brand/CLAUDE-from-main.md`: main's CLAUDE.md, whose "Brand" section documents how the tokens are used in this deck.
+- `CLAUDE.md` (now on this branch): documents how the tokens are used in this deck.
 
 - `git show main:css/styles.css`, `git show main:index.html`, `git show main:assets/images/veezoo-mark.svg`, `git show main:js/navigation.js`.
 
