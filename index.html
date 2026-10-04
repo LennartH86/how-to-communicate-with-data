@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How to Communicate with Data</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/veezoo-mark.svg" />
+  <!-- Brand fonts: Outfit (hero), DM Sans (headings), Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <!-- D3 & TopoJSON -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
@@ -17,52 +22,56 @@
 <div id="presentation">
 
   <!-- ── SLIDE 1: Title ────────────────────────────────────────── -->
-  <section class="slide active" id="slide-1">
-    <div class="slide-header"></div>
-    <span class="eyebrow">Lennart Heuckendorf · Veezoo</span>
-    <h1>How to<br>Communicate<br>with Data</h1>
-    <div class="title-line"></div>
-    <p class="subtitle-text">A journey through the art and science of data visualization</p>
+  <section class="slide hero-bg active" id="slide-1">
+    <div class="hero-layers" aria-hidden="true"></div>
+    <img class="hero-logo" src="assets/images/veezoo-logo.svg" alt="Veezoo" />
+    <p class="eyebrow">Lennart Heuckendorf · Solution Engineer, Veezoo</p>
+    <h1 class="h-hero">How to<br>Communicate<br><span class="text-gradient">with Data</span></h1>
+    <p class="hero-sub">A journey through the art and science of data visualization, and what changes when you can simply ask</p>
   </section>
+
   <!-- ── SLIDE 2: About Me ─────────────────────────────────────── -->
   <section class="slide" id="slide-2">
-    <div class="slide-header"></div>
-    <div class="col-left">
+    <aside class="about-col">
       <img src="assets/images/profile.jpg"
            alt="Lennart Heuckendorf"
-           class="profile-img"
+           class="about-photo"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="profile-placeholder" style="display:none">LH</div>
-      <div class="name">Lennart Heuckendorf</div>
-      <div class="role">Solution Engineer · Veezoo</div>
-      <p class="bio">
-        I'm Lennart Heuckendorf — Solution Engineer at Veezoo.
-        13 years in the data space, from SAP and Hadoop pipelines
+      <div class="about-placeholder" style="display:none">LH</div>
+      <div class="about-name">Lennart Heuckendorf</div>
+      <div class="about-role">Solution Engineer · Veezoo</div>
+      <p class="about-bio">
+        I help companies answer questions on their own data in plain language.
+        Before that: 13 years in the data space, from SAP and Hadoop pipelines
         to Tableau dashboards and Salesforce analytics.
-        I've spent my career bridging the gap between
+        My whole career has been about bridging the gap between
         raw data and the people who need it most.
       </p>
-      <div class="skills-grid">
-        <span class="skill-chip">Tableau</span>
-        <span class="skill-chip">Python</span>
-        <span class="skill-chip">R</span>
-        <span class="skill-chip">Salesforce</span>
-        <span class="skill-chip">SAP</span>
-        <span class="skill-chip">AWS</span>
-        <span class="skill-chip">GCP</span>
-        <span class="skill-chip">Docker</span>
-        <span class="skill-chip">Kubernetes</span>
+      <div class="chips">
+        <span class="chip accent">AI analytics</span>
+        <span class="chip">Tableau</span>
+        <span class="chip">Python</span>
+        <span class="chip">R</span>
+        <span class="chip">Salesforce</span>
+        <span class="chip">SAP</span>
+        <span class="chip">AWS</span>
+        <span class="chip">GCP</span>
+        <span class="chip">Docker</span>
+        <span class="chip">Kubernetes</span>
       </div>
-    </div>
-    <div class="col-right">
-      <div class="map-title">Customer Visits</div>
+    </aside>
+    <div class="about-map">
+      <p class="eyebrow">Customer visits</p>
       <div id="world-map"></div>
     </div>
   </section>
+
   <!-- ── SLIDE 3: Data Story Video ────────────────────────────── -->
   <section class="slide video-slide" id="slide-3">
-    <div class="slide-header"></div>
-    <div class="video-title">How to Tell a Data Story — Inspiration</div>
+    <div class="slide-head">
+      <p class="eyebrow">Inspiration</p>
+      <h2 class="section-title sm">How to tell a data story</h2>
+    </div>
     <div class="video-wrapper">
       <iframe
         src="https://www.youtube.com/embed/hVimVzgtD6w?start=173"
@@ -72,94 +81,92 @@
       </iframe>
     </div>
   </section>
+
   <!-- ── SLIDE 4: Agenda ───────────────────────────────────────── -->
-  <section class="slide" id="slide-4">
-    <div class="slide-header"></div>
+  <section class="slide mesh-bg" id="slide-4">
     <div class="slide-center">
-      <p class="label mb-40">Today's Agenda</p>
-      <div class="agenda-grid">
-        <div class="agenda-card">
-          <div class="agenda-num">01</div>
+      <div class="slide-head">
+        <p class="eyebrow">Agenda</p>
+        <h2 class="section-title">What we'll cover today</h2>
+      </div>
+      <div class="agenda-grid mt-16">
+        <div class="card agenda-card">
+          <div class="agenda-num text-gradient">01</div>
           <div>
-            <div class="agenda-title">The Beautiful Science of Data Visualization</div>
-            <p style="font-size:19px;color:var(--text-muted);margin-top:12px">
-              Historical masterpieces that changed how we see the world
-            </p>
+            <div class="agenda-title">A beautiful science</div>
+            <p class="agenda-desc">Four charts from the 1800s that answered hard questions and changed how we see the world</p>
           </div>
         </div>
-        <div class="agenda-card">
-          <div class="agenda-num">02</div>
+        <div class="card agenda-card">
+          <div class="agenda-num text-gradient">02</div>
           <div>
-            <div class="agenda-title">How You Build Data Visualizations</div>
-            <p style="font-size:19px;color:var(--text-muted);margin-top:12px">
-              From raw numbers to meaningful visual patterns — and the research-backed rules behind them
-            </p>
+            <div class="agenda-title">How we see data</div>
+            <p class="agenda-desc">Anscombe, the Datasaurus, and what your eyes notice before you think</p>
           </div>
         </div>
-        <div class="agenda-card">
-          <div class="agenda-num">03</div>
+        <div class="card agenda-card">
+          <div class="agenda-num text-gradient">03</div>
           <div>
-            <div class="agenda-title">How You Answer Data Questions</div>
-            <p style="font-size:19px;color:var(--text-muted);margin-top:12px">
-              Asking data questions with AI — and checking the answers
-            </p>
+            <div class="agenda-title">Asking an AI</div>
+            <p class="agenda-desc">Why the chatbot that nails your spreadsheet fails on company data, and the one question that protects you. Live demo.</p>
           </div>
         </div>
-        <div class="agenda-card">
-          <div class="agenda-num">04</div>
+        <div class="card agenda-card">
+          <div class="agenda-num text-gradient">04</div>
           <div>
-            <div class="agenda-title">How to Tell a Data Story</div>
-            <p style="font-size:19px;color:var(--text-muted);margin-top:12px">
-              Turning insights into compelling narratives that drive action
-            </p>
+            <div class="agenda-title">Showing it right</div>
+            <p class="agenda-desc">25 research-backed rules for charts people actually understand, then your turn</p>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <!-- ── SLIDE 5: Key Learnings ────────────────────────────────── -->
-  <section class="slide" id="slide-5">
-    <div class="slide-header"></div>
+  <section class="slide mesh-bg" id="slide-5">
     <div class="slide-center">
-      <p class="label mb-40">What You Will Learn Today</p>
-      <div class="learnings-list">
-        <div class="learning-item">
+      <div class="slide-head">
+        <p class="eyebrow">Takeaways</p>
+        <h2 class="section-title">What you will learn today</h2>
+      </div>
+      <div class="learnings mt-16">
+        <div class="card learning">
           <div class="learning-num">1</div>
-          <div class="learning-text">
-            <strong>What makes data visualization so important</strong> —
-            and why our brains are wired to think visually
+          <div>
+            <div class="learning-title">The chart is the analysis</div>
+            <p class="learning-desc">The same numbers tell different stories, and a picture is often the fastest reliable path to the answer</p>
           </div>
         </div>
-        <div class="learning-item">
+        <div class="card learning">
           <div class="learning-num">2</div>
-          <div class="learning-text">
-            <strong>How we think about the world</strong> —
-            the mental models behind effective data communication
+          <div>
+            <div class="learning-title">Perception has rules</div>
+            <p class="learning-desc">Position beats colour, outliers pop in 250 milliseconds, and the reader's task picks the chart</p>
           </div>
         </div>
-        <div class="learning-item">
+        <div class="card learning">
           <div class="learning-num">3</div>
-          <div class="learning-text">
-            <strong>Who actually benefits from AI advancements</strong> —
-            and how trust becomes the deciding factor
+          <div>
+            <div class="learning-title">An AI's answer is only as good as the definitions behind the data</div>
+            <p class="learning-desc">Before you trust a number, ask for the definition behind it. If the system cannot show one, it guessed</p>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <!-- ── SLIDE 6: Part 1 Transition ───────────────────────────── -->
-  <section class="slide divider-slide" id="slide-6">
-    <div class="slide-header"></div>
-    <div class="eyebrow">Part 1 — The Beautiful Science of Data Visualization</div>
+  <section class="slide hero-bg hero-divider" id="slide-6">
+    <div class="hero-layers" aria-hidden="true"></div>
+    <p class="eyebrow">Part 1 · A beautiful science</p>
     <div class="big-text">
-      Long before dashboards and AI, people asked <span>hard questions</span> —
+      Long before dashboards and AI, people asked <span class="text-gradient">hard questions</span>
       and answered them with a picture
     </div>
   </section>
 
   <!-- ── SLIDE 7: Minard ───────────────────────────────────────── -->
   <section class="slide hist-slide" id="slide-7">
-    <div class="slide-header"></div>
     <div class="img-col">
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/2/29/Minard.png"
@@ -167,22 +174,22 @@
         onerror="this.src=''; this.alt='Image unavailable offline'">
     </div>
     <div class="info-col">
-      <div class="hist-label">Data Visualization History</div>
-      <div class="hist-question">“What happened to Napoleon's army on the way to Moscow — and back?”</div>
+      <p class="eyebrow">Part 1 · Data visualization history</p>
+      <div class="hist-question">“What happened to Napoleon's army on the way to Moscow, and back?”</div>
       <div class="hist-title">Charles Joseph Minard</div>
       <div class="hist-year">Napoleon's March to Moscow, 1869</div>
-      <ul class="bullet-list">
+      <ul class="fact-list">
         <li><span>Considered by many the greatest statistical graphic ever drawn</span></li>
-        <li><b>Line Color</b><span>Encodes direction — beige for the advance, black for the retreat</span></li>
-        <li><b>Line Thickness</b><span>Represents army strength — 422,000 soldiers entered Russia, only 10,000 returned</span></li>
-        <li><b>Line Height</b><span>Shows temperature during the deadly winter retreat</span></li>
+        <li><b>Line colour</b><span>Encodes direction: beige for the advance, black for the retreat</span></li>
+        <li><b>Line thickness</b><span>Represents army strength: 422,000 soldiers entered Russia, only 10,000 returned</span></li>
+        <li><b>Line height</b><span>Shows temperature during the deadly winter retreat</span></li>
         <li><span>Six variables in a single image: army size, direction, location, time, temperature, geography</span></li>
       </ul>
     </div>
   </section>
+
   <!-- ── SLIDE 8: Nightingale ──────────────────────────────────── -->
   <section class="slide hist-slide" id="slide-8">
-    <div class="slide-header"></div>
     <div class="img-col">
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/1/17/Nightingale-mortality.jpg"
@@ -190,22 +197,22 @@
         onerror="this.src=''; this.alt='Image unavailable offline'">
     </div>
     <div class="info-col">
-      <div class="hist-label">Data Visualization History</div>
+      <p class="eyebrow">Part 1 · Data visualization history</p>
       <div class="hist-question">“What is really killing our soldiers?”</div>
       <div class="hist-title">Florence Nightingale</div>
       <div class="hist-year">Mortality Causes in the Crimean War, 1858</div>
-      <ul class="bullet-list">
+      <ul class="fact-list">
         <li><span>Nightingale was a pioneering statistician as much as a nurse</span></li>
-        <li><b>Wedge Area</b><span>Encodes the number of deaths — the larger the wedge, the more deaths</span></li>
-        <li><b>Clock Orientation</b><span>Represents time — each wedge is one month, rotating like a clock</span></li>
-        <li><b>Color</b><span>Distinguishes cause of death — blue for disease, red for wounds, black for other</span></li>
-        <li><span>Showed preventable disease killed far more soldiers than combat — driving hospital reform</span></li>
+        <li><b>Wedge area</b><span>Encodes the number of deaths: the larger the wedge, the more deaths</span></li>
+        <li><b>Clock orientation</b><span>Represents time: each wedge is one month, rotating like a clock</span></li>
+        <li><b>Colour</b><span>Distinguishes cause of death: blue for disease, red for wounds, black for other</span></li>
+        <li><span>Showed preventable disease killed far more soldiers than combat, driving hospital reform</span></li>
       </ul>
     </div>
   </section>
+
   <!-- ── SLIDE 9: John Snow ────────────────────────────────────── -->
   <section class="slide hist-slide" id="slide-9">
-    <div class="slide-header"></div>
     <div class="img-col">
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/2/27/Snow-cholera-map-1.jpg"
@@ -213,269 +220,297 @@
         onerror="this.src=''; this.alt='Image unavailable offline'">
     </div>
     <div class="info-col">
-      <div class="hist-label">Data Visualization History</div>
+      <p class="eyebrow">Part 1 · Data visualization history</p>
       <div class="hist-question">“Where is the cholera coming from?”</div>
       <div class="hist-title">John Snow</div>
       <div class="hist-year">Cholera Outbreak in Soho, London, 1854</div>
-      <ul class="bullet-list">
-        <li><b>Dot Placement</b><span>Every death plotted at its exact street address — a deceptively simple idea</span></li>
-        <li><b>Spatial Clustering</b><span>Deaths grouped tightly around the Broad Street water pump</span></li>
-        <li><b>Pump Removal</b><span>Taking the handle off stopped the outbreak — early spatial epidemiology</span></li>
-        <li><b>Miasma Refuted</b><span>Proximity to the pump was the real variable, not bad air quality</span></li>
-        <li><b>Map as Proof</b><span>The chart didn't just describe the data — it solved a crisis</span></li>
+      <ul class="fact-list">
+        <li><b>Dot placement</b><span>Every death plotted at its exact street address, a deceptively simple idea</span></li>
+        <li><b>Spatial clustering</b><span>Deaths grouped tightly around the Broad Street water pump</span></li>
+        <li><b>Pump removal</b><span>Taking the handle off stopped the outbreak: early spatial epidemiology</span></li>
+        <li><b>Miasma refuted</b><span>Proximity to the pump was the real variable, not bad air quality</span></li>
+        <li><b>Map as proof</b><span>The chart didn't just describe the data, it solved a crisis</span></li>
       </ul>
     </div>
   </section>
+
   <!-- ── SLIDE 10: Hamburg Cholera ──────────────────────────────── -->
   <section class="slide hist-slide" id="slide-10">
-    <div class="slide-header"></div>
     <div class="img-col">
       <img
         src="https://www.uke.de/dateien/institute/geschichte-und-ethik-der-medizin/medizinhistorisches-museum/bilder/cholera-karte-gro%C3%9F-3.jpg"
-        alt="Hamburg Cholera Map 1892 — UKE"
+        alt="Hamburg Cholera Map 1892, UKE"
         onerror="this.src=''; this.alt='Image unavailable'">
     </div>
     <div class="info-col">
-      <div class="hist-label">Data Visualization History</div>
+      <p class="eyebrow">Part 1 · Data visualization history</p>
       <div class="hist-question">“Why did Hamburg suffer so much more than Altona next door?”</div>
       <div class="hist-title">Hamburg Cholera Epidemic</div>
       <div class="hist-year">Hamburg vs. Altona, 1892</div>
-      <ul class="bullet-list">
-        <li><b>The Epidemic</b><span>1892 — over 8,600 people killed in Hamburg in just a few weeks</span></li>
-        <li><b>The Border</b><span>Hamburg and Altona shared the same streets, divided only by a city border</span></li>
+      <ul class="fact-list">
+        <li><b>The epidemic</b><span>1892: over 8,600 people killed in Hamburg in just a few weeks</span></li>
+        <li><b>The border</b><span>Hamburg and Altona shared the same streets, divided only by a city border</span></li>
         <li><b>Hamburg</b><span>Drew drinking water unfiltered directly from the polluted River Elbe</span></li>
-        <li><b>Altona</b><span>Filtered its water — deaths dropped sharply right at the city border</span></li>
-        <li><b>The Proof</b><span>The map made the invisible visible: same street, completely different outcomes</span></li>
+        <li><b>Altona</b><span>Filtered its water. Deaths dropped sharply right at the city border</span></li>
+        <li><b>The proof</b><span>The map made the invisible visible: same street, completely different outcomes</span></li>
       </ul>
     </div>
   </section>
-  <!-- ── SLIDE 11: Visual Elements Resume ──────────────────────── -->
-  <section class="slide" id="slide-11">
-    <div class="slide-header"></div>
+
+  <!-- ── SLIDE 11: Visual encoding, the lesson ─────────────────── -->
+  <section class="slide mesh-bg" id="slide-11">
     <div class="slide-center">
-      <p class="label mb-40">Visual Encoding — What Made These Charts Work</p>
-      <div class="resume-grid">
-        <div class="resume-card">
-          <div class="resume-card-header">
-            <div class="resume-name">Minard</div>
-            <div class="resume-year">Napoleon's March, 1869</div>
+      <div class="slide-head">
+        <p class="eyebrow">Part 1 · What made these charts work</p>
+        <h2 class="section-title sm">Four ways to turn a number into something you can <span class="text-gradient">see</span></h2>
+      </div>
+      <div class="encoding-grid mt-8">
+        <div class="card encoding-card">
+          <svg viewBox="0 0 300 150" aria-hidden="true">
+            <line x1="20" y1="130" x2="280" y2="130" stroke="#e5e7eb" stroke-width="2"/>
+            <circle cx="60" cy="100" r="9" fill="#00b4d8"/><circle cx="120" cy="60" r="9" fill="#00b4d8"/><circle cx="180" cy="80" r="9" fill="#00b4d8"/><circle cx="240" cy="30" r="9" fill="#00b4d8"/>
+            <line x1="60" y1="100" x2="60" y2="130" stroke="#d1d5db" stroke-dasharray="4 4"/><line x1="240" y1="30" x2="240" y2="130" stroke="#d1d5db" stroke-dasharray="4 4"/>
+          </svg>
+          <div>
+            <p class="used-by">Snow · Hamburg</p>
+            <h3>Position</h3>
           </div>
-          <div class="resume-divider"></div>
-          <ul class="resume-elements">
-            <li><strong>Line color</strong> — direction of march (advance vs. retreat)</li>
-            <li><strong>Line thickness</strong> — army strength (soldiers remaining)</li>
-            <li><strong>Line height</strong> — temperature during the winter retreat</li>
-            <li><strong>Geography</strong> — spatial context (rivers, cities, borders)</li>
-          </ul>
+          <p>Where a mark sits is the most precise thing we read. A dot at an address, a point on a scale: the eye compares positions almost without error.</p>
         </div>
-        <div class="resume-card">
-          <div class="resume-card-header">
-            <div class="resume-name">Nightingale</div>
-            <div class="resume-year">Crimean War Deaths, 1858</div>
+        <div class="card encoding-card">
+          <svg viewBox="0 0 300 150" aria-hidden="true">
+            <path d="M20 75 C 80 30, 140 40, 200 60 S 260 110, 280 90" stroke="#00b4d8" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.9"/>
+            <path d="M20 75 C 80 30, 140 40, 200 60 S 260 110, 280 90" stroke="#0096c7" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="0 320" />
+            <path d="M280 90 C 230 120, 160 115, 100 130" stroke="#6b7280" stroke-width="5" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <p class="used-by">Minard · Nightingale</p>
+            <h3>Size</h3>
           </div>
-          <div class="resume-divider"></div>
-          <ul class="resume-elements">
-            <li><strong>Wedge area</strong> — number of deaths (larger = more)</li>
-            <li><strong>Clock orientation</strong> — time (each wedge = one month)</li>
-            <li><strong>Color</strong> — cause of death (disease, wounds, other)</li>
-            <li><strong>Radial layout</strong> — easy comparison across all months</li>
-          </ul>
+          <p>Thickness and area carry quantity. A line that thins from 422,000 to 10,000 needs no axis. Area is read less precisely than length, so use it for the big picture, not the decimals.</p>
         </div>
-        <div class="resume-card">
-          <div class="resume-card-header">
-            <div class="resume-name">John Snow</div>
-            <div class="resume-year">London Cholera, 1854</div>
+        <div class="card encoding-card">
+          <svg viewBox="0 0 300 150" aria-hidden="true">
+            <rect x="30" y="40" width="50" height="90" rx="6" fill="#d1d5db"/><rect x="95" y="60" width="50" height="70" rx="6" fill="#d1d5db"/><rect x="160" y="25" width="50" height="105" rx="6" fill="#ef4444"/><rect x="225" y="70" width="50" height="60" rx="6" fill="#d1d5db"/>
+          </svg>
+          <div>
+            <p class="used-by">Minard · Nightingale</p>
+            <h3>Colour</h3>
           </div>
-          <div class="resume-divider"></div>
-          <ul class="resume-elements">
-            <li><strong>Dots on a map</strong> — each dot = one death, at its exact location</li>
-            <li><strong>Spatial clustering</strong> — proximity to the Broad Street pump</li>
-            <li><strong>Reference points</strong> — pump locations as anchors</li>
-            <li><strong>Absence</strong> — the brewery and workhouse had safe water</li>
-          </ul>
+          <p>Colour separates categories and points the eye: advance versus retreat, disease versus wounds. One colour that differs from the rest is found before you start reading.</p>
         </div>
-        <div class="resume-card">
-          <div class="resume-card-header">
-            <div class="resume-name">Hamburg</div>
-            <div class="resume-year">Cholera Boundary, 1892</div>
+        <div class="card encoding-card">
+          <svg viewBox="0 0 300 150" aria-hidden="true">
+            <rect x="20" y="20" width="120" height="110" rx="10" fill="none" stroke="#e5e7eb" stroke-width="2"/><rect x="160" y="20" width="120" height="110" rx="10" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+            <g fill="#6b7280"><circle cx="45" cy="50" r="5"/><circle cx="70" cy="42" r="5"/><circle cx="58" cy="70" r="5"/><circle cx="92" cy="58" r="5"/><circle cx="80" cy="90" r="5"/><circle cx="110" cy="80" r="5"/><circle cx="50" cy="105" r="5"/><circle cx="100" cy="110" r="5"/><circle cx="125" cy="45" r="5"/></g>
+            <g fill="#6b7280"><circle cx="190" cy="70" r="5"/><circle cx="250" cy="105" r="5"/></g>
+            <line x1="150" y1="14" x2="150" y2="136" stroke="#00b4d8" stroke-width="3" stroke-dasharray="8 6"/>
+          </svg>
+          <div>
+            <p class="used-by">Hamburg · Snow</p>
+            <h3>Comparison</h3>
           </div>
-          <div class="resume-divider"></div>
-          <ul class="resume-elements">
-            <li><strong>Dot density</strong> — concentrated in Hamburg, sparse in Altona</li>
-            <li><strong>City border</strong> — makes the policy difference visible</li>
-            <li><strong>Absence</strong> — empty space in Altona is as powerful as filled</li>
-            <li><strong>Juxtaposition</strong> — same street, completely different outcomes</li>
-          </ul>
+          <p>The strongest charts put two things side by side and let the gap do the talking. Same street, filtered water on one side: the empty half of the map is the argument.</p>
         </div>
       </div>
     </div>
   </section>
-  <!-- ── SLIDE 12: Transition ──────────────────────────────────── -->
-  <section class="slide" id="slide-12">
-    <div class="slide-header"></div>
-    <div class="eyebrow">Part 2</div>
+
+  <!-- ── SLIDE 12: Part 2 Transition ───────────────────────────── -->
+  <section class="slide hero-bg hero-divider" id="slide-12">
+    <div class="hero-layers" aria-hidden="true"></div>
+    <p class="eyebrow">Part 2 · How we see data</p>
     <div class="big-text">
-      Let's explore how we can build visualizations that tell
-      <span>a rich story</span>
-      with easily understandable design elements
+      The same numbers can tell <span class="text-gradient">very different stories</span>.
+      Let's look at how our eyes decide which one we believe
     </div>
   </section>
+
   <!-- ── SLIDE 13: Anscombe Table ──────────────────────────────── -->
   <section class="slide" id="slide-13">
-    <div class="slide-header"></div>
     <div class="slide-center" style="gap:24px">
-      <p class="label">Anscombe's Quartet — Four Datasets That Look Identical as Numbers</p>
-      <p class="caption mb-24" style="text-align:center">
-        All four datasets share the same mean, variance, and correlation — so what's the difference?
-      </p>
-      <div id="anscombe-table-container" style="width:100%;max-width:1700px;overflow-x:auto"></div>
+      <div class="slide-head">
+        <p class="eyebrow">Part 2 · Same numbers, different pictures</p>
+        <h2 class="section-title sm">Anscombe's Quartet</h2>
+        <p class="section-lead sm">Four datasets that look identical as numbers. All four share the same mean, variance and correlation, so what's the difference?</p>
+      </div>
+      <div id="anscombe-table-container"></div>
     </div>
   </section>
+
   <!-- ── SLIDE 14: Anscombe Scatter ────────────────────────────── -->
   <section class="slide" id="slide-14">
-    <div class="slide-header"></div>
     <div class="slide-center" style="gap:24px">
-      <p class="label">Anscombe's Quartet — Now Let's Plot Them</p>
-      <div id="anscombe-scatter" style="width:100%;max-width:1760px"></div>
-      <div class="btn-row">
-        <button class="toggle-btn" id="toggle-regression">Show Regression Lines</button>
+      <div class="slide-head">
+        <p class="eyebrow">Part 2 · Same numbers, different pictures</p>
+        <h2 class="section-title sm">Anscombe's Quartet, plotted</h2>
       </div>
-      <p class="caption" style="text-align:center">
+      <div id="anscombe-scatter"></div>
+      <div class="btn-row">
+        <button class="toggle-btn" id="toggle-regression">Show regression lines</button>
+      </div>
+      <p class="caption text-center">
         All four share: Mean x = 9.0 · Mean y ≈ 7.5 · Variance x = 11.0 · Correlation ≈ 0.816 · Regression: y = 3 + 0.5x
       </p>
     </div>
   </section>
+
   <!-- ── SLIDE 15: Datasaurus Table ────────────────────────────── -->
   <section class="slide" id="slide-15">
-    <div class="slide-header"></div>
     <div class="slide-center" style="gap:24px">
-      <p class="label">The Datasaurus Dozen — 13 Datasets, Same Statistics</p>
-      <p class="caption mb-16" style="text-align:center">
-        Mean x ≈ 54.26 · Mean y ≈ 47.83 · SD x ≈ 16.76 · SD y ≈ 26.93 · Correlation ≈ −0.064
-      </p>
-      <div id="datasaurus-table-container" style="width:100%;max-width:1200px"></div>
+      <div class="slide-head">
+        <p class="eyebrow">Part 2 · Same numbers, different pictures</p>
+        <h2 class="section-title sm">The Datasaurus Dozen</h2>
+        <p class="section-lead sm">13 datasets, the same statistics: Mean x ≈ 54.26 · Mean y ≈ 47.83 · SD x ≈ 16.76 · SD y ≈ 26.93 · Correlation ≈ −0.064</p>
+      </div>
+      <div id="datasaurus-table-container"></div>
     </div>
   </section>
+
   <!-- ── SLIDE 16: Datasaurus Scatter ──────────────────────────── -->
   <section class="slide" id="slide-16">
-    <div class="slide-header"></div>
-    <div class="slide-center" style="gap:12px;justify-content:flex-start;padding-top:52px;padding-bottom:40px">
-      <p class="label">The Datasaurus Dozen — Now Visualized</p>
-      <!-- Featured dino panel — hidden until button clicked, sits above grid -->
-      <div id="dino-featured"
-           style="display:none;justify-content:center;width:100%;max-width:1760px"></div>
-      <!-- 12-dataset grid — always visible -->
-      <div id="datasaurus-scatter" style="width:100%;max-width:1760px"></div>
-      <!-- Buttons always anchored below the grid -->
-      <div class="btn-row" style="margin-top:8px">
-        <button class="toggle-btn" id="toggle-ds-regression">Show Regression Lines</button>
-        <button class="toggle-btn" id="show-dino">🦕 Show Dinosaur</button>
+    <div class="slide-center top" style="gap:14px;padding-bottom:40px">
+      <div class="slide-head">
+        <p class="eyebrow">Part 2 · Same numbers, different pictures</p>
+        <h2 class="section-title sm">The Datasaurus Dozen, visualized</h2>
+        <p class="section-lead sm">Anything that only sees the table sees thirteen identical datasets. So do you, until you plot them.</p>
+      </div>
+      <!-- Featured dino panel: hidden until the button is clicked, sits above the grid -->
+      <div id="dino-featured"></div>
+      <!-- 12-dataset grid, always visible -->
+      <div id="datasaurus-scatter"></div>
+      <div class="btn-row mt-8">
+        <button class="toggle-btn" id="toggle-ds-regression">Show regression lines</button>
+        <button class="toggle-btn" id="show-dino">Show the dinosaur</button>
       </div>
     </div>
   </section>
+
   <!-- ── SLIDE 17: Car Sales ───────────────────────────────────── -->
   <section class="slide" id="slide-17">
-    <div class="slide-header"></div>
-    <div class="slide-center" style="gap:20px;justify-content:flex-start;padding-top:60px">
-      <p class="label">Car Sales Challenge — In Which Months Does Car 1 Outsell Both Competitors?</p>
-      <div class="btn-row" style="margin-top:0;margin-bottom:8px">
-        <button class="toggle-btn active" id="tab-table">📋 Table View</button>
-        <button class="toggle-btn" id="tab-chart">📈 Line Chart</button>
-        <button class="toggle-btn" id="reveal-answer">Reveal Answer</button>
-        <button class="toggle-btn" id="show-approaches">Show Approaches</button>
+    <div class="slide-center top" style="gap:20px">
+      <div class="slide-head">
+        <p class="eyebrow">Part 2 · Table or chart?</p>
+        <h2 class="section-title sm">Car sales challenge</h2>
+        <p class="section-lead sm">In which months does Car 1 outsell both competitors?</p>
       </div>
-      <div id="sales-table-container" style="width:100%;max-width:1700px;overflow-y:auto"></div>
-      <div id="sales-chart-container" style="width:100%;max-width:1700px;display:none;overflow-y:auto"></div>
+      <div class="btn-row">
+        <button class="toggle-btn active" id="tab-table">Table view</button>
+        <button class="toggle-btn" id="tab-chart">Line chart</button>
+        <button class="toggle-btn" id="reveal-answer">Reveal answer</button>
+        <button class="toggle-btn" id="show-approaches">Show approaches</button>
+      </div>
+      <div id="sales-table-container"></div>
+      <div id="sales-chart-container" style="display:none"></div>
       <div class="approach-cards" id="approach-cards" style="display:none">
-        <div class="approach-card">
-          <div class="approach-icon">👁️</div>
-          <div class="approach-title">Manual — Scan the Table</div>
-          <div class="approach-desc">Go row by row, compare three columns, mentally track when Car 1 leads</div>
-          <span class="speed-badge speed-slow">Slow &amp; error-prone</span>
+        <div class="card icon-card approach-card">
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <path d="M 8,50 C 22,26 78,26 92,50 C 78,74 22,74 8,50 Z" stroke="#6b7280" stroke-width="3"/>
+            <circle cx="50" cy="50" r="13" stroke="#6b7280" stroke-width="3"/>
+            <circle cx="50" cy="50" r="5" fill="#6b7280"/>
+          </svg>
+          <h3>Manual: scan the table</h3>
+          <p>Go row by row, compare three columns, mentally track when Car 1 leads</p>
+          <span class="badge badge-slow">Slow &amp; error-prone</span>
         </div>
-        <div class="approach-card">
-          <div class="approach-icon">🤖</div>
-          <div class="approach-title">Ask an AI</div>
-          <div class="approach-desc">Ask in plain language: "In which months does Car 1 sell the most?"</div>
-          <span class="speed-badge speed-medium">Fast — but check the answer</span>
+        <div class="card icon-card approach-card">
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <rect x="10" y="18" width="62" height="42" rx="12" stroke="#6b7280" stroke-width="3"/>
+            <path d="M 22,60 L 16,76 L 36,60" stroke="#6b7280" stroke-width="3" stroke-linejoin="round"/>
+            <line x1="22" y1="32" x2="60" y2="32" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="22" y1="44" x2="48" y2="44" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 82,8 L 85,17 L 94,20 L 85,23 L 82,32 L 79,23 L 70,20 L 79,17 Z" fill="#00b4d8"/>
+          </svg>
+          <h3>Ask an AI</h3>
+          <p>Paste the table and ask: in which months does Car 1 outsell both competitors?</p>
+          <span class="badge badge-medium">Right on 36 rows. Hold that thought for Part 3</span>
         </div>
-        <div class="approach-card">
-          <div class="approach-icon">📈</div>
-          <div class="approach-title">Line Chart</div>
-          <div class="approach-desc">Plot all three models — the crossings tell the story instantly</div>
-          <span class="speed-badge speed-fast">Fastest &amp; most reliable</span>
+        <div class="card icon-card approach-card">
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <line x1="12" y1="86" x2="90" y2="86" stroke="#e5e7eb" stroke-width="3" stroke-linecap="round"/>
+            <line x1="12" y1="14" x2="12" y2="86" stroke="#e5e7eb" stroke-width="3" stroke-linecap="round"/>
+            <polyline points="18,70 34,48 50,58 66,30 84,40" stroke="#00b4d8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="34" cy="48" r="4" fill="#00b4d8"/><circle cx="66" cy="30" r="4" fill="#00b4d8"/>
+            <polyline points="18,52 34,66 50,40 66,60 84,64" stroke="#7c3aed" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+          </svg>
+          <h3>Line chart</h3>
+          <p>Plot all three models. The crossings tell the story instantly</p>
+          <span class="badge badge-fast">Fastest &amp; most reliable</span>
         </div>
       </div>
     </div>
   </section>
+
   <!-- ── SLIDE 18: Pre-attentive Intro ─────────────────────────── -->
   <section class="slide" id="slide-18">
-    <div class="slide-header"></div>
-    <div class="slide-center" style="gap:40px;max-width:1100px;margin:0 auto;text-align:center">
-      <p class="label">Pre-attentive Attributes</p>
-      <div class="pa-headline" style="margin:0">
-        Our brains detect outliers, minima,<br>and maxima in
-        <span style="color:var(--accent)">under 250 milliseconds</span>
+    <div class="slide-center">
+      <p class="eyebrow">Pre-attentive attributes</p>
+      <div class="pa-headline">
+        Our brains detect outliers, minima and maxima in
+        <span class="text-gradient">under 250 milliseconds</span>
       </div>
-      <p class="pa-subtitle" style="margin:0">
+      <p class="pa-sub">
         Before we consciously "read" a chart, our visual system has already identified
         <span class="pa-highlight">the biggest bar</span>,
         <span class="pa-highlight">the red dot</span>,
         and <span class="pa-highlight">the lone outlier</span>.
       </p>
-      <p class="pa-subtitle" style="margin:0">
-        This is called <strong>pre-attentive processing</strong> — and great data visualizations
+      <p class="pa-sub">
+        This is called <strong>pre-attentive processing</strong>, and great data visualizations
         are designed to exploit it deliberately.
       </p>
     </div>
   </section>
+
   <!-- ── SLIDE 19: Number Grid ─────────────────────────────────── -->
   <section class="slide" id="slide-19">
-    <div class="slide-header"></div>
     <div id="grid-topbar">
-      <p id="grid-prompt">How many <strong style="color:var(--accent)">2s</strong> are hidden in this grid?</p>
+      <p id="grid-prompt">How many <strong>2s</strong> are hidden in this grid?</p>
     </div>
     <div id="number-grid" class="highlight-off"></div>
     <div class="btn-row" id="grid-btnrow">
       <button class="toggle-btn" id="toggle-highlight">Highlight 2s</button>
-      <button class="toggle-btn" id="reveal-count">Reveal Answer</button>
+      <button class="toggle-btn" id="reveal-count">Reveal answer</button>
     </div>
   </section>
+
   <!-- ── SLIDE 20: Bar Chart ───────────────────────────────────── -->
   <section class="slide" id="slide-20">
-    <div class="slide-header"></div>
-    <div class="slide-center" style="gap:20px;justify-content:flex-start;padding-top:52px">
-      <p class="label">Pre-attentive — Color Highlights Extremes</p>
-      <p style="font-size:26px;color:var(--text-muted);font-weight:500;margin:0">
-        Total car sales per month — which month was the best? Which was the worst?
-      </p>
-      <div class="btn-row" style="margin:0">
-        <button class="toggle-btn" id="toggle-bar-highlight">Highlight Extremes</button>
+    <div class="slide-center top" style="gap:20px">
+      <div class="slide-head">
+        <p class="eyebrow">Pre-attentive · Colour</p>
+        <h2 class="section-title sm">Colour highlights extremes</h2>
+        <p class="section-lead sm">Total car sales per month. Which month was the best? Which was the worst?</p>
       </div>
-      <div id="sales-bar-chart" style="width:100%;max-width:1760px"></div>
+      <div class="btn-row">
+        <button class="toggle-btn" id="toggle-bar-highlight">Highlight extremes</button>
+      </div>
+      <div id="sales-bar-chart"></div>
     </div>
   </section>
-  <!-- ── SLIDE 21: Pre-attentive Overview ──────────────────────── -->
-  <section class="slide" id="slide-21">
-    <div class="slide-header"></div>
-    <div class="slide-center" style="gap:28px;padding-top:44px">
-      <p class="label">Pre-attentive Attributes — The Full Toolkit</p>
-      <div class="pa-grid">
 
+  <!-- ── SLIDE 21: Pre-attentive Overview ──────────────────────── -->
+  <section class="slide mesh-bg" id="slide-21">
+    <div class="slide-center" style="gap:28px">
+      <div class="slide-head">
+        <p class="eyebrow">Pre-attentive attributes</p>
+        <h2 class="section-title sm">The full toolkit</h2>
+      </div>
+      <div class="pa-grid">
         <!-- Length -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120"><rect x="10" y="84" width="20" height="22" rx="3" fill="#4b5563"/><rect x="38" y="66" width="20" height="40" rx="3" fill="#4b5563"/><rect x="66" y="46" width="20" height="60" rx="3" fill="#4b5563"/><rect x="94" y="24" width="20" height="82" rx="3" fill="#4b5563"/><rect x="122" y="4"  width="20" height="102" rx="3" fill="#4b5563"/></svg>
           <div class="pa-name">Length</div>
         </div>
 
         <!-- Width -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120"><line x1="20"  y1="10" x2="20"  y2="100" stroke="#4b5563" stroke-width="3"  stroke-linecap="round"/><line x1="48"  y1="10" x2="48"  y2="100" stroke="#4b5563" stroke-width="3"  stroke-linecap="round"/><line x1="75"  y1="10" x2="75"  y2="100" stroke="#1f2937" stroke-width="13" stroke-linecap="round"/><line x1="102" y1="10" x2="102" y2="100" stroke="#4b5563" stroke-width="3"  stroke-linecap="round"/><line x1="130" y1="10" x2="130" y2="100" stroke="#4b5563" stroke-width="3"  stroke-linecap="round"/></svg>
           <div class="pa-name">Width</div>
         </div>
 
         <!-- Orientation -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120">
             <line x1="18"  y1="5"  x2="18"  y2="30"  stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
             <line x1="50"  y1="5"  x2="50"  y2="30"  stroke="#4b5563" stroke-width="3" stroke-linecap="round"/>
@@ -494,7 +529,7 @@
         </div>
 
         <!-- Size -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120">
             <circle cx="22" cy="16" r="7" fill="#4b5563"/><circle cx="58" cy="16" r="7" fill="#4b5563"/><circle cx="94" cy="16" r="7" fill="#4b5563"/><circle cx="130" cy="16" r="7" fill="#4b5563"/>
             <circle cx="22" cy="55" r="7" fill="#4b5563"/><circle cx="58" cy="55" r="7" fill="#4b5563"/><circle cx="94" cy="55" r="22" fill="#4b5563"/><circle cx="130" cy="55" r="7" fill="#4b5563"/>
@@ -504,7 +539,7 @@
         </div>
 
         <!-- Shape -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120">
             <circle cx="22" cy="16" r="8" fill="#4b5563"/><circle cx="58" cy="16" r="8" fill="#4b5563"/><circle cx="94" cy="16" r="8" fill="#4b5563"/><circle cx="130" cy="16" r="8" fill="#4b5563"/>
             <circle cx="22" cy="55" r="8" fill="#4b5563"/><circle cx="58" cy="55" r="8" fill="#4b5563"/><polygon points="94,36 79,66 109,66" fill="#1f2937"/><circle cx="130" cy="55" r="8" fill="#4b5563"/>
@@ -514,7 +549,7 @@
         </div>
 
         <!-- Enclosure -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120">
             <rect x="80" y="3" width="34" height="105" rx="5" fill="none" stroke="#1f2937" stroke-width="2.5"/>
             <circle cx="22" cy="16" r="7" fill="#4b5563"/><circle cx="58" cy="16" r="7" fill="#4b5563"/><circle cx="97" cy="16" r="7" fill="#4b5563"/><circle cx="130" cy="16" r="7" fill="#4b5563"/>
@@ -525,7 +560,7 @@
         </div>
 
         <!-- Position -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120">
             <!-- cluster of dots top-right -->
             <circle cx="90"  cy="12"  r="7" fill="#4b5563"/>
@@ -541,7 +576,7 @@
         </div>
 
         <!-- Grouping -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120">
             <circle cx="24"  cy="30"  r="7" fill="#4b5563"/>
             <circle cx="44"  cy="20"  r="7" fill="#4b5563"/>
@@ -558,7 +593,7 @@
         </div>
 
         <!-- Color Hue -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120">
             <circle cx="22" cy="16" r="7" fill="#9ca3af"/><circle cx="58" cy="16" r="7" fill="#9ca3af"/><circle cx="94" cy="16" r="7" fill="#9ca3af"/><circle cx="130" cy="16" r="7" fill="#9ca3af"/>
             <circle cx="22" cy="55" r="7" fill="#9ca3af"/><circle cx="58" cy="55" r="7" fill="#9ca3af"/><circle cx="94" cy="55" r="7" fill="#ef4444"/><circle cx="130" cy="55" r="7" fill="#9ca3af"/>
@@ -568,7 +603,7 @@
         </div>
 
         <!-- Color Intensity -->
-        <div class="pa-card">
+        <div class="card pa-card">
           <svg viewBox="0 0 150 110" height="120">
             <circle cx="22"  cy="16" r="7" fill="#d1d5db"/><circle cx="58"  cy="16" r="7" fill="#c3c9d3"/><circle cx="94"  cy="16" r="7" fill="#d1d5db"/><circle cx="130" cy="16" r="7" fill="#b8bfc9"/>
             <circle cx="22"  cy="55" r="7" fill="#c3c9d3"/><circle cx="58"  cy="55" r="7" fill="#d1d5db"/><circle cx="94"  cy="55" r="7" fill="#d1d5db"/><circle cx="130" cy="55" r="7" fill="#111827"/>
@@ -580,10 +615,13 @@
       </div>
     </div>
   </section>
+
   <!-- ── SLIDE 22: YouTube 1 ───────────────────────────────────── -->
   <section class="slide video-slide" id="slide-22">
-    <div class="slide-header"></div>
-    <div class="video-title">The Art of Data Visualization</div>
+    <div class="slide-head">
+      <p class="eyebrow">Watch</p>
+      <h2 class="section-title sm">The art of data visualization</h2>
+    </div>
     <div class="video-wrapper">
       <iframe
         src="https://www.youtube.com/embed/mBmOSbouBzI"
@@ -593,10 +631,13 @@
       </iframe>
     </div>
   </section>
+
   <!-- ── SLIDE 23: YouTube 2 ───────────────────────────────────── -->
   <section class="slide video-slide" id="slide-23">
-    <div class="slide-header"></div>
-    <div class="video-title">The Beauty of Data Visualization</div>
+    <div class="slide-head">
+      <p class="eyebrow">Watch</p>
+      <h2 class="section-title sm">The beauty of data visualization</h2>
+    </div>
     <div class="video-wrapper">
       <iframe
         src="https://www.youtube.com/embed/xNSgmm9FX2s"
@@ -606,319 +647,339 @@
       </iframe>
     </div>
   </section>
-  <!-- ── SLIDE 24: QR Code ─────────────────────────────────────── -->
-  <section class="slide" id="slide-24">
-    <div class="slide-header"></div>
-    <div class="slide-center" style="gap:32px">
-      <div style="text-align:center">
-        <h2 style="font-size:52px;font-weight:900;color:var(--text);letter-spacing:-0.02em;margin:0 0 12px">
-          Our World in Data needs <span style="color:var(--accent)">your</span> data
-        </h2>
-        <p style="font-size:26px;color:var(--text-muted);font-weight:500;margin:0">
-          Scan the QR code and answer the following questions
-        </p>
-      </div>
-      <img
-        src="assets/images/qr-code.png"
-        alt="QR Code"
-        class="qr-img"
-        onerror="this.style.display='none';document.getElementById('qr-placeholder').style.display='flex'">
-      <div id="qr-placeholder" style="
-        display:none;
-        width:420px;height:420px;
-        background:var(--surface);
-        border:4px dashed var(--border);
-        border-radius:20px;
-        align-items:center;justify-content:center;
-        flex-direction:column;gap:16px;
-        font-size:22px;color:var(--text-muted);
-        text-align:center;padding:40px">
-        <div style="font-size:72px">📱</div>
-        <div><strong>QR Code</strong></div>
-        <div>Place <code>assets/images/qr-code.png</code><br>to display here</div>
-      </div>
-    </div>
-  </section>
-  <!-- ── SLIDE 25: AI Introduction ─────────────────────────────── -->
-  <section class="slide" id="slide-25" style="flex-direction:column;align-items:center;justify-content:center;padding:60px 100px">
-    <div class="slide-header"></div>
-    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;text-align:center">Part 3 — How You Answer Data Questions</div>
-    <div style="font-size:56px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:48px;text-align:center">
-      Putting data in <span style="color:var(--accent)">everyone's hands</span>
-    </div>
 
-    <!-- 5 icon cards -->
-    <div style="display:flex;gap:28px;width:100%;align-items:stretch">
-
-      <!-- 1: Learning Curve -->
-      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <line x1="12" y1="85" x2="88" y2="85" stroke="#e5e7eb" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="12" y1="15" x2="12" y2="85" stroke="#e5e7eb" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M 12,83 C 32,82 38,78 44,68 C 51,54 56,30 88,16" stroke="#00d4e0" stroke-width="3.5" stroke-linecap="round"/>
-          <polyline points="84,10 88,16 82,18" fill="none" stroke="#00d4e0" stroke-width="2.5" stroke-linejoin="round"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">Learning Curve</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Even great tools take time to master</p>
-      </div>
-
-      <!-- 2: Just Ask -->
-      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <rect x="8" y="12" width="52" height="36" rx="10" stroke="#00d4e0" stroke-width="2.5"/>
-          <path d="M 18,48 L 12,62 L 28,48" stroke="#00d4e0" stroke-width="2.5" stroke-linejoin="round"/>
-          <line x1="18" y1="26" x2="50" y2="26" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
-          <line x1="18" y1="36" x2="40" y2="36" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
-          <rect x="40" y="52" width="52" height="36" rx="10" stroke="#6b7280" stroke-width="2.5"/>
-          <path d="M 72,52 L 80,38 L 88,52" stroke="#6b7280" stroke-width="2.5" stroke-linejoin="round"/>
-          <line x1="50" y1="66" x2="82" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="50" y1="76" x2="70" y2="76" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">Just Ask</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Natural language as a data interface</p>
-      </div>
-
-      <!-- 3: Instant Answers -->
-      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <circle cx="42" cy="44" r="27" stroke="#00d4e0" stroke-width="3"/>
-          <line x1="62" y1="64" x2="84" y2="86" stroke="#00d4e0" stroke-width="4" stroke-linecap="round"/>
-          <polyline points="30,45 39,54 57,33" stroke="#00d4e0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">Instant Answers</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Ask a question, get the answer</p>
-      </div>
-
-      <!-- 4: Blind Trust? -->
-      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <path d="M 8,50 C 20,28 80,28 92,50 C 80,72 20,72 8,50 Z" stroke="#6b7280" stroke-width="2.5"/>
-          <circle cx="50" cy="50" r="12" stroke="#6b7280" stroke-width="2.5"/>
-          <line x1="16" y1="22" x2="84" y2="78" stroke="#00d4e0" stroke-width="3" stroke-linecap="round"/>
-          <text x="50" y="97" text-anchor="middle" font-size="18" font-weight="700" fill="#00d4e0" font-family="Inter,sans-serif">?</text>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">Blind Trust?</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Trust without doing the work yourself</p>
-      </div>
-
-      <!-- 5: AI Lies -->
-      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <rect x="20" y="30" width="60" height="52" rx="8" stroke="#6b7280" stroke-width="2.5"/>
-          <line x1="50" y1="30" x2="50" y2="18" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="50" cy="14" r="4" fill="#6b7280"/>
-          <line x1="31" y1="46" x2="41" y2="56" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="41" y1="46" x2="31" y2="56" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="59" y1="46" x2="69" y2="56" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="69" y1="46" x2="59" y2="56" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M 32,68 Q 36,74 40,68 Q 44,62 48,68 Q 52,74 56,68 Q 60,62 64,68 Q 68,74 68,68" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M 70,6 L 86,34 L 54,34 Z" fill="#f59e0b"/>
-          <text x="70" y="29" text-anchor="middle" font-size="14" font-weight="900" fill="white" font-family="Inter,sans-serif">!</text>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">AI Lies</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">You've caught it hallucinating before</p>
-      </div>
-
-    </div>
-  </section>
-  <!-- ── SLIDE 26: Reliable AI ─────────────────────────────────── -->
-  <section class="slide" id="slide-26" style="flex-direction:column;align-items:center;justify-content:center;padding:60px 100px">
-    <div class="slide-header"></div>
-    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;text-align:center">The Trust Problem with AI</div>
-    <div style="font-size:56px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:48px;text-align:center">
-      This is why we need <span style="color:var(--accent)">reliable AI</span>
-    </div>
-
-    <!-- 4 icon cards -->
-    <div style="display:flex;gap:32px;width:100%;align-items:stretch">
-
-      <!-- 1: Sounds plausible -->
-      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <!-- Theatre mask: happy face that's actually hollow/fake -->
-          <circle cx="50" cy="46" r="34" stroke="#6b7280" stroke-width="2.5"/>
-          <!-- Smile -->
-          <path d="M 34,54 Q 50,68 66,54" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-          <!-- Eyes: one open, one closed = fake -->
-          <circle cx="38" cy="38" r="4" fill="#6b7280"/>
-          <circle cx="62" cy="38" r="4" fill="#6b7280"/>
-          <!-- Crack / broken line through it -->
-          <path d="M 50,12 L 44,30 L 54,42 L 46,58 L 50,80" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Warning dot -->
-          <circle cx="50" cy="88" r="5" fill="#f59e0b"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">Sounds Right</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Trained to be plausible, not precise</p>
-      </div>
-
-      <!-- 2: Grounded in real data -->
-      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <!-- Database cylinder -->
-          <ellipse cx="50" cy="28" rx="28" ry="9" stroke="#00d4e0" stroke-width="2.5"/>
-          <line x1="22" y1="28" x2="22" y2="62" stroke="#00d4e0" stroke-width="2.5"/>
-          <line x1="78" y1="28" x2="78" y2="62" stroke="#00d4e0" stroke-width="2.5"/>
-          <ellipse cx="50" cy="62" rx="28" ry="9" stroke="#00d4e0" stroke-width="2.5"/>
-          <ellipse cx="50" cy="45" rx="28" ry="9" stroke="#00d4e0" stroke-width="2.5" stroke-dasharray="4 3"/>
-          <!-- Anchor pin -->
-          <line x1="50" y1="71" x2="50" y2="88" stroke="#00d4e0" stroke-width="3" stroke-linecap="round"/>
-          <line x1="38" y1="82" x2="62" y2="82" stroke="#00d4e0" stroke-width="3" stroke-linecap="round"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">Your Data</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Grounded in reality, not guessing</p>
-      </div>
-
-      <!-- 3: Verifiably correct -->
-      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <!-- Shield -->
-          <path d="M 50,10 L 82,24 L 82,52 C 82,70 66,84 50,90 C 34,84 18,70 18,52 L 18,24 Z" stroke="#00d4e0" stroke-width="2.5"/>
-          <!-- Checkmark inside shield -->
-          <polyline points="34,50 45,62 68,36" stroke="#00d4e0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">Verifiably Correct</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">The answer must be provably right</p>
-      </div>
-
-      <!-- 4: Explainability -->
-      <div style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <!-- Document / code lines -->
-          <rect x="18" y="10" width="52" height="65" rx="6" stroke="#6b7280" stroke-width="2.5"/>
-          <line x1="28" y1="26" x2="58" y2="26" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="28" y1="36" x2="50" y2="36" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
-          <line x1="28" y1="46" x2="54" y2="46" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="28" y1="56" x2="44" y2="56" stroke="#00d4e0" stroke-width="2" stroke-linecap="round"/>
-          <!-- Magnifying glass overlay -->
-          <circle cx="68" cy="72" r="18" fill="var(--bg)" stroke="#00d4e0" stroke-width="2.5"/>
-          <line x1="81" y1="85" x2="92" y2="96" stroke="#00d4e0" stroke-width="3.5" stroke-linecap="round"/>
-          <!-- Eye inside glass -->
-          <path d="M 58,72 C 62,66 74,66 78,72 C 74,78 62,78 58,72 Z" stroke="#00d4e0" stroke-width="2"/>
-          <circle cx="68" cy="72" r="3" fill="#00d4e0"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">Show Your Work</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Show the query, show the numbers</p>
-      </div>
-
-    </div>
-  </section>
-  <!-- ── SLIDE 27: Live Demo ────────────────────────────────────── -->
-  <section class="slide divider-slide" id="slide-27">
-    <div class="slide-header"></div>
-    <div class="eyebrow">Live Demo</div>
+  <!-- ── SLIDE 24: Part 3 Transition ───────────────────────────── -->
+  <section class="slide hero-bg hero-divider" id="slide-24">
+    <div class="hero-layers" aria-hidden="true"></div>
+    <p class="eyebrow">Part 3 · Asking an AI</p>
     <div class="big-text">
-      What did <span>you</span> answer — and what does the world <span>really</span> look like?
-    </div>
-    <div class="bp-chapters">
-      <span>Your survey answers</span><span>Gapminder</span><span>World Bank</span>
+      Plain language is the new interface to data.
+      <span class="text-gradient">The question is whether you can trust the answer</span>
     </div>
   </section>
-  <!-- ── SLIDE 28: Analytics Workflow ──────────────────────────── -->
-  <section class="slide" id="slide-28">
-    <div class="slide-header"></div>
+
+  <!-- ── SLIDE 25: Just ask, the promise and the catch ─────────── -->
+  <section class="slide mesh-bg" id="slide-25">
     <div class="slide-center" style="gap:40px">
-      <p class="label">The Analytics Workflow</p>
-      <p class="subtitle" style="text-align:center;max-width:1300px">
-        Every insight follows the same cycle — AI can help at every step, but you own each one
-      </p>
-      <div style="flex:1;width:100%;min-height:0;display:flex;align-items:center;justify-content:center">
-        <svg viewBox="0 0 1100 760" style="width:min(1100px,100%);height:auto;overflow:visible" aria-hidden="true">
+      <div class="slide-head">
+        <p class="eyebrow">Asking an AI · The promise and the catch</p>
+        <h2 class="section-title">Everyone has pasted a spreadsheet into a chatbot. <span class="text-gradient">It worked.</span></h2>
+        <p class="section-lead">So why not point it at the company's data?</p>
+      </div>
+      <div class="promise-grid">
+        <div class="card promise-card">
+          <h3>The promise</h3>
+          <div class="promise-row">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <rect x="8" y="12" width="52" height="36" rx="10" stroke="#00b4d8" stroke-width="2.5"/>
+              <path d="M 18,48 L 12,62 L 28,48" stroke="#00b4d8" stroke-width="2.5" stroke-linejoin="round"/>
+              <line x1="18" y1="26" x2="50" y2="26" stroke="#00b4d8" stroke-width="2" stroke-linecap="round"/>
+              <line x1="18" y1="36" x2="40" y2="36" stroke="#00b4d8" stroke-width="2" stroke-linecap="round"/>
+              <rect x="40" y="52" width="52" height="36" rx="10" stroke="#6b7280" stroke-width="2.5"/>
+              <path d="M 72,52 L 80,38 L 88,52" stroke="#6b7280" stroke-width="2.5" stroke-linejoin="round"/>
+              <line x1="50" y1="66" x2="82" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+              <line x1="50" y1="76" x2="70" y2="76" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <div><strong>Just ask</strong><span>Plain language as the interface to data. No training, no manual.</span></div>
+          </div>
+          <div class="promise-row">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <circle cx="42" cy="44" r="27" stroke="#00b4d8" stroke-width="3"/>
+              <line x1="62" y1="64" x2="84" y2="86" stroke="#00b4d8" stroke-width="4" stroke-linecap="round"/>
+              <polyline points="30,45 39,54 57,33" stroke="#00b4d8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div><strong>Instant answers</strong><span>A number, a chart and a sentence in seconds, not a ticket to the data team.</span></div>
+          </div>
+          <div class="promise-row">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <line x1="12" y1="85" x2="88" y2="85" stroke="#e5e7eb" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="12" y1="15" x2="12" y2="85" stroke="#e5e7eb" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 12,83 C 32,82 38,78 44,68 C 51,54 56,30 88,16" stroke="#00b4d8" stroke-width="3.5" stroke-linecap="round"/>
+              <polyline points="84,10 88,16 82,18" fill="none" stroke="#00b4d8" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+            <div><strong>No learning curve</strong><span>Every dashboard tool takes months to master. A question takes a sentence.</span></div>
+          </div>
+        </div>
+        <div class="card promise-card">
+          <h3 class="muted">The catch</h3>
+          <div class="promise-row">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <circle cx="50" cy="46" r="34" stroke="#6b7280" stroke-width="2.5"/>
+              <path d="M 34,54 Q 50,68 66,54" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <circle cx="38" cy="38" r="4" fill="#6b7280"/>
+              <circle cx="62" cy="38" r="4" fill="#6b7280"/>
+              <path d="M 50,12 L 44,30 L 54,42 L 46,58 L 50,80" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="50" cy="88" r="5" fill="#f59e0b"/>
+            </svg>
+            <div><strong>It sounds right</strong><span>The model is trained to be plausible, not precise. A wrong answer reads exactly like a right one.</span></div>
+          </div>
+          <div class="promise-row">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <rect x="20" y="30" width="60" height="52" rx="8" stroke="#6b7280" stroke-width="2.5"/>
+              <line x1="50" y1="30" x2="50" y2="18" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="50" cy="14" r="4" fill="#6b7280"/>
+              <line x1="31" y1="46" x2="41" y2="56" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="41" y1="46" x2="31" y2="56" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="59" y1="46" x2="69" y2="56" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="69" y1="46" x2="59" y2="56" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 32,68 Q 36,74 40,68 Q 44,62 48,68 Q 52,74 56,68 Q 60,62 64,68 Q 68,74 68,68" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 70,6 L 86,34 L 54,34 Z" fill="#f59e0b"/>
+              <text x="70" y="29" text-anchor="middle" font-size="14" font-weight="900" fill="white" font-family="Inter,sans-serif">!</text>
+            </svg>
+            <div><strong>You have caught it making things up</strong><span>Everyone in this room has. The question is how often it happens when you did not catch it.</span></div>
+          </div>
+          <div class="promise-row">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <path d="M 8,50 C 20,28 80,28 92,50 C 80,72 20,72 8,50 Z" stroke="#6b7280" stroke-width="2.5"/>
+              <circle cx="50" cy="50" r="12" stroke="#6b7280" stroke-width="2.5"/>
+              <line x1="16" y1="22" x2="84" y2="78" stroke="#00b4d8" stroke-width="3" stroke-linecap="round"/>
+              <text x="50" y="97" text-anchor="middle" font-size="18" font-weight="700" fill="#00b4d8" font-family="Inter,sans-serif">?</text>
+            </svg>
+            <div><strong>Blind trust?</strong><span>Trusting a number you did not derive yourself is the whole point. It is also the whole risk.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 26: The AI did not get worse, the data got real ─── -->
+  <section class="slide" id="slide-26">
+    <div class="ai-wrap">
+      <div class="slide-head left">
+        <p class="eyebrow">Asking an AI · 1 / 3</p>
+        <h2 class="section-title">The AI did not get worse. <span class="text-gradient">The data got real.</span></h2>
+        <p class="section-lead">On a demo database the AI is right nine times out of ten. On a grown company data landscape, four answers in ten are wrong, and they still come back as numbers.</p>
+      </div>
+      <div class="ai-body two-one">
+        <div class="card cliff-card">
+          <div class="cliff-legend">
+            <span><i style="background:var(--series-1)"></i>Correct</span>
+            <span><i style="background:var(--red)"></i>Wrong, but delivered as an answer</span>
+          </div>
+          <div id="cliff-chart"></div>
+          <p class="cliff-method">Best reported result per study, frontier AI models, 2024 to 2026. Silently wrong = the query ran and returned a number, and the number was wrong.</p>
+        </div>
+        <div class="ai-callouts">
+          <div class="callout">
+            <h3>The failure is not an error message</h3>
+            <p>In four out of five failures the AI picked the wrong table, the wrong join or the wrong filter. The answer still arrived: a number, a chart, a confident sentence. <strong>Nothing told the user anything had gone wrong.</strong></p>
+          </div>
+          <div class="callout">
+            <h3>Every system had the full description of the data</h3>
+            <p>Every table, every column, every type. What it did not have is what the columns <strong>mean</strong>. Hold that thought.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sources"><b>Sources</b> · Lei et al. 2025 (Spider 2.0) · Chen et al. 2024 (BEAVER) · Rumiantsau &amp; Fokeev 2026, arXiv:2604.25149 · Shen et al. 2025 · Spider 2.0-AIFunc 2026 · BiomedSQL 2025 · DS-NL2SQL 2025 · NL2SQLBench 2026</p>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 27: A wrong answer looks exactly like a right one ─ -->
+  <section class="slide" id="slide-27">
+    <div class="ai-wrap">
+      <div class="slide-head left">
+        <p class="eyebrow">Asking an AI · 2 / 3</p>
+        <h2 class="section-title">A wrong answer looks <span class="text-gradient">exactly like a right one</span></h2>
+        <p class="section-lead">The data says what exists. It does not say what it means.</p>
+      </div>
+      <div class="ai-body one-one">
+        <div class="card ask-card">
+          <div class="ask-q">
+            <span class="ask-avatar">YOU</span>
+            <p class="ask-bubble">How many countries are there?</p>
+          </div>
+          <div class="ask-answer">
+            <div class="ask-count text-gradient" id="country-count">193</div>
+            <div class="ask-def" id="country-def">UN member states</div>
+          </div>
+          <div class="def-pills">
+            <button class="def-pill active" data-count="193" data-def="UN member states">UN member states <b>193</b></button>
+            <button class="def-pill" data-count="195" data-def="UN members plus the two observer states">Plus observer states <b>195</b></button>
+            <button class="def-pill" data-count="206" data-def="National Olympic Committees">Olympic committees <b>206</b></button>
+            <button class="def-pill" data-count="249" data-def="ISO 3166 country codes">ISO country codes <b>249</b></button>
+          </div>
+          <p class="ask-caption">Same world. Same question. Four right answers. <em>An AI picks one and does not tell you which.</em></p>
+        </div>
+        <div class="def-side">
+          <div class="card def-list-card">
+            <h3>Revenue means one thing, not forty</h3>
+            <ol>
+              <li>Gross, or net of discounts?</li>
+              <li>With or without cancelled orders?</li>
+              <li>Booked when ordered, shipped or paid?</li>
+              <li>Calendar year or fiscal year?</li>
+            </ol>
+            <p class="evidence">In a study of real company questions, <strong>96 percent</strong> needed knowledge that was written down nowhere in the data. The best AI system got <strong>16 percent</strong> right. Human analysts: <strong>84 percent</strong>.</p>
+          </div>
+          <div class="callout takeaway">
+            <h3>Someone has to write down what the data means. Before you trust an AI's number, ask it: <span class="text-gradient">show me the definition behind this.</span></h3>
+            <p>If it can show you, you can act on the answer. If it cannot, you are looking at a guess.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sources"><b>Sources</b> · EntSQL 2026, arXiv:2606.03363 · Rumiantsau &amp; Fokeev 2026 · Sequeda et al. 2023 · Country counts: UN, IOC, ISO 3166-1 (the World Bank counts 217 economies)</p>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 28: Vendor voices ───────────────────────────────── -->
+  <section class="slide mesh-bg" id="slide-28">
+    <div class="ai-wrap">
+      <div class="slide-head left">
+        <p class="eyebrow">Asking an AI · 3 / 3</p>
+        <h2 class="section-title">You do not have to <span class="text-gradient">take my word for it</span></h2>
+        <p class="section-lead">The companies selling AI on company data say the same thing.</p>
+      </div>
+      <div class="quotes">
+        <figure class="card quote-card">
+          <blockquote>Agents are only as good as the context they have. Without a shared definition of what the business actually means, even a capable agent will guess.</blockquote>
+          <figcaption><b>Databricks</b>Announcing a definitions layer for its AI assistant, 2026</figcaption>
+        </figure>
+        <figure class="card quote-card">
+          <blockquote>Over 90 percent accuracy on the academic test. 51 percent on our own business questions.</blockquote>
+          <figcaption><b>Snowflake engineering</b>On GPT-4o without a definitions layer, 2024 (paraphrased)</figcaption>
+        </figure>
+        <figure class="card quote-card">
+          <blockquote>The hardest task is understanding the database contents. After that, writing the query is generally straightforward.</blockquote>
+          <figcaption><b>AT&amp;T research</b>Enterprise AI analytics, 2025</figcaption>
+        </figure>
+      </div>
+      <p class="ai-closing">The question is not how smart the AI is.<br>It is whether it is <span class="text-gradient">allowed to guess</span>.</p>
+      <p class="sources"><b>Sources</b> · Databricks Genie Ontology announcement, August 2026 · Snowflake engineering blog, 2024 · AT&amp;T, arXiv:2505.19988, 2025</p>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 29: QR Code ─────────────────────────────────────── -->
+  <!-- Before the talk: check that assets/images/qr-code.png still points at the current survey. -->
+  <section class="slide mesh-bg" id="slide-29">
+    <div class="slide-center" style="gap:36px">
+      <div class="slide-head">
+        <p class="eyebrow">Before the demo</p>
+        <h2 class="section-title">Three questions about <span class="text-gradient">the world</span></h2>
+        <p class="section-lead">Scan the code and answer from your gut. We will check your answers against the data in a minute.</p>
+      </div>
+      <div class="qr-frame">
+        <img
+          src="assets/images/qr-code.png"
+          alt="QR Code"
+          class="qr-img"
+          onerror="this.style.display='none';document.getElementById('qr-placeholder').style.display='flex'">
+        <div id="qr-placeholder" class="qr-placeholder">
+          <strong>QR Code</strong>
+          <span>Place <code>assets/images/qr-code.png</code> to display here</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 30: Live Demo ───────────────────────────────────── -->
+  <!-- The demo runs outside the deck. Keep the demo workspace open in another tab. -->
+  <section class="slide hero-bg hero-divider" id="slide-30">
+    <div class="hero-layers" aria-hidden="true"></div>
+    <p class="eyebrow">Live demo</p>
+    <div class="big-text">
+      What did <span class="text-gradient">you</span> answer,
+      and what does the world <span class="text-gradient">really</span> look like?
+    </div>
+    <div class="chips">
+      <span class="chip">Your survey answers</span><span class="chip">Gapminder</span><span class="chip">World Bank</span>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 31: Analytics Workflow ──────────────────────────── -->
+  <section class="slide" id="slide-31">
+    <div class="slide-center" style="gap:24px">
+      <div class="slide-head">
+        <p class="eyebrow">Part 3 · The analytics workflow</p>
+        <h2 class="section-title sm">Every insight follows the same cycle</h2>
+        <p class="section-lead sm">AI can run <strong>Get data</strong>, <strong>Explore</strong> and <strong>Insight</strong> for you. <strong>Question</strong> and <strong>Act</strong> stay yours. Checking the definition is what lets you skip re-checking the middle.</p>
+      </div>
+      <div class="workflow-wrap">
+        <svg viewBox="0 0 1100 760" aria-hidden="true">
           <defs>
             <marker id="wf-arrow" markerWidth="14" markerHeight="10" refX="14" refY="5" orient="auto" markerUnits="userSpaceOnUse">
-              <polygon points="0 0, 14 5, 0 10" fill="#00d4e0"/>
+              <polygon points="0 0, 14 5, 0 10" fill="#00b4d8"/>
             </marker>
           </defs>
 
           <!-- Background orbit circle -->
-          <circle cx="550" cy="395" r="250" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="10,6"/>
+          <circle cx="550" cy="395" r="250" fill="none" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="10,6"/>
 
           <!-- Center: cycling arrow -->
-          <text x="550" y="395" text-anchor="middle" dominant-baseline="central" font-size="64" fill="#00d4e0" opacity="0.18" font-family="sans-serif">↻</text>
+          <text x="550" y="395" text-anchor="middle" dominant-baseline="central" font-size="64" fill="#00b4d8" opacity="0.18" font-family="sans-serif">↻</text>
 
           <!-- Arc arrows (clockwise: Question → Get Data → Explore → Insight → Act → Question) -->
-          <path d="M 599 180 A 250 250 0 0 1 740 283" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
-          <path d="M 769 375 A 250 250 0 0 1 716 540" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
-          <path d="M 637 597 A 250 250 0 0 1 463 597" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
-          <path d="M 384 540 A 250 250 0 0 1 331 375" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
-          <path d="M 361 283 A 250 250 0 0 1 502 180" fill="none" stroke="#00d4e0" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+          <path d="M 599 180 A 250 250 0 0 1 740 283" fill="none" stroke="#00b4d8" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+          <path d="M 769 375 A 250 250 0 0 1 716 540" fill="none" stroke="#00b4d8" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+          <path d="M 637 597 A 250 250 0 0 1 463 597" fill="none" stroke="#00b4d8" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+          <path d="M 384 540 A 250 250 0 0 1 331 375" fill="none" stroke="#00b4d8" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
+          <path d="M 361 283 A 250 250 0 0 1 502 180" fill="none" stroke="#00b4d8" stroke-width="2.5" marker-end="url(#wf-arrow)"/>
 
-          <!-- N0: Question (550, 145) — top -->
-          <circle cx="550" cy="145" r="62" fill="#00d4e0"/>
-          <text x="550" y="145" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">❓</text>
-          <text x="550" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Question</text>
-          <text x="550" y="61" text-anchor="middle" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Start with a clear business question</text>
+          <!-- N0: Question (550, 145), top. Dark: this step stays with you -->
+          <g class="wf-you">
+            <circle cx="550" cy="145" r="62"/>
+            <text x="550" y="147" text-anchor="middle" dominant-baseline="central" font-size="58" font-weight="700" fill="#fff" font-family="Outfit, DM Sans, sans-serif">?</text>
+          </g>
+          <text class="wf-label" x="550" y="38" text-anchor="middle">Question</text>
+          <text class="wf-sub"   x="550" y="61" text-anchor="middle">Start with a clear business question. Yours.</text>
 
-          <!-- N1: Get Data (788, 318) — upper right -->
-          <circle cx="788" cy="318" r="62" fill="#00d4e0"/>
-          <text x="788" y="318" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">🗄️</text>
-          <text x="864" y="296" text-anchor="start" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Get Data</text>
-          <text x="864" y="319" text-anchor="start" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Collect &amp; connect data sources</text>
+          <!-- N1: Get Data (788, 318), upper right -->
+          <circle cx="788" cy="318" r="62" fill="#00b4d8"/>
+          <g class="wf-icon" transform="translate(764,294)">
+            <ellipse cx="24" cy="11" rx="17" ry="6.5"/>
+            <path d="M7 11v26c0 3.6 7.6 6.5 17 6.5s17-2.9 17-6.5V11"/>
+            <path d="M7 24c0 3.6 7.6 6.5 17 6.5s17-2.9 17-6.5"/>
+          </g>
+          <text class="wf-label" x="864" y="296" text-anchor="start">Get data</text>
+          <text class="wf-sub"   x="864" y="319" text-anchor="start">Collect &amp; connect data sources</text>
 
-          <!-- N2: Explore (697, 597) — lower right -->
-          <circle cx="697" cy="597" r="62" fill="#00d4e0"/>
-          <text x="697" y="597" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">🔍</text>
-          <text x="740" y="676" text-anchor="start" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Explore</text>
-          <text x="740" y="699" text-anchor="start" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Visualize &amp; investigate patterns</text>
+          <!-- N2: Explore (697, 597), lower right -->
+          <circle cx="697" cy="597" r="62" fill="#00b4d8"/>
+          <g class="wf-icon" transform="translate(673,573)">
+            <circle cx="20" cy="20" r="13"/>
+            <path d="M30 30l12 12"/>
+          </g>
+          <text class="wf-label" x="740" y="676" text-anchor="start">Explore</text>
+          <text class="wf-sub"   x="740" y="699" text-anchor="start">Visualize &amp; investigate patterns</text>
 
-          <!-- N3: Insight (403, 597) — lower left -->
-          <circle cx="403" cy="597" r="62" fill="#00d4e0"/>
-          <text x="403" y="597" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">💡</text>
-          <text x="360" y="676" text-anchor="end" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Insight</text>
-          <text x="360" y="699" text-anchor="end" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Surface a surprising finding</text>
+          <!-- N3: Insight (403, 597), lower left -->
+          <circle cx="403" cy="597" r="62" fill="#00b4d8"/>
+          <g class="wf-icon" transform="translate(379,573)">
+            <path d="M24 3a14 14 0 0 0-8 25.5c1.8 1.3 3 3.2 3 5.5h10c0-2.3 1.2-4.2 3-5.5A14 14 0 0 0 24 3z"/>
+            <path d="M19 40h10M21 45h6"/>
+          </g>
+          <text class="wf-label" x="360" y="676" text-anchor="end">Insight</text>
+          <text class="wf-sub"   x="360" y="699" text-anchor="end">Surface a surprising finding</text>
 
-          <!-- N4: Act (312, 318) — upper left -->
-          <circle cx="312" cy="318" r="62" fill="#00d4e0"/>
-          <text x="312" y="318" text-anchor="middle" dominant-baseline="central" font-size="38" font-family="sans-serif">🚀</text>
-          <text x="236" y="296" text-anchor="end" font-size="22" font-weight="700" fill="#111827" font-family="Inter,sans-serif">Act</text>
-          <text x="236" y="319" text-anchor="end" font-size="15" fill="#6b7280" font-family="Inter,sans-serif">Communicate &amp; drive a decision</text>
+          <!-- N4: Act (312, 318), upper left. Dark: this step stays with you -->
+          <g class="wf-you">
+            <circle cx="312" cy="318" r="62"/>
+          </g>
+          <g class="wf-icon" transform="translate(288,294)">
+            <path d="M9 39L39 9"/>
+            <path d="M18 9h21v21"/>
+          </g>
+          <text class="wf-label" x="236" y="296" text-anchor="end">Act</text>
+          <text class="wf-sub"   x="236" y="319" text-anchor="end">Communicate &amp; drive a decision. Yours.</text>
         </svg>
       </div>
     </div>
   </section>
-  <!-- ── SLIDE 29: Damien Newman Squiggle ──────────────────────── -->
-  <section class="slide" id="slide-29">
-    <div class="slide-header"></div>
-    <p class="label" style="flex-shrink:0;margin:0 0 8px">The Design Process</p>
 
-    <!-- Official Newman squiggle (labels already embedded in image) -->
-    <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
-      <img src="assets/images/newman-squiggle.jpg"
-           alt="Damien Newman's Design Process Squiggle — from chaos to clarity"
-           style="max-width:100%;max-height:100%;object-fit:contain">
-    </div>
-
-    <!-- Trust cards -->
-    <div style="display:flex;gap:40px;flex-shrink:0;margin-top:8px">
-      <div style="flex:1;background:var(--surface);border-radius:16px;padding:22px 32px;border:2px solid var(--border)">
-        <strong style="font-size:20px;color:var(--accent)">This builds Trust</strong>
-        <p style="font-size:18px;color:var(--text-muted);margin-top:10px;line-height:1.6">
-          We trust the <strong>data</strong> · We trust the <strong>process</strong> · We trust our <strong>calculations</strong> · We trust our <strong>analysis</strong>
-        </p>
-      </div>
-      <div style="flex:1;background:var(--surface);border-radius:16px;padding:22px 32px;border:2px solid var(--border)">
-        <strong style="font-size:20px;color:var(--text)">Recipients trust us</strong>
-        <p style="font-size:18px;color:var(--text-muted);margin-top:10px;line-height:1.6">
-          To trust our outcome, people need to <strong>trust us first</strong>. We genuinely trust humans more than machines.
-        </p>
-      </div>
-    </div>
-  </section>
-  <!-- ── SLIDE 30: Best Practices Opener ──────────────────────── -->
-  <section class="slide bp-opener" id="slide-30">
-    <div class="slide-header"></div>
-    <div class="eyebrow">Part 4 — How to Tell a Data Story</div>
+  <!-- ── SLIDE 32: Part 4 Transition ───────────────────────────── -->
+  <section class="slide hero-bg hero-divider" id="slide-32">
+    <div class="hero-layers" aria-hidden="true"></div>
+    <p class="eyebrow">Part 4 · Visual best practices</p>
     <div class="big-text">
-      What <span>45 studies</span> say about charts people actually understand
+      What <span class="text-gradient">the research</span> says about charts people actually understand
     </div>
-    <div class="bp-chapters">
-      <span>Perception</span><span>Chart choice</span><span>Guiding attention</span><span>Honesty</span><span>Audience</span>
+    <div class="chips">
+      <span class="chip">Perception</span><span class="chip">Chart choice</span><span class="chip">Guiding attention</span><span class="chip">Honesty</span><span class="chip">Audience</span>
     </div>
   </section>
-  <!-- ── SLIDE 31: Best Practices 1 – Perception ─────────────────────── -->
-  <section class="slide bp-slide" id="slide-31">
-    <div class="slide-header"></div>
+  <!-- ── SLIDE 33: Best Practices 1 – Perception ─────────────────────── -->
+  <section class="slide bp-slide" id="slide-33">
     <div class="bp-wrap">
-      <p class="label">Visual Best Practices · 1 / 5 · Perception</p>
+      <p class="eyebrow">Visual best practices · 1 / 5 · Perception</p>
       <h2 class="bp-title">Position on a common baseline beats angle, area and color</h2>
       <div class="bp-body">
         <div class="bp-visual">
@@ -960,12 +1021,11 @@
       <p class="bp-sources">Cleveland &amp; McGill 1984 · Heer &amp; Bostock 2010 · Borkin et al. 2013 · Talbot et al. 2014 · Haroz et al. 2015 · Franconeri et al. 2021 · Lee et al. 2026</p>
     </div>
   </section>
-  <!-- ── SLIDE 32: Best Practices 2 – Chart choice ───────────────────── -->
-  <section class="slide bp-slide" id="slide-32">
-    <div class="slide-header"></div>
+  <!-- ── SLIDE 34: Best Practices 2 – Chart choice ───────────────────── -->
+  <section class="slide bp-slide" id="slide-34">
     <div class="bp-wrap">
-      <p class="label">Visual Best Practices · 2 / 5 · Chart choice</p>
-      <h2 class="bp-title">There is no best chart — the reader's task picks it</h2>
+      <p class="eyebrow">Visual best practices · 2 / 5 · Chart choice</p>
+      <h2 class="bp-title">There is no best chart. The reader's task picks it</h2>
       <div class="bp-body">
         <div class="bp-visual">
           <div class="bp-ex is-active" data-ex="0">
@@ -1006,12 +1066,11 @@
       <p class="bp-sources">Harrison et al. 2014 · Kay &amp; Heer 2016 · Skau &amp; Kosara 2016 · Kim &amp; Heer 2018 · Saket et al. 2018 · McColeman et al. 2021 · Quadri &amp; Rosen 2021</p>
     </div>
   </section>
-  <!-- ── SLIDE 33: Best Practices 3 – Guiding attention ──────────────── -->
-  <section class="slide bp-slide" id="slide-33">
-    <div class="slide-header"></div>
+  <!-- ── SLIDE 35: Best Practices 3 – Guiding attention ──────────────── -->
+  <section class="slide bp-slide" id="slide-35">
     <div class="bp-wrap">
-      <p class="label">Visual Best Practices · 3 / 5 · Guiding attention</p>
-      <h2 class="bp-title">Your audience doesn't see what you see — tell them where to look</h2>
+      <p class="eyebrow">Visual best practices · 3 / 5 · Guiding attention</p>
+      <h2 class="bp-title">Your audience doesn't see what you see. Tell them where to look</h2>
       <div class="bp-body">
         <div class="bp-visual">
           <div class="bp-ex is-active" data-ex="0">
@@ -1052,12 +1111,11 @@
       <p class="bp-sources">Borkin et al. 2016 · McKenna et al. 2017 · Xiong et al. 2019 · Wang et al. 2019 · Kim et al. 2021 · Xiong et al. 2021 · Franconeri et al. 2021 · Stokes et al. 2022</p>
     </div>
   </section>
-  <!-- ── SLIDE 34: Best Practices 4 – Honesty ────────────────────────── -->
-  <section class="slide bp-slide" id="slide-34">
-    <div class="slide-header"></div>
+  <!-- ── SLIDE 36: Best Practices 4 – Honesty ────────────────────────── -->
+  <section class="slide bp-slide" id="slide-36">
     <div class="bp-wrap">
-      <p class="label">Visual Best Practices · 4 / 5 · Honesty</p>
-      <h2 class="bp-title">Chart tricks distort — but most real-world deception lives in the conclusion</h2>
+      <p class="eyebrow">Visual best practices · 4 / 5 · Honesty</p>
+      <h2 class="bp-title">Chart tricks distort, but most real-world deception lives in the conclusion</h2>
       <div class="bp-body">
         <div class="bp-visual">
           <div class="bp-ex is-active" data-ex="0">
@@ -1098,11 +1156,10 @@
       <p class="bp-sources">Pandey et al. 2014 · Pandey et al. 2015 · Correll et al. 2020 · Lo et al. 2022 · Lisnic et al. 2023 · Gaba et al. 2024</p>
     </div>
   </section>
-  <!-- ── SLIDE 35: Best Practices 5 – Audience ───────────────────────── -->
-  <section class="slide bp-slide" id="slide-35">
-    <div class="slide-header"></div>
+  <!-- ── SLIDE 37: Best Practices 5 – Audience ───────────────────────── -->
+  <section class="slide bp-slide" id="slide-37">
     <div class="bp-wrap">
-      <p class="label">Visual Best Practices · 5 / 5 · Audience</p>
+      <p class="eyebrow">Visual best practices · 5 / 5 · Audience</p>
       <h2 class="bp-title">Design for the reader you have, not the analyst you are</h2>
       <div class="bp-body">
         <div class="bp-visual">
@@ -1144,170 +1201,149 @@
       <p class="bp-sources">Galesic &amp; Garcia-Retamero 2011 · Börner et al. 2016 · Lee et al. 2016 · Bartram et al. 2021 · Pandey &amp; Ottley 2023</p>
     </div>
   </section>
-  <!-- ── SLIDE 36: Hands-on Challenge ──────────────────────────── -->
-  <section class="slide" id="slide-36">
-    <div class="slide-header"></div>
+
+  <!-- ── SLIDE 38: Hands-on ────────────────────────────────────── -->
+  <!-- Before the talk: replace the access note with the real link or a QR code. -->
+  <section class="slide mesh-bg" id="slide-38">
     <div class="slide-center" style="gap:48px">
-      <div style="text-align:center">
-        <p class="label" style="margin-bottom:16px">Hands-On Challenge</p>
-        <h2 class="handson-title">Your turn: ask, check, present</h2>
+      <div class="slide-head">
+        <p class="eyebrow">Hands-on</p>
+        <h2 class="section-title">Your turn: <span class="text-gradient">ask, check, present</span></h2>
       </div>
       <div class="handson-steps">
-        <div class="handson-step">
+        <div class="card handson-step">
           <div class="handson-num">1</div>
           <strong>Ask</strong>
-          <p>Pick a question about the world you actually care about and ask it in plain language — Gapminder and World Bank data.</p>
+          <p>Pick a question about the world you actually care about and ask it in plain language. Gapminder and World Bank data are loaded.</p>
         </div>
-        <div class="handson-step">
+        <div class="card handson-step">
           <div class="handson-num">2</div>
           <strong>Check</strong>
-          <p>Does the chart answer your question? Are the numbers plausible? Ask a follow-up before you trust it.</p>
+          <p>Open the explanation behind the number. Does the definition match what you meant? Then ask something the system cannot know, and watch what it does.</p>
         </div>
-        <div class="handson-step">
+        <div class="card handson-step">
           <div class="handson-num">3</div>
           <strong>Present</strong>
-          <p>Build one slide for management: the takeaway as title, one chart, the key numbers and your recommendation.</p>
+          <p>Build one slide for management: the takeaway as the title, one chart, the key numbers and your recommendation.</p>
         </div>
       </div>
       <p class="handson-note">Your access details arrive by email.</p>
     </div>
   </section>
-  <!-- ── SLIDE 37: Summary ──────────────────────────────────────── -->
-  <section class="slide" id="slide-37" style="flex-direction:column;align-items:center;justify-content:center;padding:60px 100px">
-    <div class="slide-header"></div>
-    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;text-align:center">What You Learned Today</div>
-    <div style="font-size:56px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:48px;text-align:center">
-      Three things you now <span style="color:var(--accent)">understand</span>
-    </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;width:100%">
-
-      <!-- 1: Data Visualization -->
-      <div style="background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <!-- Eye outline -->
-          <path d="M 10,50 C 25,20 75,20 90,50 C 75,80 25,80 10,50 Z" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Pupil -->
-          <circle cx="50" cy="50" r="13" stroke="#00d4e0" stroke-width="2.5"/>
-          <!-- Iris dot -->
-          <circle cx="50" cy="50" r="5" fill="#00d4e0"/>
-          <!-- Neural spark lines around eye -->
-          <line x1="50" y1="10" x2="50" y2="18" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="78" y1="22" x2="72" y2="28" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="22" y1="22" x2="28" y2="28" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">What makes data visualization so important</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Our visual cortex is wired for it — charts communicate faster than any table or number</p>
+  <!-- ── SLIDE 39: Summary ──────────────────────────────────────── -->
+  <section class="slide mesh-bg" id="slide-39">
+    <div class="slide-center" style="gap:44px">
+      <div class="slide-head">
+        <p class="eyebrow">What you learned today</p>
+        <h2 class="section-title">Three things you now <span class="text-gradient">understand</span></h2>
       </div>
 
-      <!-- 2: Mental Models -->
-      <div style="background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <!-- Brain outline (two lobes) -->
-          <path d="M 50,22 C 50,22 36,14 26,24 C 16,34 18,50 26,58 C 34,66 50,72 50,72" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M 50,22 C 50,22 64,14 74,24 C 84,34 82,50 74,58 C 66,66 50,72 50,72" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round"/>
-          <!-- Center fold -->
-          <line x1="50" y1="22" x2="50" y2="72" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round"/>
-          <!-- Synapse dots -->
-          <circle cx="32" cy="40" r="3.5" fill="#00d4e0" opacity="0.7"/>
-          <circle cx="40" cy="54" r="3.5" fill="#00d4e0" opacity="0.7"/>
-          <circle cx="68" cy="40" r="3.5" fill="#00d4e0" opacity="0.7"/>
-          <circle cx="60" cy="54" r="3.5" fill="#00d4e0" opacity="0.7"/>
-          <!-- Connection lines between synapses -->
-          <line x1="32" y1="40" x2="40" y2="54" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-          <line x1="68" y1="40" x2="60" y2="54" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">How we think about the world</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">Our misconceptions about the world are known and can be targeted. The world is actually a bit better than we think it is.</p>
-      </div>
+      <div class="cards cards-3" style="max-width:1560px">
 
-      <!-- 3: Trust & AI -->
-      <div style="background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
-        <svg viewBox="0 0 100 100" width="88" height="88" fill="none">
-          <!-- Shield -->
-          <path d="M 50,12 L 78,24 L 78,52 C 78,68 65,80 50,88 C 35,80 22,68 22,52 L 22,24 Z" stroke="#00d4e0" stroke-width="2.5" stroke-linejoin="round"/>
-          <!-- AI chip inside shield -->
-          <rect x="36" y="38" width="28" height="24" rx="4" stroke="#00d4e0" stroke-width="2"/>
-          <!-- Chip pins -->
-          <line x1="40" y1="38" x2="40" y2="34" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="50" y1="38" x2="50" y2="34" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="60" y1="38" x2="60" y2="34" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="40" y1="62" x2="40" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="50" y1="62" x2="50" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <line x1="60" y1="62" x2="60" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
-          <!-- Checkmark inside chip -->
-          <polyline points="40,51 47,58 62,44" stroke="#00d4e0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <strong style="font-size:21px;color:var(--text)">Who actually benefits from AI advancements</strong>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.5;margin:0">AI wins only where trust wins — explainability and verified data decide who benefits</p>
-      </div>
-
-    </div>
-  </section>
-  <!-- ── SLIDE 38: Links ───────────────────────────────────────── -->
-  <section class="slide" id="slide-38" style="flex-direction:column;align-items:center;justify-content:center;padding:60px 100px">
-    <div class="slide-header"></div>
-    <div style="font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;text-align:center">Explore Further</div>
-    <div style="font-size:56px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:48px;text-align:center">
-      Keep going with <span style="color:var(--accent)">these resources</span>
-    </div>
-
-    <div style="display:flex;gap:48px;width:100%">
-
-      <a href="https://www.gapminder.org/data/" target="_blank"
-         style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:48px 48px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;text-decoration:none;transition:border-color .2s,transform .2s"
-         onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'"
-         onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
-        <div style="display:flex;align-items:center;height:72px;font-size:40px;font-weight:800;color:var(--text);letter-spacing:-0.02em">Gapminder</div>
-        <div style="font-size:20px;color:var(--accent);font-weight:500">gapminder.org/data</div>
-        <p style="font-size:17px;color:var(--text-muted);margin:0;line-height:1.6">
-          Free data on how the world develops — and the misconceptions we hold about it
-        </p>
-      </a>
-
-      <a href="https://data.worldbank.org" target="_blank"
-         style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:48px 48px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;text-decoration:none;transition:border-color .2s,transform .2s"
-         onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'"
-         onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
-        <div style="display:flex;align-items:center;height:72px;font-size:40px;font-weight:800;color:var(--text);letter-spacing:-0.02em">World Bank</div>
-        <div style="font-size:20px;color:var(--accent);font-weight:500">data.worldbank.org</div>
-        <p style="font-size:17px;color:var(--text-muted);margin:0;line-height:1.6">
-          Open development indicators for every country, back to 1960
-        </p>
-      </a>
-
-      <!-- Veezoo card -->
-      <a href="https://www.veezoo.com" target="_blank"
-         style="flex:1;background:var(--surface);border-radius:20px;border:2px solid var(--border);padding:48px 48px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;text-decoration:none;transition:border-color .2s,transform .2s"
-         onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'"
-         onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
-        <div style="display:flex;align-items:center;height:72px">
-          <img src="assets/images/veezoo-logo.svg" alt="Veezoo" style="height:52px;width:auto;object-fit:contain"/>
+        <div class="card icon-card">
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <path d="M 10,50 C 25,20 75,20 90,50 C 75,80 25,80 10,50 Z" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="50" cy="50" r="13" stroke="#00b4d8" stroke-width="2.5"/>
+            <circle cx="50" cy="50" r="5" fill="#00b4d8"/>
+            <line x1="50" y1="10" x2="50" y2="18" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+            <line x1="78" y1="22" x2="72" y2="28" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="22" x2="28" y2="28" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <h3>The chart is the analysis</h3>
+          <p>The same numbers tell different stories. A picture is often the fastest reliable path to the answer, and your visual cortex is built for it.</p>
         </div>
-        <div style="font-size:20px;color:var(--accent);font-weight:500">veezoo.com</div>
-        <p style="font-size:17px;color:var(--text-muted);margin:0;line-height:1.6">
-          Natural language analytics — the tool from today's demo and hands-on
-        </p>
-      </a>
 
+        <div class="card icon-card">
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <path d="M 50,22 C 50,22 36,14 26,24 C 16,34 18,50 26,58 C 34,66 50,72 50,72" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 50,22 C 50,22 64,14 74,24 C 84,34 82,50 74,58 C 66,66 50,72 50,72" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="50" y1="22" x2="50" y2="72" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round"/>
+            <circle cx="32" cy="40" r="3.5" fill="#00b4d8" opacity="0.7"/>
+            <circle cx="40" cy="54" r="3.5" fill="#00b4d8" opacity="0.7"/>
+            <circle cx="68" cy="40" r="3.5" fill="#00b4d8" opacity="0.7"/>
+            <circle cx="60" cy="54" r="3.5" fill="#00b4d8" opacity="0.7"/>
+            <line x1="32" y1="40" x2="40" y2="54" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            <line x1="68" y1="40" x2="60" y2="54" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+          <h3>Perception has rules</h3>
+          <p>Position beats colour, outliers pop in 250 milliseconds, and the reader's task picks the chart. Design for the reader you have.</p>
+        </div>
+
+        <div class="card icon-card">
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <path d="M 50,12 L 78,24 L 78,52 C 78,68 65,80 50,88 C 35,80 22,68 22,52 L 22,24 Z" stroke="#00b4d8" stroke-width="2.5" stroke-linejoin="round"/>
+            <rect x="36" y="38" width="28" height="24" rx="4" stroke="#00b4d8" stroke-width="2"/>
+            <line x1="40" y1="38" x2="40" y2="34" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+            <line x1="50" y1="38" x2="50" y2="34" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+            <line x1="60" y1="38" x2="60" y2="34" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+            <line x1="40" y1="62" x2="40" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+            <line x1="50" y1="62" x2="50" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+            <line x1="60" y1="62" x2="60" y2="66" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+            <polyline points="40,51 47,58 62,44" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>An AI's answer is only as good as the definitions behind the data</h3>
+          <p>Before you trust a number, ask for the definition behind it. If the system cannot show one, it guessed.</p>
+        </div>
+
+      </div>
     </div>
   </section>
-  <!-- ── SLIDE 39: Thank You ───────────────────────────────────── -->
-  <section class="slide" id="slide-39">
-    <div class="slide-header"></div>
-    <div class="thanks-headline">Thank You</div>
+
+  <!-- ── SLIDE 40: Resources ───────────────────────────────────── -->
+  <section class="slide mesh-bg" id="slide-40">
+    <div class="slide-center" style="gap:40px">
+      <div class="slide-head">
+        <p class="eyebrow">Explore further</p>
+        <h2 class="section-title">Keep going with <span class="text-gradient">these resources</span></h2>
+      </div>
+
+      <div class="link-cards">
+
+        <a class="card link-card" href="https://www.gapminder.org/data/" target="_blank" rel="noopener">
+          <div class="link-logo"><span class="link-wordmark">Gapminder</span></div>
+          <div class="link-url">gapminder.org/data</div>
+          <p>Free data on how the world develops, and the misconceptions we hold about it. The data behind today's demo.</p>
+        </a>
+
+        <a class="card link-card" href="https://data.worldbank.org" target="_blank" rel="noopener">
+          <div class="link-logo"><span class="link-wordmark">World Bank</span></div>
+          <div class="link-url">data.worldbank.org</div>
+          <p>Open development indicators for every country, back to 1960.</p>
+        </a>
+
+        <a class="card link-card" href="https://www.linkedin.com/in/lennart-heuckendorf" target="_blank" rel="noopener">
+          <div class="link-logo"><span class="link-wordmark">LinkedIn</span></div>
+          <div class="link-url">Lennart Heuckendorf</div>
+          <p>Connect, ask follow-up questions, or continue the conversation after the session.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 41: Thank You ───────────────────────────────────── -->
+  <section class="slide hero-bg" id="slide-41">
+    <div class="hero-layers" aria-hidden="true"></div>
+    <p class="eyebrow">How to communicate with data</p>
+    <div class="thanks-headline text-gradient">Thank you</div>
     <p class="thanks-sub">
-      Data is most powerful when it reaches every person who needs it —
+      Data is most powerful when it reaches every person who needs it:
       told with clarity, designed with empathy, and backed by trust.
     </p>
     <div class="thanks-contact">
       <span>Lennart Heuckendorf</span>
-      <span>·</span>
+      <span class="dot">·</span>
       <span>Solution Engineer, Veezoo</span>
-      <span>·</span>
-      <a href="https://www.linkedin.com/in/lennart-heuckendorf" target="_blank">LinkedIn</a>
+      <span class="dot">·</span>
+      <a href="https://www.linkedin.com/in/lennart-heuckendorf" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </section>
+
+  <!-- Persistent brand mark (hidden on the title and video slides) -->
+  <div id="brand-mark" aria-hidden="true">
+    <img src="assets/images/veezoo-logo.svg" alt="" />
+  </div>
 
 </div><!-- /presentation -->
 
@@ -1317,7 +1353,7 @@
 <div id="nav-ui">
   <div id="progress-bar"></div>
 </div>
-<div id="slide-counter">1 / 39</div>
+<div id="slide-counter">1 / 41</div>
 <div class="nav-arrow" id="nav-prev" title="Previous slide (← arrow)">&#8592;</div>
 <div class="nav-arrow" id="nav-next" title="Next slide (→ arrow)">&#8594;</div>
 
@@ -1330,6 +1366,7 @@
 <script src="js/datasaurus.js"></script>
 <script src="js/charts.js"></script>
 <script src="js/numbers.js"></script>
+<script src="js/semantics.js"></script>
 <script src="js/bestpractices.js"></script>
 
 <!-- Hover effect on nav arrows -->
