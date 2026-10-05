@@ -50,7 +50,7 @@ The stylesheet follows the veezoo.com design system (the `brand-doc` skill in th
 - **Components:** `.card` (white, 1px border, 16px radius, soft shadow), `.icon-card`, `.callout` (accent left border), `.btn` / `.btn-outline` (pills), `.toggle-btn` (pill toggles used by the interactive slides), `.chip`, `.badge-*`, `.data-table` inside `.table-frame`.
 - **Slide heads:** `.slide-head` > `.eyebrow` (uppercase kicker) + `.section-title` (optionally `.sm`) + `.section-lead`. Accent words inside titles use `<span class="text-gradient">`. The "Asking an AI" slides use `.ai-wrap` with `.slide-head.left` and a `.sources` footer.
 - **Chart palette:** categorical series in fixed order `--series-1` cyan `#00b4d8`, `--series-2` violet `#7c3aed`, `--series-3` amber `#f59e0b` (validated for colour-vision deficiency); extremes and "silently wrong" highlight cyan vs red `#ef4444`; grid lines `#e5e7eb`; neutral marks `#d1d5db`. Chart text stays in ink colours, a coloured marker carries series identity.
-- A small Veezoo logo (`#brand-mark`) sits bottom-left on every slide except the title and the video slides. Keep content clear of that corner (`.slide-center`, `.ai-wrap` and `.bp-wrap` reserve the bottom padding for it).
+- The Veezoo logo appears only on the title slide and the resources card; there is no persistent brand mark on the slides.
 
 ## Conventions
 

@@ -175,7 +175,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 }
 .hero-bg > *:not(.hero-layers) { position: relative; z-index: 1; }
 
-/* ---------- Fixed UI: progress, counter, arrows, brand mark ---------- */
+/* ---------- Fixed UI: progress, counter, arrows ---------- */
 #nav-ui {
   position: fixed;
   bottom: 0; left: 0;
@@ -222,16 +222,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 #nav-prev { left: 24px; }
 #nav-next { right: 24px; }
 
-#brand-mark {
-  position: absolute;
-  left: 64px; bottom: 36px;
-  z-index: 60;
-  pointer-events: none;
-}
-#brand-mark img { height: 28px; width: auto; }
-/* the title slide carries its own large logo; video slides are full-bleed */
-#slide-1.active ~ #brand-mark,
-.video-slide.active ~ #brand-mark { display: none; }
 
 /* ---------- Typography ---------- */
 .eyebrow {
@@ -300,8 +290,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
   justify-content: center;
   width: 100%;
   height: 100%;
-  /* extra bottom padding keeps content clear of the brand mark in the corner */
-  padding: 56px 96px 88px;
+  padding: 56px 96px 64px;
   gap: 28px;
 }
 .slide-center.top { justify-content: flex-start; padding-top: 52px; }
@@ -730,7 +719,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 }
 #grid-prompt { font-family: var(--font-display); font-weight: 600; font-size: 30px; letter-spacing: -0.015em; color: var(--text); }
 #grid-prompt strong { color: var(--accent-dark); font-weight: 700; }
-/* buttons sit bottom-right so they never collide with the brand mark bottom-left */
 #grid-btnrow { flex-shrink: 0; padding: 14px 64px; justify-content: flex-end; border-top: 1px solid var(--border); background: var(--bg-2); }
 #number-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(9, 1fr); flex: 1; }
 .num-cell {
