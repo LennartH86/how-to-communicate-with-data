@@ -1,10 +1,10 @@
 -- Survey pipeline for the live demo: Google Form -> Apps Script -> BigQuery -> Veezoo
--- Project demos-467314, dataset workshop (EU). Run once; idempotent.
+-- Project demos-467314, dataset gapminder_test (EU). Run once; idempotent.
 
-CREATE SCHEMA IF NOT EXISTS `demos-467314.workshop` OPTIONS (location = 'EU');
+CREATE SCHEMA IF NOT EXISTS `demos-467314.gapminder_test` OPTIONS (location = 'EU');
 
 -- The 13 Gapminder questions with their correct answers. Static reference table.
-CREATE OR REPLACE TABLE `demos-467314.workshop.survey_questions` (
+CREATE OR REPLACE TABLE `demos-467314.gapminder_test.survey_questions` (
   question_no      INT64   NOT NULL OPTIONS (description = 'Position in the form, 1 to 13'),
   question_key     STRING  NOT NULL OPTIONS (description = 'Column name of the answer in survey_responses'),
   question_short   STRING  NOT NULL OPTIONS (description = 'Short label for charts'),
@@ -15,7 +15,7 @@ CREATE OR REPLACE TABLE `demos-467314.workshop.survey_questions` (
   correct_answer   STRING  NOT NULL OPTIONS (description = 'Exact option text that is correct')
 );
 
-INSERT INTO `demos-467314.workshop.survey_questions` VALUES
+INSERT INTO `demos-467314.gapminder_test.survey_questions` VALUES
  (1,  'q01_girls_primary_school',     'Girls finishing primary school',  'In all low-income countries across the world today, how many girls finish primary school?', '20 percent', '40 percent', '60 percent', '60 percent'),
  (2,  'q02_population_income_level',  'Where most people live',          'Where does the majority of the world population live?', 'Low-income countries', 'Middle-income countries', 'High-income countries', 'Middle-income countries'),
  (3,  'q03_extreme_poverty_trend',    'Extreme poverty, last 20 years',  'In the last 20 years, the proportion of the world population living in extreme poverty has ...', 'almost doubled', 'remained more or less the same', 'almost halved', 'almost halved'),
@@ -33,7 +33,7 @@ INSERT INTO `demos-467314.workshop.survey_questions` VALUES
 -- One row per submitted form. Written by the Apps Script (streaming insert) and by the
 -- one-off backfill of the old survey. Streaming rows cannot be deleted for ~90 minutes,
 -- so sessions are separated by session_date instead of truncating.
-CREATE TABLE IF NOT EXISTS `demos-467314.workshop.survey_responses` (
+CREATE TABLE IF NOT EXISTS `demos-467314.gapminder_test.survey_responses` (
   response_id                  STRING    NOT NULL OPTIONS (description = 'Form response id, or backfill-<row>'),
   submitted_at                 TIMESTAMP NOT NULL,
   session_date                 DATE      NOT NULL OPTIONS (description = 'Day of the workshop; default filter in Veezoo'),
@@ -56,7 +56,7 @@ PARTITION BY session_date;
 
 -- One row per response and question: what Veezoo models.
 -- Concept "Answer" with Question, Session, Chosen option and the flag Correct.
-CREATE OR REPLACE VIEW `demos-467314.workshop.survey_answers` AS
+CREATE OR REPLACE VIEW `demos-467314.gapminder_test.survey_answers` AS
 WITH long AS (
   SELECT r.response_id, r.submitted_at, r.session_date, r.source, q.question_no, q.question_key, q.question_short, q.question_text, q.correct_answer,
          CASE q.question_no
@@ -74,8 +74,8 @@ WITH long AS (
            WHEN 12 THEN r.q12_electricity_access
            WHEN 13 THEN r.q13_climate_trend
          END AS chosen_answer
-  FROM `demos-467314.workshop.survey_responses` r
-  CROSS JOIN `demos-467314.workshop.survey_questions` q
+  FROM `demos-467314.gapminder_test.survey_responses` r
+  CROSS JOIN `demos-467314.gapminder_test.survey_questions` q
 )
 SELECT *,
        chosen_answer IS NOT NULL AND TRIM(chosen_answer) = correct_answer AS is_correct,

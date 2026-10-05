@@ -10,12 +10,12 @@
  *   5. Run `backfillFromSheet` once to load the rows copied over from the old survey
  *      (safe to re-run: existing response_ids are skipped).
  *
- * The account needs the role BigQuery Data Editor on dataset demos-467314.workshop.
+ * The account needs the role BigQuery Data Editor on dataset demos-467314.gapminder_test.
  * No secrets live in this file; the script runs with the account's own OAuth grant.
  */
 
 const PROJECT_ID = 'demos-467314';
-const DATASET_ID = 'workshop';
+const DATASET_ID = 'gapminder_test';
 const TABLE_ID = 'survey_responses';
 
 // Column order of the response sheet: timestamp, then the 13 questions in form order.
