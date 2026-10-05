@@ -1,6 +1,6 @@
 # Proposal v3: the "why AI gets company data wrong" block, deck coherency, Veezoo restyle
 
-Status: implemented on 2026-10-04 (commits 4c226a6 and b4e9ddc on `ai-first-rework`). Kept as the record of the reasoning and as the source register for the numbers on slides 26 to 28.
+Status: implemented on 2026-10-04 (commits 4c226a6 and b4e9ddc on `ai-first-rework`), revised after Lennart's slide-by-slide review on 2026-10-05 (the deck now has 42 slides; the slide numbers below are the original v3 numbers and are one lower than the deck from slide 20 onward). Kept as the record of the reasoning and as the source register for the numbers on slides 26 to 28.
 
 Audience: **MBA business students.** Consequence for everything below: no SQL, no "text-to-SQL", no "knowledge graph", no "ontology", no "semantic layer", no architecture diagrams, no benchmark names on the slides. Those words may appear only in source footnotes and speaker notes. The argument is made in business language: definitions, trust, "what is a customer".
 

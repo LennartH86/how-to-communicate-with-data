@@ -47,7 +47,8 @@
         <th>Mean X</th><th>Mean Y</th><th>SD X</th><th>SD Y</th><th>Correlation</th>
       </tr></thead><tbody>`;
 
-    d.datasets.forEach(ds => {
+    // the dinosaur is the surprise on the next slide, so the table shows the other twelve
+    d.datasets.filter(ds => ds.name !== 'dino').forEach(ds => {
       const xs = ds.points.map(p => p.x);
       const ys = ds.points.map(p => p.y);
       html += `<tr>
@@ -60,7 +61,7 @@
 
     html += `</tbody></table></div>
     <p style="margin-top:24px;font-size:20px;color:var(--text-2);text-align:center">
-      <strong>All 13 datasets share nearly identical summary statistics</strong> — yet they look completely different when visualised.
+      <strong>Twelve datasets, one set of summary statistics.</strong> Same means, same spread, same correlation.
     </p>`;
     container.innerHTML = html;
   }
@@ -140,12 +141,12 @@
     // → horizontal span = 60, vertical span = 48  … almost square inner area
     // Make them fully square: use same total margin on both axes
     // total margin = 56 on each axis → inner = 240 - 56 = 184px square
-    const GRID_SIZE = 240;
+    const GRID_SIZE = 280;
     const GM = { left: 36, right: 20, top: 20, bottom: 36, h: 56, v: 56 };
 
     // ── Dino panel: large centered square ───────────────────────────────────
     // Available height for dino: ~840px; width: 1760px → use 800px square
-    const DINO_SIZE = 780;
+    const DINO_SIZE = 620;
     const DM = { left: 56, right: 24, top: 24, bottom: 56, h: 80, v: 80 };
 
     grid.innerHTML     = '';
