@@ -861,29 +861,34 @@
     </div>
   </section>
 
-  <!-- ── SLIDE 30: QR Code ─────────────────────────────────────── -->
-  <!-- Before the talk: check that assets/images/qr-code.png still points at the current survey. -->
+  <!-- ── SLIDE 30: Survey QR + live results ───────────────────── -->
+  <!-- Before the session: regenerate assets/images/qr-code.png for the current form link
+       (https://forms.gle/v77nsv62g1EzY73G9) and make sure the response sheet is shared
+       "anyone with the link: viewer" so js/survey.js can read it. -->
   <section class="slide mesh-bg" id="slide-30">
-    <div class="slide-center" style="gap:36px">
+    <div class="slide-center top" style="gap:28px">
       <div class="slide-head">
         <p class="eyebrow">Before the demo</p>
-        <h2 class="section-title">Three questions about <span class="text-gradient">the world</span></h2>
-        <p class="section-lead">Scan the code and answer from your gut. We will check your answers against the data in a minute.</p>
+        <h2 class="section-title sm">Thirteen questions about <span class="text-gradient">the world</span></h2>
+        <p class="section-lead sm">Scan, answer from your gut, and watch the room's answers arrive on the right.</p>
       </div>
-      <div class="qr-frame">
-        <img
-          src="assets/images/qr-code.png"
-          alt="QR Code"
-          class="qr-img"
-          onerror="this.style.display='none';document.getElementById('qr-placeholder').style.display='flex'">
-        <div id="qr-placeholder" class="qr-placeholder">
-          <strong>QR Code</strong>
-          <span>Place <code>assets/images/qr-code.png</code> to display here</span>
+      <div class="survey-grid">
+        <div class="qr-frame">
+          <img
+            src="assets/images/qr-code.png"
+            alt="QR code to the survey"
+            class="qr-img"
+            onerror="this.style.display='none';document.getElementById('qr-placeholder').style.display='flex'">
+          <div id="qr-placeholder" class="qr-placeholder">
+            <strong>QR Code</strong>
+            <span>Place <code>assets/images/qr-code.png</code> to display here</span>
+          </div>
+          <a class="qr-link" href="https://forms.gle/v77nsv62g1EzY73G9" target="_blank" rel="noopener">forms.gle/v77nsv62g1EzY73G9</a>
         </div>
+        <div class="card survey-live" id="survey-live"></div>
       </div>
     </div>
   </section>
-
   <!-- ── SLIDE 31: Live Demo ───────────────────────────────────── -->
   <!-- The demo runs outside the deck. Keep the demo workspace open in another tab. -->
   <section class="slide hero-bg hero-divider" id="slide-31">
@@ -1370,6 +1375,7 @@
 <script src="js/charts.js"></script>
 <script src="js/numbers.js"></script>
 <script src="js/semantics.js"></script>
+<script src="js/survey.js"></script>
 <script src="js/bestpractices.js"></script>
 
 <!-- Hover effect on nav arrows -->
