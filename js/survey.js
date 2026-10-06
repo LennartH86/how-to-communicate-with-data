@@ -49,7 +49,7 @@
         </div>
         <div class="live-stat live-overall">
           <div class="live-count" id="live-overall">–</div>
-          <div class="live-count-label">of all answers correct<span class="live-verdict" id="live-verdict"></span></div>
+          <div class="live-count-label">of all answers correct</div>
         </div>
         <div class="live-status" id="live-status">Waiting for the sheet…</div>
       </div>
@@ -122,13 +122,12 @@
     document.getElementById('live-count-label').textContent =
       (n === 1 ? 'answer' : 'answers') + (sessionOnly ? ' so far today' : ' in total');
 
-    let totalAnswered = 0, totalCorrect = 0, beatsChimp = 0;
+    let totalAnswered = 0, totalCorrect = 0;
     QUESTIONS.forEach((q, i) => {
       const answered = rows.filter(r => (r[i + 1] || '').trim());
       const correct = answered.filter(r => r[i + 1].trim() === q.correct).length;
       const share = answered.length ? correct / answered.length : 0;
       totalAnswered += answered.length; totalCorrect += correct;
-      if (answered.length && share > CHIMP) beatsChimp++;
       const fill = document.getElementById(`live-fill-${i}`);
       fill.style.width = (share * 100).toFixed(1) + '%';
       fill.classList.toggle('below-chimp', answered.length > 0 && share <= CHIMP);
@@ -140,16 +139,13 @@
 
     // overall hit rate across every answered question, next to the chimpanzee's 33 %
     const overall = document.getElementById('live-overall');
-    const verdict = document.getElementById('live-verdict');
     if (totalAnswered) {
       const rate = totalCorrect / totalAnswered;
       overall.textContent = Math.round(rate * 100) + ' %';
       overall.classList.toggle('below-chimp', rate <= CHIMP);
-      verdict.textContent = `The room beats the chimpanzee on ${beatsChimp} of ${QUESTIONS.length} questions`;
     } else {
       overall.textContent = '–';
       overall.classList.remove('below-chimp');
-      verdict.textContent = '';
     }
   }
 

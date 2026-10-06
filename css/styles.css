@@ -873,9 +873,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 .live-head { display: flex; align-items: flex-end; gap: 56px; }
 .live-stat { display: flex; flex-direction: column; }
 .live-status { margin-left: auto; }
-.live-overall { opacity: 0; transition: opacity 0.4s; }
-.survey-live.revealed .live-overall { opacity: 1; }
-.live-verdict { display: block; font-size: 16px; color: var(--text-3); margin-top: 2px; }
 .survey-live.revealed .live-count.below-chimp { color: var(--red-dark); }
 .live-count { font-family: var(--font-hero); font-weight: 700; font-size: 96px; line-height: 0.95; letter-spacing: -0.04em; color: var(--accent-dark); font-variant-numeric: tabular-nums; }
 .live-count-label { font-size: 20px; color: var(--text-2); margin-top: 6px; }
