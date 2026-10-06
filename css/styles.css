@@ -879,6 +879,14 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 .live-status { font-size: 15px; color: var(--text-3); padding-bottom: 8px; }
 .live-status.is-error { color: var(--red-dark); }
 .live-rows { display: flex; flex-direction: column; gap: 7px; flex: 1; min-height: 0; justify-content: center; }
+/* results stay hidden while the room is still answering */
+.live-hidden { display: none; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; color: var(--text-2); font-size: 22px; border: 2px dashed var(--border-2); border-radius: var(--radius); }
+.live-hidden-sub { font-size: 17px; color: var(--text-3); }
+.survey-live.results-hidden .live-hidden { display: flex; }
+.survey-live.results-hidden .live-rows,
+.survey-live.results-hidden .live-overall,
+.survey-live.results-hidden .live-legend,
+.survey-live.results-hidden #live-reveal { display: none; }
 .live-row { display: grid; grid-template-columns: 300px 1fr 64px; align-items: center; gap: 16px; }
 .live-q { font-size: 16px; color: var(--text); display: flex; align-items: center; gap: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .live-q b { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--bg-3); color: var(--text-2); font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
@@ -898,8 +906,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 .survey-live.revealed .live-ko { opacity: 1; }
 .live-chimp { opacity: 0; transition: opacity 0.4s; }
 .survey-live.revealed .live-chimp { opacity: 1; }
-.live-foot .toggle-btn { margin-left: auto; font-size: 16px; padding: 9px 20px; }
-.live-foot .toggle-btn + .toggle-btn { margin-left: 0; }
+.live-foot .toggle-btn { font-size: 16px; padding: 9px 20px; }
+.live-foot #live-reveal { margin-left: auto; }
+.survey-live.results-hidden #live-scope { margin-left: auto; }
 
 /* ---------- 32 · Analytics workflow ---------- */
 .workflow-wrap { flex: 1; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }

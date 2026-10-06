@@ -53,8 +53,13 @@
         </div>
         <div class="live-status" id="live-status">Waiting for the sheet…</div>
       </div>
+      <div class="live-hidden" id="live-hidden">
+        <p>Results stay hidden until everyone has answered.</p>
+        <p class="live-hidden-sub">No peeking at the neighbours.</p>
+      </div>
       <div class="live-rows" id="live-rows"></div>
       <div class="live-foot">
+        <button class="toggle-btn" id="live-show">Show the results</button>
         <span class="live-legend"><i class="ok"></i>share answered correctly</span>
         <span class="live-legend live-ko"><i class="ko"></i>below the chimpanzee</span>
         <span class="live-legend live-chimp" id="live-chimp-legend"><i></i>a chimpanzee: 33 %</span>
@@ -73,6 +78,12 @@
       rows.appendChild(row);
     });
 
+    host.classList.add('results-hidden');
+    document.getElementById('live-show').addEventListener('click', e => {
+      const shown = host.classList.toggle('results-hidden') === false;
+      e.currentTarget.classList.toggle('active', shown);
+      e.currentTarget.textContent = shown ? 'Hide the results' : 'Show the results';
+    });
     document.getElementById('live-reveal').addEventListener('click', e => {
       revealed = !revealed;
       e.currentTarget.classList.toggle('active', revealed);

@@ -38,8 +38,8 @@ Form (forms.gle/v77nsv62g1EzY73G9)
 
 ## Demo script for slide 30
 
-1. Audience scans, answers arrive, the counter climbs.
-2. Bars fill with the share of correct answers per question, and the overall hit rate ("32 % of all answers correct") sits next to the counter the whole time.
+1. Audience scans, answers arrive, the counter climbs. The per-question bars and the overall hit rate stay hidden behind "Show the results" so nobody sees the room being wrong while still answering.
+2. "Show the results": bars fill with the share of correct answers per question, and the overall hit rate ("32 % of all answers correct") sits next to the counter the whole time.
 3. "Reveal the chimpanzee": a line marks 33 percent on every bar, bars at or below it turn red, and the overall number turns red if the room is at or below the chimpanzee. Most rooms lose to the chimpanzee on most questions. That is the Gapminder point, and the bridge to the demo: "Let's see what the world actually looks like."
 4. "All sessions" switches from today's answers to every answer ever collected (184 from 13 earlier sessions) in case the room is small.
 
