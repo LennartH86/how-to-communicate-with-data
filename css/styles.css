@@ -954,7 +954,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 .bp-do-tag { color: var(--accent-dark); }
 .bp-neutral-tag { color: var(--text); }
 .bp-evidence { font-size: 16px; line-height: 1.45; color: var(--text-2); margin-top: 22px; width: 100%; }
-.bp-note { font-size: 14px; color: var(--text-3); margin-top: 10px; align-self: flex-end; }
 
 .bp-rules { list-style: none; }
 .bp-rule {
