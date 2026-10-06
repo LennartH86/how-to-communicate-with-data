@@ -870,7 +870,13 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 .qr-link { font-size: 19px; font-weight: 600; color: var(--accent-dark); text-decoration: none; }
 
 .survey-live { display: flex; flex-direction: column; gap: 18px; padding: 28px 36px 22px; min-height: 0; }
-.live-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.live-head { display: flex; align-items: flex-end; gap: 56px; }
+.live-stat { display: flex; flex-direction: column; }
+.live-status { margin-left: auto; }
+.live-overall { opacity: 0; transition: opacity 0.4s; }
+.survey-live.revealed .live-overall { opacity: 1; }
+.live-verdict { display: block; font-size: 16px; color: var(--text-3); margin-top: 2px; }
+.survey-live.revealed .live-count.below-chimp { color: var(--red-dark); }
 .live-count { font-family: var(--font-hero); font-weight: 700; font-size: 96px; line-height: 0.95; letter-spacing: -0.04em; color: var(--accent-dark); font-variant-numeric: tabular-nums; }
 .live-count-label { font-size: 20px; color: var(--text-2); margin-top: 6px; }
 .live-status { font-size: 15px; color: var(--text-3); padding-bottom: 8px; }
@@ -880,7 +886,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 .live-q { font-size: 16px; color: var(--text); display: flex; align-items: center; gap: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .live-q b { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--bg-3); color: var(--text-2); font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
 .live-bar { position: relative; height: 22px; border-radius: 6px; background: var(--bg-3); overflow: visible; display: block; }
-.live-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 6px; background: var(--accent); transition: width 0.6s cubic-bezier(.2,.7,.2,1); }
+.live-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 6px; background: var(--accent); transition: width 0.6s cubic-bezier(.2,.7,.2,1), background 0.4s; }
+.survey-live.revealed .live-fill.below-chimp { background: var(--red); }
 .live-mark { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--text); opacity: 0; transition: opacity 0.4s; }
 .survey-live.revealed .live-mark { opacity: 0.7; }
 .live-pct { font-size: 17px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; color: var(--text); }
@@ -889,6 +896,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
 .live-legend { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--text-2); }
 .live-legend i { width: 14px; height: 14px; border-radius: 4px; background: var(--text); display: inline-block; }
 .live-legend i.ok { background: var(--accent); }
+.live-legend i.ko { background: var(--red); }
+.live-ko { opacity: 0; transition: opacity 0.4s; }
+.survey-live.revealed .live-ko { opacity: 1; }
 .live-chimp { opacity: 0; transition: opacity 0.4s; }
 .survey-live.revealed .live-chimp { opacity: 1; }
 .live-foot .toggle-btn { margin-left: auto; font-size: 16px; padding: 9px 20px; }

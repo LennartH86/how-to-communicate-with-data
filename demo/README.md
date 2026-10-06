@@ -39,8 +39,11 @@ Form (forms.gle/v77nsv62g1EzY73G9)
 ## Demo script for slide 30
 
 1. Audience scans, answers arrive, the counter climbs.
-2. Bars fill with the share of correct answers per question.
-3. "Reveal the chimpanzee": a line at 33 percent appears on every bar, questions below it turn red. Most rooms lose to the chimpanzee on most questions. That is the Gapminder point, and the bridge to Veezoo: "Let's see what the world actually looks like."
+2. Bars fill with the share of correct answers per question (all blue while the audience is still guessing).
+3. "Reveal the chimpanzee": the overall hit rate appears next to the counter ("32 % of all answers correct, the room beats the chimpanzee on 5 of 13 questions"), a line marks 33 percent on every bar, and bars at or below it turn red. Most rooms lose to the chimpanzee on most questions. That is the Gapminder point, and the bridge to the demo: "Let's see what the world actually looks like."
+4. "All sessions" switches from today's answers to every answer ever collected (184 from 13 earlier sessions) in case the room is small.
+
+Whether the room's answers are also analysed in Veezoo is optional; slide 30 carries the point on its own. The BigQuery pipeline stays in place for the case that it is.
 
 ## Known limits
 
