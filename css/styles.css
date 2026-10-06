@@ -1054,7 +1054,8 @@ html[data-track="tableau"] [data-track="veezoo"] { display: none !important; }
 .role-card svg { width: 72px; height: 72px; }
 .role-card h3 { font-size: 30px; }
 .role-card p { font-size: 20px; line-height: 1.55; color: var(--text-2); }
-.role-parts { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+.role-parts { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 10px; }
+.roles-grid { align-items: stretch; }
 .chip.tool { background: var(--text); border-color: var(--text); color: #fff; }
 .roles-callout { max-width: 1480px; width: 100%; }
 .roles-callout p { font-size: 21px; }
