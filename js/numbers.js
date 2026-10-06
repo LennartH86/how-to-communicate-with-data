@@ -1,5 +1,5 @@
 /**
- * Number Grid with exactly 11 twos (Slide 19)
+ * Number Grid with exactly 11 twos (Slide 20)
  */
 (function () {
   'use strict';
@@ -81,7 +81,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 19) renderGrid();
+      if (e.detail.slide === 20) renderGrid();
     });
   });
 })();

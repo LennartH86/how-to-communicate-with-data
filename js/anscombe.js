@@ -1,5 +1,5 @@
 /**
- * Anscombe Quartet — Table (Slide 13) and Scatter Plot (Slide 14)
+ * Anscombe Quartet — Table (Slide 14) and Scatter Plot (Slide 15)
  */
 (function () {
   'use strict';
@@ -16,7 +16,7 @@
     return data;
   }
 
-  // ── Table (Slide 13) ──────────────────────────────────────────────────────
+  // ── Table (Slide 14) ──────────────────────────────────────────────────────
   async function renderTable() {
     if (tableRendered) return;
     const container = document.getElementById('anscombe-table-container');
@@ -62,7 +62,7 @@
     container.innerHTML = html;
   }
 
-  // ── Scatter (Slide 14) ────────────────────────────────────────────────────
+  // ── Scatter (Slide 15) ────────────────────────────────────────────────────
   async function renderScatter() {
     if (scatterRendered) return;
     const container = document.getElementById('anscombe-scatter');
@@ -163,8 +163,8 @@
   // ── Event listeners ───────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 13) renderTable();
-      if (e.detail.slide === 14) {
+      if (e.detail.slide === 14) renderTable();
+      if (e.detail.slide === 15) {
         if (typeof d3 !== 'undefined') {
           renderScatter();
         } else {

@@ -1,6 +1,6 @@
 /**
- * Asking an AI block: accuracy cliff chart (Slide 27) and the
- * "how many countries are there?" definition picker (Slide 28)
+ * Asking an AI block: accuracy cliff chart (Slide 28) and the
+ * "how many countries are there?" definition picker (Slide 29)
  */
 (function () {
   'use strict';
@@ -90,10 +90,10 @@
       .transition().delay((d, i) => 1500 + i * 120).duration(400).attr('opacity', 1);
   }
 
-  // ── Slide 27: four right answers to "how many countries are there?" ──────
+  // ── Slide 28: four right answers to "how many countries are there?" ──────
   function wireCountries() {
     if (countriesWired) return;
-    const pills = document.querySelectorAll('#slide-28 .def-pill');
+    const pills = document.querySelectorAll('#slide-29 .def-pill');
     const countEl = document.getElementById('country-count');
     const defEl = document.getElementById('country-def');
     if (!pills.length || !countEl || !defEl) return;
@@ -122,8 +122,8 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 27) renderCliff();
-      if (e.detail.slide === 28) wireCountries();
+      if (e.detail.slide === 28) renderCliff();
+      if (e.detail.slide === 29) wireCountries();
     });
   });
 })();

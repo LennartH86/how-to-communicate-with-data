@@ -1,8 +1,8 @@
 # Live demo pipeline: Google Form → BigQuery → Veezoo
 
-The audience answers the 13 Gapminder questions on their phones (slide 30). Every
+The audience answers the 13 Gapminder questions on their phones (slide 31). Every
 submission lands in BigQuery within seconds, Veezoo answers questions about the room's
-answers, and slide 30 shows the answers arriving live. Nothing is hosted outside Google:
+answers, and slide 31 shows the answers arriving live. Nothing is hosted outside Google:
 the form writes a Google Sheet, an Apps Script on that sheet streams each row to
 BigQuery under Lennart's @veezoo.com account, and the deck reads the shared sheet.
 
@@ -10,14 +10,14 @@ BigQuery under Lennart's @veezoo.com account, and the deck reads the shared shee
 Form (forms.gle/v77nsv62g1EzY73G9)
   └─ response sheet 1_xMRD0uRkYt_HaGlDXuvAQ6KM_t2LRzJ_aPZhNlLitI
        ├─ Apps Script (survey-to-bigquery.gs) ──► demos-467314.gapminder_test.survey_responses ──► view survey_answers ──► Veezoo
-       └─ shared "anyone with the link" ───────► js/survey.js on slide 30 (live counter, correct share per question, random-guess line)
+       └─ shared "anyone with the link" ───────► js/survey.js on slide 31 (live counter, correct share per question, random-guess line)
 ```
 
 ## Files
 
 - `bigquery-survey.sql`: dataset `gapminder_test` (EU) in project `demos-467314`, tables `survey_questions` (13 questions with correct answers) and `survey_responses` (one row per submission, partitioned by `session_date`), view `survey_answers` (one row per response and question with `is_correct`). Applied on 2026-10-05; re-running is safe (the responses table is `CREATE IF NOT EXISTS`).
 - `survey-to-bigquery.gs`: the Apps Script. Streaming insert per submission, plus `backfillFromSheet` as a repair tool.
-- `../js/survey.js`: the live panel on slide 30. Reads the sheet's gviz CSV endpoint every 5 seconds, no credentials.
+- `../js/survey.js`: the live panel on slide 31. Reads the sheet's gviz CSV endpoint every 5 seconds, no credentials.
 
 ## One-time setup (Lennart, about 15 minutes)
 
@@ -31,19 +31,20 @@ Form (forms.gle/v77nsv62g1EzY73G9)
 
 ## Before every session
 
-- Regenerate `assets/images/qr-code.png` if the form link changed (slide 30 shows `forms.gle/v77nsv62g1EzY73G9`).
-- Open slide 30 once before the audience arrives: the status line must say *Live · updated …*, not *Sheet not readable yet*.
-- Keep the Veezoo workspace open in another tab; the live demo (slide 31) runs there.
+- Regenerate `assets/images/qr-code.png` if the form link changed (slide 31 shows `forms.gle/v77nsv62g1EzY73G9`).
+- Open slide 31 once before the audience arrives: the status line must say *Live · updated …*, not *Sheet not readable yet*.
+- Keep the Veezoo workspace open in another tab; the live demo (slide 32) runs there.
+- Open the deck with the right track: `index.html?track=veezoo` (hands-on in Veezoo) or `index.html?track=tableau` (hands-on in Tableau with another instructor).
 - Column order assumption: the sheet has the timestamp in column A and the 13 answers in form order in columns B to N. Both the Apps Script and `js/survey.js` rely on that order, not on header texts. If the form is ever reordered, update `QUESTION_KEYS` in the script and `QUESTIONS` in `js/survey.js`.
 
-## Demo script for slide 30
+## Demo script for slide 31
 
 1. Audience scans, answers arrive, the counter climbs. The per-question bars and the overall hit rate stay hidden behind "Show the results" so nobody sees the room being wrong while still answering.
 2. "Show the results": bars fill with the share of correct answers per question, and the overall hit rate ("32 % of all answers correct") sits next to the counter the whole time.
 3. "Compare with guessing": a line marks 33 percent (one right answer in three options) on every bar, bars at or below it turn red, and the overall number turns red if the room is at or below random guessing. Most rooms do worse than guessing on most questions. That is the Gapminder point, and the bridge to the demo: "Let's see what the world actually looks like."
 4. "All sessions" switches from today's answers to every answer ever collected (184 from 13 earlier sessions) in case the room is small.
 
-Whether the room's answers are also analysed in Veezoo is optional; slide 30 carries the point on its own. The BigQuery pipeline stays in place for the case that it is.
+Whether the room's answers are also analysed in Veezoo is optional; slide 31 carries the point on its own. The BigQuery pipeline stays in place for the case that it is.
 
 ## Known limits
 

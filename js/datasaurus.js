@@ -1,5 +1,5 @@
 /**
- * Datasaurus Dozen — Table (Slide 15) and Scatter Grid (Slide 16)
+ * Datasaurus Dozen — Table (Slide 16) and Scatter Grid (Slide 17)
  */
 (function () {
   'use strict';
@@ -32,7 +32,7 @@
     return Math.sqrt(arr.reduce((a, b) => a + (b - m) ** 2, 0) / arr.length);
   }
 
-  // ── Table (Slide 15) ──────────────────────────────────────────────────────
+  // ── Table (Slide 16) ──────────────────────────────────────────────────────
   async function renderTable() {
     if (dsTableRendered) return;
     const container = document.getElementById('datasaurus-table-container');
@@ -127,7 +127,7 @@
     parentEl.appendChild(wrapper);
   }
 
-  // ── Scatter (Slide 16) ────────────────────────────────────────────────────
+  // ── Scatter (Slide 17) ────────────────────────────────────────────────────
   async function renderScatter() {
     if (dsScatterRendered) return;
     const grid     = document.getElementById('datasaurus-scatter');
@@ -190,8 +190,8 @@
   // ── Event Listeners ───────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 15) renderTable();
-      if (e.detail.slide === 16) {
+      if (e.detail.slide === 16) renderTable();
+      if (e.detail.slide === 17) {
         if (typeof d3 !== 'undefined') renderScatter();
         else setTimeout(renderScatter, 300);
       }

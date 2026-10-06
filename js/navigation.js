@@ -10,6 +10,10 @@
 
   // ── Init ──────────────────────────────────────────────────────────────────
   function init() {
+    // Session track: ?track=tableau or ?track=veezoo (default). CSS hides the other track's elements.
+    const track = new URLSearchParams(window.location.search).get('track');
+    document.documentElement.dataset.track = track === 'tableau' ? 'tableau' : 'veezoo';
+
     const slides = document.querySelectorAll('.slide');
     totalSlides = slides.length;
 

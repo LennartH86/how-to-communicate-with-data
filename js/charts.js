@@ -1,6 +1,6 @@
 /**
- * GDP growth table + line chart (Slide 17) and world growth bar chart with
- * highlighted extremes (Slide 21). Data: data/gdp-growth.json (World Bank).
+ * GDP growth table + line chart (Slide 18) and world growth bar chart with
+ * highlighted extremes (Slide 22). Data: data/gdp-growth.json (World Bank).
  */
 (function () {
   'use strict';
@@ -30,7 +30,7 @@
   const fmt = v => (v > 0 ? '+' : '') + v.toFixed(1) + ' %';
   const leads = row => SERIES.slice(1).every(s => row[LEAD.key] > row[s.key]);
 
-  // ── Slide 17: Table ───────────────────────────────────────────────────────
+  // ── Slide 18: Table ───────────────────────────────────────────────────────
   async function renderTable(revealed) {
     const container = document.getElementById('gdp-table-container');
     if (!container) return;
@@ -65,7 +65,7 @@
     container.innerHTML = html;
   }
 
-  // ── Slide 17: Line chart ──────────────────────────────────────────────────
+  // ── Slide 18: Line chart ──────────────────────────────────────────────────
   async function renderLineChart() {
     if (chartRendered) return;
     const container = document.getElementById('gdp-chart-container');
@@ -133,7 +133,7 @@
     });
   }
 
-  // ── Slide 21: World growth per year, highlight best and worst ────────────
+  // ── Slide 22: World growth per year, highlight best and worst ────────────
   async function renderBarChart() {
     if (barRendered) return;
     const container = document.getElementById('gdp-bar-chart');
@@ -215,7 +215,7 @@
     }
   }
 
-  // ── Slide 17: tabs, reveal, approaches ───────────────────────────────────
+  // ── Slide 18: tabs, reveal, approaches ───────────────────────────────────
   function initTabs() {
     if (tabsInitialized) return;
     tabsInitialized = true;
@@ -265,11 +265,11 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 17) {
+      if (e.detail.slide === 18) {
         if (!tableRendered) renderTable(false);
         initTabs();
       }
-      if (e.detail.slide === 21) {
+      if (e.detail.slide === 22) {
         if (typeof d3 !== 'undefined') renderBarChart();
         else setTimeout(renderBarChart, 300);
       }

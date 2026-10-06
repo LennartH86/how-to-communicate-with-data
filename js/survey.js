@@ -1,5 +1,5 @@
 /**
- * Live survey results (Slide 30): polls the public response sheet every few
+ * Live survey results (Slide 31): polls the public response sheet every few
  * seconds and shows how many answers arrived and how many were right per question,
  * compared with random guessing (one in three).
  * Reads the sheet's gviz CSV endpoint; the sheet must be shared "anyone with the link".
@@ -188,7 +188,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 30) start(); else stop();
+      if (e.detail.slide === 31) start(); else stop();
     });
   });
 })();
