@@ -79,6 +79,6 @@ WITH long AS (
 )
 SELECT *,
        chosen_answer IS NOT NULL AND TRIM(chosen_answer) = correct_answer AS is_correct,
-       -- the chimpanzee picks one of three options at random
-       1 / 3 AS chimpanzee_hit_rate
+       -- a random guess among three options is right one time in three
+       1 / 3 AS random_guess_rate
 FROM long;

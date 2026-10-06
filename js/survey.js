@@ -1,6 +1,7 @@
 /**
  * Live survey results (Slide 30): polls the public response sheet every few
- * seconds and shows how many answers arrived and how many were right per question.
+ * seconds and shows how many answers arrived and how many were right per question,
+ * compared with random guessing (one in three).
  * Reads the sheet's gviz CSV endpoint; the sheet must be shared "anyone with the link".
  */
 (function () {
@@ -10,7 +11,7 @@
   const SHEET_GID = '953166965';
   const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${SHEET_GID}`;
   const POLL_MS = 5000;
-  const CHIMP = 1 / 3;
+  const GUESS = 1 / 3; // three options: a random guess is right one time in three
 
   // Form order; correct answers as in demo/bigquery-survey.sql
   const QUESTIONS = [
@@ -51,7 +52,10 @@
           <div class="live-count" id="live-overall">–</div>
           <div class="live-count-label">of all answers correct</div>
         </div>
-        <div class="live-status" id="live-status">Waiting for the sheet…</div>
+        <div class="live-side">
+          <button class="toggle-btn" id="live-scope" title="Only today's answers, or every answer ever collected">Today only</button>
+          <div class="live-status" id="live-status">Waiting for the sheet…</div>
+        </div>
       </div>
       <div class="live-hidden" id="live-hidden">
         <p>Results stay hidden until everyone has answered.</p>
@@ -60,11 +64,10 @@
       <div class="live-rows" id="live-rows"></div>
       <div class="live-foot">
         <button class="toggle-btn" id="live-show">Show the results</button>
-        <span class="live-legend"><i class="ok"></i>share answered correctly</span>
-        <span class="live-legend live-ko"><i class="ko"></i>below the chimpanzee</span>
-        <span class="live-legend live-chimp" id="live-chimp-legend"><i></i>a chimpanzee: 33 %</span>
-        <button class="toggle-btn" id="live-reveal">Reveal the chimpanzee</button>
-        <button class="toggle-btn" id="live-scope" title="Only today's answers, or every answer ever collected">Today only</button>
+        <span class="live-legend"><i class="ok"></i>answered correctly</span>
+        <span class="live-legend live-ko"><i class="ko"></i>worse than guessing</span>
+        <span class="live-legend live-guess"><i></i>random guess: 33 %</span>
+        <button class="toggle-btn" id="live-reveal">Compare with guessing</button>
       </div>`;
 
     const rows = document.getElementById('live-rows');
@@ -87,7 +90,7 @@
     document.getElementById('live-reveal').addEventListener('click', e => {
       revealed = !revealed;
       e.currentTarget.classList.toggle('active', revealed);
-      e.currentTarget.textContent = revealed ? 'Hide the chimpanzee' : 'Reveal the chimpanzee';
+      e.currentTarget.textContent = revealed ? 'Hide the guessing line' : 'Compare with guessing';
       host.classList.toggle('revealed', revealed);
     });
     document.getElementById('live-scope').addEventListener('click', e => {
@@ -141,22 +144,22 @@
       totalAnswered += answered.length; totalCorrect += correct;
       const fill = document.getElementById(`live-fill-${i}`);
       fill.style.width = (share * 100).toFixed(1) + '%';
-      fill.classList.toggle('below-chimp', answered.length > 0 && share <= CHIMP);
-      document.getElementById(`live-mark-${i}`).style.left = (CHIMP * 100).toFixed(1) + '%';
+      fill.classList.toggle('below-guess', answered.length > 0 && share <= GUESS);
+      document.getElementById(`live-mark-${i}`).style.left = (GUESS * 100).toFixed(1) + '%';
       const pct = document.getElementById(`live-pct-${i}`);
       pct.textContent = answered.length ? Math.round(share * 100) + ' %' : '–';
-      pct.classList.toggle('below-chimp', answered.length > 0 && share <= CHIMP);
+      pct.classList.toggle('below-guess', answered.length > 0 && share <= GUESS);
     });
 
-    // overall hit rate across every answered question, next to the chimpanzee's 33 %
+    // overall hit rate across every answered question, against the 33 % a random guess scores
     const overall = document.getElementById('live-overall');
     if (totalAnswered) {
       const rate = totalCorrect / totalAnswered;
       overall.textContent = Math.round(rate * 100) + ' %';
-      overall.classList.toggle('below-chimp', rate <= CHIMP);
+      overall.classList.toggle('below-guess', rate <= GUESS);
     } else {
       overall.textContent = '–';
-      overall.classList.remove('below-chimp');
+      overall.classList.remove('below-guess');
     }
   }
 
