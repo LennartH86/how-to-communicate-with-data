@@ -1064,9 +1064,3 @@ html[data-track="veezoo"] .roles-today .role-business,
 html[data-track="tableau"] .roles-today .role-analyst { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-md); }
 html[data-track="veezoo"] .roles-today .role-analyst,
 html[data-track="tableau"] .roles-today .role-business { opacity: 0.55; }
-
-/* ---------- 41 · Hands-on, Tableau track ---------- */
-.brief-card { max-width: 1100px; width: 100%; padding: 44px 52px; display: flex; flex-direction: column; gap: 12px; }
-.brief-card h3 { font-size: 34px; }
-.brief-card p { font-size: 22px; line-height: 1.55; color: var(--text-2); }
-.brief-card .brief-check { margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--text); font-weight: 600; }

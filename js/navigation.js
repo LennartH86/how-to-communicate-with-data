@@ -14,7 +14,7 @@
     const track = new URLSearchParams(window.location.search).get('track');
     document.documentElement.dataset.track = track === 'tableau' ? 'tableau' : 'veezoo';
 
-    const slides = document.querySelectorAll('.slide');
+    const slides = activeSlides();
     totalSlides = slides.length;
 
     // Read slide from URL hash
@@ -43,6 +43,12 @@
 
     // Click to navigate (left half = prev, right half = next)
     document.getElementById('presentation').addEventListener('click', onPresentationClick);
+  }
+
+  // Slides tagged data-track belong to one session track only; the others are not counted.
+  function activeSlides() {
+    const track = document.documentElement.dataset.track;
+    return Array.from(document.querySelectorAll('.slide')).filter(s => !s.dataset.track || s.dataset.track === track);
   }
 
   // ── Scale ─────────────────────────────────────────────────────────────────
@@ -95,7 +101,7 @@
 
   // ── Navigation ────────────────────────────────────────────────────────────
   function showSlide(n, animate = true) {
-    const slides = document.querySelectorAll('.slide');
+    const slides = activeSlides();
     slides.forEach((s, i) => {
       s.classList.toggle('active', i + 1 === n);
     });

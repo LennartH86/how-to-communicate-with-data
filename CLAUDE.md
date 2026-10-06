@@ -9,7 +9,7 @@ A single-page HTML slide deck for the 3-hour sessions "How to Communicate with D
 ## Structure
 
 ```
-index.html          All 44 slides as <section class="slide" id="slide-N"> blocks, plus the fixed nav UI
+index.html          All 44 slides (43 in the Tableau track) as <section class="slide" id="slide-N"> blocks, plus the fixed nav UI
 css/styles.css      Brand tokens (:root), hero/mesh backgrounds, typography, components, per-slide layout
 js/navigation.js    Slide navigation, keyboard control, CSS-transform scaling, session track from ?track=
 js/map.js           D3 world map with customer-visit markers (slide 2)
@@ -26,9 +26,9 @@ assets/images/      Veezoo logo + favicon mark, profile photo, QR code
 Research/           Paper dossier behind the best-practice slides, brand references in Research/brand/
 ```
 
-Slide order: 1 title · 2 about · 3 video · 4 agenda · 5 learnings · 6 two roles (analyst, business user) · 7 Part 1 divider · 8–11 historical charts · 12 encoding lesson · 13 Part 2 divider · 14–17 Anscombe and Datasaurus · 18 GDP growth challenge (table vs chart vs AI) · 19 pre-attentive divider · 20 count the 2s · 21 what just happened · 22 highlight the extremes · 23 toolkit · 24–25 videos · 26 Part 3 divider · 27 just ask · 28–30 asking an AI (cliff, definitions, vendor voices) · 31 survey QR + live results · 32 live demo divider · 33 analytics workflow · 34 Part 4 divider · 35–39 best practices · 40 which role today · 41 hands-on · 42 summary · 43 resources · 44 thank you.
+Slide order: 1 title · 2 about · 3 video · 4 agenda · 5 learnings · 6 two roles (analyst, business user) · 7 Part 1 divider · 8–11 historical charts · 12 encoding lesson · 13 Part 2 divider · 14–17 Anscombe and Datasaurus · 18 GDP growth challenge (table vs chart vs AI) · 19 pre-attentive divider · 20 count the 2s · 21 what just happened · 22 highlight the extremes · 23 toolkit · 24–25 videos · 26 Part 3 divider · 27 just ask · 28–30 asking an AI (cliff, definitions, vendor voices) · 31 survey QR + live results · 32 live demo divider · 33 analytics workflow · 34 Part 4 divider · 35–39 best practices · 40 which role today · 41 hands-on (Veezoo track only) · 42 summary · 43 resources · 44 thank you.
 
-**Two session tracks.** `index.html?track=veezoo` (default) is the session where the hands-on runs in Veezoo; `index.html?track=tableau` is the session where another instructor runs the hands-on in Tableau. The track only changes copy: elements with `data-track="veezoo"` or `data-track="tableau"` are shown in their track only (slides 40 and 41), and slide 40 highlights the role practised that day. The narrative behind it: the analyst builds recurring, curated content (Parts 1, 2, 4), the business user asks the day's questions directly (Part 3); slide 6 introduces the two roles without naming tools, slide 40 names Tableau and Veezoo as the two tools in use.
+**Two session tracks.** `index.html?track=veezoo` (default) is the session where the hands-on runs in Veezoo; `index.html?track=tableau` is the session where another instructor runs the hands-on in Tableau. The track only changes copy and one slide: elements with `data-track` are shown in their track only, slide 40 highlights the role practised that day, and slide 41 (the Veezoo hands-on) exists only in the Veezoo track, so the Tableau track has 43 slides and hands over to the other instructor on slide 40. The narrative behind it: the analyst builds recurring, curated content (Parts 1, 2, 4), the business user asks the day's questions directly (Part 3); slide 6 introduces the two roles without naming tools, slide 40 names Tableau and Veezoo as the two tools in use.
 
 ## Running it
 
