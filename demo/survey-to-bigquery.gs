@@ -7,10 +7,12 @@
  *   3. Run `setupTrigger` once from the editor, accept the OAuth consent
  *      (Sheets + BigQuery scopes). This installs the on-form-submit trigger.
  *   4. Submit a test response in the form; check `survey_responses` in BigQuery.
- *   5. Run `backfillFromSheet` once to load the rows copied over from the old survey
- *      (safe to re-run: existing response_ids are skipped).
+ *   5. If a submission ever fails (see Executions), run `backfillFromSheet`: it inserts
+ *      every sheet row whose submission time is not yet in BigQuery.
  *
- * The account needs the role BigQuery Data Editor on dataset demos-467314.gapminder_test.
+ * The account needs write access to dataset demos-467314.gapminder_test (project editors have it).
+ * If a trigger run fails with "BigQuery is not defined", the BigQuery advanced service is missing:
+ * Services (+) > BigQuery API, or add it to appsscript.json; then run setupTrigger again to re-consent.
  * No secrets live in this file; the script runs with the account's own OAuth grant.
  */
 
@@ -49,23 +51,22 @@ function setupTrigger() {
 function onFormSubmitToBigQuery(e) {
   const values = e.values;
   const submitted = parseSheetTimestamp_(values[0]);
-  const row = buildRow_(values, submitted, 'apps_script', e.range ? e.range.getRow() : null);
+  const row = buildRow_(values, submitted, 'apps_script');
   insertRows_([row]);
 }
 
-/** One-off: push every existing sheet row that is not yet in BigQuery. */
+/** Repair tool: push every sheet row whose submission time is not yet in BigQuery. */
 function backfillFromSheet() {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   const data = sheet.getDataRange().getValues();
-  const existing = existingResponseIds_();
+  const existing = existingTimestamps_();
   const rows = [];
   for (let i = 1; i < data.length; i++) {            // skip header
     const values = data[i];
     if (!values[0]) continue;                          // empty line
     const submitted = values[0] instanceof Date ? values[0] : parseSheetTimestamp_(values[0]);
-    const row = buildRow_(values, submitted, 'backfill', i + 1);
-    if (existing.has(row.json.response_id)) continue;
-    rows.push(row);
+    if (existing.has(tsKey_(submitted))) continue;
+    rows.push(buildRow_(values, submitted, 'backfill'));
   }
   if (rows.length) insertRows_(rows);
   Logger.log('Backfill: %s rows inserted, %s already present', rows.length, existing.size);
@@ -78,17 +79,17 @@ function testInsert() {
   }
   const now = new Date();
   const values = [now].concat(QUESTION_KEYS.map(() => 'test'));
-  const row = buildRow_(values, now, 'apps_script_test', null);
+  const row = buildRow_(values, now, 'apps_script_test');
   insertRows_([row]);
   Logger.log('Inserted test row %s into %s.%s.%s', row.json.response_id, PROJECT_ID, DATASET_ID, TABLE_ID);
 }
 
 // ── helpers ─────────────────────────────────────────────────────────────────
 
-function buildRow_(values, submitted, source, sheetRow) {
+function buildRow_(values, submitted, source) {
   const id = source.startsWith('apps_script')
     ? Utilities.getUuid()
-    : 'backfill-' + Utilities.formatDate(submitted, 'UTC', "yyyyMMdd'T'HHmmss") + '-' + sheetRow;
+    : 'backfill-' + Utilities.formatDate(submitted, 'Europe/Zurich', "yyyyMMdd'T'HHmmss");
   const json = {
     response_id: id,
     submitted_at: submitted.toISOString(),
@@ -110,12 +111,14 @@ function insertRows_(rows) {
   }
 }
 
-function existingResponseIds_() {
-  const q = `SELECT response_id FROM \`${PROJECT_ID}.${DATASET_ID}.${TABLE_ID}\` WHERE source = 'backfill'`;
-  const res = BigQuery.Jobs.query({ query: q, useLegacySql: false }, PROJECT_ID);
-  const ids = new Set();
-  (res.rows || []).forEach(r => ids.add(r.f[0].v));
-  return ids;
+function tsKey_(d) { return Utilities.formatDate(d, 'Europe/Zurich', 'yyyy-MM-dd HH:mm:ss'); }
+
+function existingTimestamps_() {
+  const q = `SELECT FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', submitted_at, 'Europe/Zurich') AS ts FROM \`${PROJECT_ID}.${DATASET_ID}.${TABLE_ID}\``;
+  const res = BigQuery.Jobs.query({ query: q, useLegacySql: false, maxResults: 10000 }, PROJECT_ID);
+  const keys = new Set();
+  (res.rows || []).forEach(r => keys.add(r.f[0].v));
+  return keys;
 }
 
 /** Sheet timestamps arrive as Date objects in triggers; strings in some locales. */
