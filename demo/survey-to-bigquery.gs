@@ -71,10 +71,22 @@ function backfillFromSheet() {
   Logger.log('Backfill: %s rows inserted, %s already present', rows.length, existing.size);
 }
 
+/** Manual test from the editor: inserts one marked test row and logs the result. */
+function testInsert() {
+  if (typeof BigQuery === 'undefined') {
+    throw new Error('BigQuery service is not enabled: Services (+) > BigQuery API');
+  }
+  const now = new Date();
+  const values = [now].concat(QUESTION_KEYS.map(() => 'test'));
+  const row = buildRow_(values, now, 'apps_script_test', null);
+  insertRows_([row]);
+  Logger.log('Inserted test row %s into %s.%s.%s', row.json.response_id, PROJECT_ID, DATASET_ID, TABLE_ID);
+}
+
 // ── helpers ─────────────────────────────────────────────────────────────────
 
 function buildRow_(values, submitted, source, sheetRow) {
-  const id = source === 'apps_script'
+  const id = source.startsWith('apps_script')
     ? Utilities.getUuid()
     : 'backfill-' + Utilities.formatDate(submitted, 'UTC', "yyyyMMdd'T'HHmmss") + '-' + sheetRow;
   const json = {
