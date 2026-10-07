@@ -1,0 +1,183 @@
+import db.storage.demos_467314_global_bike.sales_order_lines
+
+kb {
+    class Sales_Order_Lines {
+        name.en: "Sales"
+        synonym.en: ["Sales order line", "Order line", "Sale", "Sales transaction", "Verkauf", "Auftragsposition"]
+        description.en: "One row per product on a sales order to a dealer. Amounts are in USD; the dealer's local currency amounts are kept for reference. Actuals end on 30 September 2026."
+        tag: KB_ShowOnlyRepresenters
+
+        from_table: sales_order_lines
+
+        synced_description: "Order lines, dates shifted by 10 years, actuals up to 2026-09-30. net_revenue = revenue - discount, margin = net revenue - cost."
+
+        default_date: Order_Date
+        default_order: Revenue_Usd
+
+        display_with: [
+            Order_Date,
+            with_Customers,
+            with_Products,
+            Quantity,
+            Revenue_Usd
+        ]
+
+        number Revenue_Usd {
+            name.en: "Revenue"
+            synonym.en: ["Sales", "Gross revenue", "Turnover", "Sales revenue", "Umsatz"]
+            description.en: "Gross revenue in USD before discounts."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.revenue_usd}"
+        }
+
+        number Discount_Usd {
+            name.en: "Discount"
+            synonym.en: ["Rebate", "Price reduction", "Rabatt"]
+            description.en: "Discount granted to the dealer, in USD."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.discount_usd}"
+        }
+
+        number Net_Revenue_Usd {
+            name.en: "Net Revenue"
+            synonym.en: ["Net sales", "Revenue after discount", "Nettoumsatz"]
+            description.en: "Revenue minus discount, in USD."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.net_revenue_usd}"
+        }
+
+        number Cost_Usd {
+            name.en: "Cost"
+            synonym.en: ["COGS", "Cost of goods sold", "Product cost", "Kosten"]
+            description.en: "Cost of the products sold, in USD."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.cost_usd}"
+        }
+
+        number Margin_Usd {
+            name.en: "Margin"
+            synonym.en: ["Profit", "Gross margin", "Contribution", "Gross profit", "Marge", "Gewinn"]
+            description.en: "Net revenue minus cost, in USD."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.margin_usd}"
+        }
+
+        integer Quantity {
+            name.en: "Quantity"
+            synonym.en: ["Units", "Units sold", "Volume", "Pieces", "Bikes sold", "Menge", "Stück"]
+
+            sql: "${sales_order_lines.quantity}"
+        }
+
+        number Revenue_Local {
+            name.en: "Revenue in Local Currency"
+            description.en: "Revenue in the dealer's currency (EUR for German dealers, USD for US dealers). Do not sum across currencies; use Revenue instead."
+
+            sql: "${sales_order_lines.revenue_local}"
+        }
+
+        number Discount_Local {
+            name.en: "Discount in Local Currency"
+            description.en: "Discount in the dealer's currency. Do not sum across currencies; use Discount instead."
+
+            sql: "${sales_order_lines.discount_local}"
+        }
+
+        class Currency {
+            name.en: "Currency"
+
+            sql: "${sales_order_lines.currency}"
+        }
+
+        date Order_Date {
+            name.en: "Order Date"
+            synonym.en: ["Date", "Sales date", "Datum"]
+
+            sql: "${sales_order_lines.order_date}"
+
+            datetime_format: DayFormat
+            extends: onto.Order_Date
+        }
+
+        class Order_Number {
+            name.en: "Order"
+            synonym.en: ["Order number", "Sales order", "Auftrag"]
+
+            sql: "${sales_order_lines.order_number}"
+            sync_policy: "ignore"
+        }
+
+        integer Order_Item {
+            name.en: "Order Item"
+            synonym.en: ["Line number", "Position"]
+
+            sql: "${sales_order_lines.order_item}"
+        }
+
+        relationship with_Customers {
+            display_name.en: "sold to"
+            to: kb.Customers
+
+            sql: "${sales_order_lines.customer_id}"
+        }
+
+        relationship with_Products {
+            display_name.en: "of"
+            to: kb.Products
+
+            sql: "${sales_order_lines.product_id}"
+        }
+
+        measure Margin_Pct {
+            name.en: "Margin %"
+            synonym.en: ["Margin percentage", "Margin rate", "Profit margin", "Marge in Prozent"]
+            description.en: "Margin divided by net revenue, in percent."
+            return: number
+            unit: onto.Percentage
+            definition:
+            """
+            sum(this.Margin_Usd) / sum(this.Net_Revenue_Usd) * 100
+            """
+        }
+
+        measure Discount_Rate {
+            name.en: "Discount Rate"
+            synonym.en: ["Discount percentage", "Discount %", "Average discount", "Rabattquote"]
+            description.en: "Discount divided by gross revenue, in percent."
+            return: number
+            unit: onto.Percentage
+            definition:
+            """
+            sum(this.Discount_Usd) / sum(this.Revenue_Usd) * 100
+            """
+        }
+
+        measure Average_Price {
+            name.en: "Average Selling Price"
+            synonym.en: ["Average price", "Price per unit", "ASP", "Durchschnittspreis"]
+            description.en: "Gross revenue divided by units sold, in USD."
+            return: number
+            unit: onto.Currency.USD
+            definition:
+            """
+            sum(this.Revenue_Usd) / sum(this.Quantity)
+            """
+        }
+
+        measure Number_Of_Orders {
+            name.en: "Number of Orders"
+            synonym.en: ["Order count", "Orders", "Anzahl Aufträge"]
+            description.en: "Distinct sales orders; one order usually has several lines."
+            return: integer
+            definition:
+            """
+            count(this.Order_Number)
+            """
+        }
+    }
+}

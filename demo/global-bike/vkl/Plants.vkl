@@ -1,0 +1,62 @@
+import db.storage.demos_467314_global_bike.plants
+
+kb {
+    class Plants {
+        name.en: "Plant"
+        synonym.en: ["Factory", "Assembly plant", "Production site", "Werk"]
+        description.en: "Global Bike's two assembly plants. Dallas supplies the US dealers, Heidelberg the German dealers. Each plant has three assembly lines."
+
+        from_table: plants
+        sql: "${plants.plant_id}"
+        name_sql.en: "${plants.plant_name}"
+
+        synced_description: "The two assembly plants from the Global Bike story."
+
+        integer Assembly_Lines {
+            name.en: "Assembly Lines"
+            synonym.en: ["Lines", "Production lines"]
+
+            sql: "${plants.assembly_lines}"
+        }
+
+        class City {
+            name.en: "City"
+
+            sql: "${plants.city}"
+
+            extends: onto.City
+        }
+
+        class Country {
+            name.en: "Country"
+
+            sql: "${plants.country}"
+
+            extends: onto.Country
+        }
+
+        integer Opened {
+            name.en: "Opening Year"
+            synonym.en: ["Opened", "Opened in"]
+
+            sql: "${plants.opened}"
+        }
+
+        string Plant_Id {
+            name.en: "Plant Id"
+            tag: KB_One2One
+
+            sql: "${plants.plant_id}"
+
+            extends: onto.ID
+        }
+
+        string Plant_Name {
+            name.en: "Plant Name"
+
+            sql: "${plants.plant_name}"
+
+            extends: onto.Name
+        }
+    }
+}

@@ -1,0 +1,101 @@
+import db.storage.demos_467314_global_bike.customers
+
+kb {
+    class Customers {
+        name.en: "Dealer"
+        synonym.en: ["Customer", "Bike shop", "Retailer", "Store", "Reseller", "Händler", "Kunde"]
+        description.en: "The 24 independent bicycle dealers Global Bike sells through: 12 in the United States, 12 in Germany. Global Bike has no direct-to-consumer sales."
+
+        from_table: customers
+        sql: "${customers.customer_id}"
+        name_sql.en: "${customers.customer_name}"
+
+        synced_description: "Independent bicycle dealers (24). plant_id is the plant that supplies them."
+
+        default_order: kb.Sales_Order_Lines.Revenue_Usd
+
+        display_with: [
+            City,
+            Country,
+            with_Sales_Org,
+            Dealer_Size
+        ]
+
+        class City {
+            name.en: "City"
+
+            sql: "${customers.city}"
+
+            extends: onto.City
+        }
+
+        class Country {
+            name.en: "Country"
+            synonym.en: ["Market"]
+            description.en: "US or DE. Global Bike only sells in the United States and Germany."
+
+            sql: "${customers.country}"
+
+            extends: onto.Country
+        }
+
+        integer Customer_Id {
+            name.en: "Dealer Id"
+            tag: KB_One2One
+
+            sql: "${customers.customer_id}"
+
+            extends: onto.ID
+        }
+
+        string Customer_Name {
+            name.en: "Dealer Name"
+
+            sql: "${customers.customer_name}"
+
+            extends: onto.Name
+        }
+
+        integer Dealer_Since {
+            name.en: "Dealer Since"
+            synonym.en: ["Partner since", "Onboarding year", "Customer since"]
+            description.en: "Year the dealer started selling Global Bike products."
+
+            sql: "${customers.dealer_since}"
+        }
+
+        class Dealer_Size {
+            name.en: "Dealer Size"
+            synonym.en: ["Size tier", "Dealer tier", "Segment"]
+            description.en: "Small, Medium or Large, by lifetime revenue with Global Bike."
+
+            sql: "${customers.dealer_size}"
+        }
+
+        relationship with_Sales_Org {
+            display_name.en: "belongs to"
+            to: kb.Sales_Org
+
+            sql: "${customers.sales_org}"
+        }
+
+        relationship with_Plants {
+            display_name.en: "supplied by"
+            to: kb.Plants
+
+            sql: "${customers.plant_id}"
+        }
+    }
+
+    class Sales_Org {
+        name.en: "Sales Organization"
+        synonym.en: ["Sales org", "Region", "Sales region", "Territory", "Sales area", "Vertriebsorganisation"]
+        description.en: "The four sales organizations: US East, US West, Germany North, Germany South. Budgets and forecasts are planned at this level."
+
+        from_table: customers
+        sql: "${customers.sales_org}"
+        name_sql.en: "${customers.sales_org_name}"
+
+        default_order: kb.Sales_Order_Lines.Revenue_Usd
+    }
+}

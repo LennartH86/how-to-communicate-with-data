@@ -1,0 +1,86 @@
+import db.storage.demos_467314_global_bike.plant_capacity
+
+kb {
+    class Plant_Capacity {
+        name.en: "Plant Capacity"
+        synonym.en: ["Capacity", "Production capacity", "Assembly capacity", "Production", "Kapazität"]
+        description.en: "Per plant and month: how many bikes the plant can assemble on regular shifts, how many with overtime (+18 percent), and how many it actually assembled. Utilization above 100 percent means the plant built ahead of the season from stock."
+        tag: KB_ShowOnlyRepresenters
+
+        from_table: plant_capacity
+
+        synced_description: "Monthly assembly capacity per plant (regular and with overtime) and bikes assembled."
+
+        default_date: Month
+
+        display_with: [
+            Month,
+            with_Plants,
+            Bikes_Assembled,
+            Capacity_Units
+        ]
+
+        date Month {
+            name.en: "Production Month"
+            synonym.en: ["Month"]
+
+            sql: "${plant_capacity.month}"
+
+            datetime_format: MonthFormat
+        }
+
+        number Bikes_Assembled {
+            name.en: "Bikes Assembled"
+            synonym.en: ["Production output", "Output", "Bikes produced", "Production volume"]
+
+            sql: "${plant_capacity.bikes_assembled}"
+        }
+
+        integer Capacity_Units {
+            name.en: "Capacity"
+            synonym.en: ["Regular capacity", "Capacity units", "Standard capacity"]
+            description.en: "Bikes the plant can assemble per month on regular shifts."
+
+            sql: "${plant_capacity.capacity_units}"
+        }
+
+        integer Overtime_Capacity_Units {
+            name.en: "Capacity with Overtime"
+            synonym.en: ["Maximum capacity", "Overtime capacity", "Max capacity"]
+            description.en: "Bikes the plant can assemble per month using overtime and part-time workers, 18 percent above regular capacity."
+
+            sql: "${plant_capacity.overtime_capacity_units}"
+        }
+
+        relationship with_Plants {
+            display_name.en: "of"
+            to: kb.Plants
+
+            sql: "${plant_capacity.plant_id}"
+        }
+
+        measure Utilization {
+            name.en: "Capacity Utilization"
+            synonym.en: ["Utilization", "Utilisation", "Load", "Auslastung"]
+            description.en: "Bikes assembled divided by regular capacity, in percent."
+            return: number
+            unit: onto.Percentage
+            definition:
+            """
+            sum(this.Bikes_Assembled) / sum(this.Capacity_Units) * 100
+            """
+        }
+
+        measure Overtime_Utilization {
+            name.en: "Utilization incl. Overtime"
+            synonym.en: ["Utilization with overtime", "Overtime utilization"]
+            description.en: "Bikes assembled divided by capacity with overtime, in percent."
+            return: number
+            unit: onto.Percentage
+            definition:
+            """
+            sum(this.Bikes_Assembled) / sum(this.Overtime_Capacity_Units) * 100
+            """
+        }
+    }
+}

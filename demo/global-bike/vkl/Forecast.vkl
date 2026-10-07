@@ -1,0 +1,72 @@
+import db.storage.demos_467314_global_bike.forecast
+
+kb {
+    class Forecast {
+        name.en: "Forecast"
+        synonym.en: ["Outlook", "Projection", "Expected revenue", "Rolling forecast", "Prognose"]
+        description.en: "Rolling forecast made on 30 September 2026 for the open months October to December 2026, per sales organization and product category. Based on last year's months and this year's run rate."
+        tag: KB_ShowOnlyRepresenters
+
+        from_table: forecast
+
+        synced_description: "Rolling forecast as of 2026-09-30 for the open months of 2026, per sales org and category."
+
+        default_date: Forecast_Month
+        default_order: Forecast_Revenue_Usd
+
+        display_with: [
+            Forecast_Month,
+            with_Sales_Org,
+            with_Category,
+            Forecast_Revenue_Usd
+        ]
+
+        date Forecast_Month {
+            name.en: "Forecast Month"
+            synonym.en: ["Month"]
+
+            sql: "${forecast.forecast_month}"
+
+            datetime_format: MonthFormat
+        }
+
+        number Forecast_Revenue_Usd {
+            name.en: "Forecast Revenue"
+            synonym.en: ["Expected revenue", "Projected revenue", "Forecast", "Outlook"]
+            unit: onto.Currency.USD
+
+            sql: "${forecast.forecast_revenue_usd}"
+        }
+
+        integer Forecast_Quantity {
+            name.en: "Forecast Quantity"
+            synonym.en: ["Expected units", "Projected volume"]
+
+            sql: "${forecast.forecast_quantity}"
+        }
+
+        date Forecast_Version {
+            name.en: "Forecast Version"
+            synonym.en: ["As of", "Forecast date"]
+            description.en: "The day the forecast was made."
+
+            sql: "${forecast.forecast_version}"
+
+            datetime_format: DayFormat
+        }
+
+        relationship with_Sales_Org {
+            display_name.en: "for"
+            to: kb.Sales_Org
+
+            sql: "${forecast.sales_org}"
+        }
+
+        relationship with_Category {
+            display_name.en: "for"
+            to: kb.Category
+
+            sql: "${forecast.category}"
+        }
+    }
+}
