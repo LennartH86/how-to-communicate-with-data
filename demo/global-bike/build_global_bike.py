@@ -41,6 +41,8 @@ def shift_date(d):
 
 def load_source():
     df = pd.read_excel(SRC, sheet_name='SalesData')
+    for col in df.select_dtypes(include='object').columns:   # the source carries trailing blanks in some names
+        df[col] = df[col].astype(str).str.strip()
     df['Date'] = pd.to_datetime(df['Date']).dt.date.map(shift_date)
     df['YEAR'] = [d.year for d in df['Date']]
     df['MONTH'] = [d.month for d in df['Date']]
