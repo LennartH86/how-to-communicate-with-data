@@ -52,8 +52,8 @@ Studio on 2026-10-07 live in `vkl/` (Studio reformats on save, so the indentatio
   capacity utilization per plant in Q3 2026, SoCal Bikes quantity per month. The SoCal drop is visible
   only against the prior year (June to September 2026: 89, 107, 181, 7 units vs 684, 289, 406, 347 in 2025),
   so the agent should compare with the same months a year earlier, not look at the trend within 2026.
-- **Still to do by Lennart:** pin "today" to 2026-09-30 in the Veezoo configuration; the daily schema
-  synchronization shows one failed run from the table import, re-run it once from Studio → Synchronization.
+- **Still to do by Lennart:** pin "today" to 2026-09-30 in the Veezoo configuration. (The schema
+  synchronization that failed during the table import was re-run successfully on 2026-10-07.)
 - **Editing Studio files from the Claude browser:** the clipboard is blocked and `execCommand('insertText')`
   triggers the editor's auto-indent. What works: find the Monaco editor instance through the React fiber of
   `.react-monaco-editor-container` (walk `memoizedState` for an object with `getModel`), call
