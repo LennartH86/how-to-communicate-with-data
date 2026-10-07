@@ -1,5 +1,5 @@
 /**
- * Datasaurus Dozen — Table (Slide 13) and Scatter Grid (Slide 14)
+ * Datasaurus Dozen — Table (Slide 16) and Scatter Grid (Slide 17)
  */
 (function () {
   'use strict';
@@ -32,7 +32,7 @@
     return Math.sqrt(arr.reduce((a, b) => a + (b - m) ** 2, 0) / arr.length);
   }
 
-  // ── Table (Slide 13) ──────────────────────────────────────────────────────
+  // ── Table (Slide 16) ──────────────────────────────────────────────────────
   async function renderTable() {
     if (dsTableRendered) return;
     const container = document.getElementById('datasaurus-table-container');
@@ -40,14 +40,15 @@
     const d = await loadData();
     dsTableRendered = true;
 
-    let html = `<div style="max-height:780px;overflow-y:auto;border-radius:12px;border:2px solid var(--border)">
+    let html = `<div class="table-frame" style="max-height:780px;overflow-y:auto">
     <table class="data-table" style="font-size:19px">
       <thead><tr>
         <th style="text-align:left;padding-left:32px">Dataset</th>
         <th>Mean X</th><th>Mean Y</th><th>SD X</th><th>SD Y</th><th>Correlation</th>
       </tr></thead><tbody>`;
 
-    d.datasets.forEach(ds => {
+    // the dinosaur is the surprise on the next slide, so the table shows the other twelve
+    d.datasets.filter(ds => ds.name !== 'dino').forEach(ds => {
       const xs = ds.points.map(p => p.x);
       const ys = ds.points.map(p => p.y);
       html += `<tr>
@@ -59,8 +60,8 @@
     });
 
     html += `</tbody></table></div>
-    <p style="margin-top:24px;font-size:20px;color:var(--text-muted);text-align:center">
-      <strong>All 13 datasets share nearly identical summary statistics</strong> — yet they look completely different when visualised.
+    <p style="margin-top:24px;font-size:20px;color:var(--text-2);text-align:center">
+      <strong>Twelve datasets, one set of summary statistics.</strong> Same means, same spread, same correlation.
     </p>`;
     container.innerHTML = html;
   }
@@ -95,12 +96,12 @@
       .attr('transform', `translate(0,${inner})`)
       .call(d3.axisBottom(xScale).ticks(5).tickSize(-inner))
       .call(ax => ax.select('.domain').remove())
-      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
+      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e5e7eb').attr('stroke-dasharray', '3,3'));
 
     g.append('g').attr('class', 'axis')
       .call(d3.axisLeft(yScale).ticks(5).tickSize(-inner))
       .call(ax => ax.select('.domain').remove())
-      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e2e6ed').attr('stroke-dasharray', '3,3'));
+      .call(ax => ax.selectAll('.tick line').attr('stroke', '#e5e7eb').attr('stroke-dasharray', '3,3'));
 
     // Regression line — global, identical on all panels
     g.append('line')
@@ -118,7 +119,7 @@
       .attr('cx', p => xScale(p.x))
       .attr('cy', p => yScale(p.y))
       .attr('r', isDino ? 5 : 4)
-      .attr('fill', isDino ? '#00d4e0' : '#0ea5e9')
+      .attr('fill', isDino ? '#00b4d8' : '#0096c7')
       .attr('stroke', 'white')
       .attr('stroke-width', isDino ? 1.5 : 1)
       .attr('opacity', 0.85);
@@ -126,7 +127,7 @@
     parentEl.appendChild(wrapper);
   }
 
-  // ── Scatter (Slide 14) ────────────────────────────────────────────────────
+  // ── Scatter (Slide 17) ────────────────────────────────────────────────────
   async function renderScatter() {
     if (dsScatterRendered) return;
     const grid     = document.getElementById('datasaurus-scatter');
@@ -140,12 +141,12 @@
     // → horizontal span = 60, vertical span = 48  … almost square inner area
     // Make them fully square: use same total margin on both axes
     // total margin = 56 on each axis → inner = 240 - 56 = 184px square
-    const GRID_SIZE = 240;
+    const GRID_SIZE = 280;
     const GM = { left: 36, right: 20, top: 20, bottom: 36, h: 56, v: 56 };
 
     // ── Dino panel: large centered square ───────────────────────────────────
     // Available height for dino: ~840px; width: 1760px → use 800px square
-    const DINO_SIZE = 780;
+    const DINO_SIZE = 620;
     const DM = { left: 56, right: 24, top: 24, bottom: 56, h: 80, v: 80 };
 
     grid.innerHTML     = '';
@@ -166,7 +167,7 @@
       regBtn.addEventListener('click', () => {
         dsRegressionVisible = !dsRegressionVisible;
         regBtn.classList.toggle('active', dsRegressionVisible);
-        regBtn.textContent = dsRegressionVisible ? '✓ Hide Regression Lines' : 'Show Regression Lines';
+        regBtn.textContent = dsRegressionVisible ? 'Hide regression lines' : 'Show regression lines';
         document.querySelectorAll('.ds-reg-line').forEach(line => {
           d3.select(line).attr('opacity', dsRegressionVisible ? 1 : 0);
         });
@@ -181,7 +182,7 @@
         grid.style.display     = dinoVisible ? 'none' : 'grid';
         dinoCont.style.display = dinoVisible ? 'flex'  : 'none';
         dinoBtn.classList.toggle('active', dinoVisible);
-        dinoBtn.textContent = dinoVisible ? '🦕 Hide Dinosaur' : '🦕 Show Dinosaur';
+        dinoBtn.textContent = dinoVisible ? 'Hide the dinosaur' : 'Show the dinosaur';
       });
     }
   }
@@ -189,8 +190,8 @@
   // ── Event Listeners ───────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 14) renderTable();
-      if (e.detail.slide === 15) {
+      if (e.detail.slide === 16) renderTable();
+      if (e.detail.slide === 17) {
         if (typeof d3 !== 'undefined') renderScatter();
         else setTimeout(renderScatter, 300);
       }

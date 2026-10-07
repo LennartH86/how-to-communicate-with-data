@@ -10,7 +10,11 @@
 
   // ── Init ──────────────────────────────────────────────────────────────────
   function init() {
-    const slides = document.querySelectorAll('.slide');
+    // Session track: ?track=tableau or ?track=veezoo (default). CSS hides the other track's elements.
+    const track = new URLSearchParams(window.location.search).get('track');
+    document.documentElement.dataset.track = track === 'tableau' ? 'tableau' : 'veezoo';
+
+    const slides = activeSlides();
     totalSlides = slides.length;
 
     // Read slide from URL hash
@@ -23,6 +27,14 @@
     showSlide(currentSlide, false);
     applyScale();
 
+    // The chart modules register their `slidechange` listeners in their own
+    // DOMContentLoaded handlers, which run after this one. Re-fire the initial
+    // event on the next tick so a deck opened (or refreshed) at #slide-N renders
+    // that slide's content. Renderers are guarded, so a second event is harmless.
+    setTimeout(() => {
+      document.dispatchEvent(new CustomEvent('slidechange', { detail: { slide: currentSlide } }));
+    }, 0);
+
     // Events
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('resize', applyScale);
@@ -31,6 +43,12 @@
 
     // Click to navigate (left half = prev, right half = next)
     document.getElementById('presentation').addEventListener('click', onPresentationClick);
+  }
+
+  // Slides tagged data-track belong to one session track only; the others are not counted.
+  function activeSlides() {
+    const track = document.documentElement.dataset.track;
+    return Array.from(document.querySelectorAll('.slide')).filter(s => !s.dataset.track || s.dataset.track === track);
   }
 
   // ── Scale ─────────────────────────────────────────────────────────────────
@@ -83,7 +101,7 @@
 
   // ── Navigation ────────────────────────────────────────────────────────────
   function showSlide(n, animate = true) {
-    const slides = document.querySelectorAll('.slide');
+    const slides = activeSlides();
     slides.forEach((s, i) => {
       s.classList.toggle('active', i + 1 === n);
     });
@@ -159,7 +177,7 @@
     // Don't navigate when clicking interactive elements
     const tag = e.target.tagName.toLowerCase();
     if (['button', 'a', 'input', 'select', 'textarea', 'label'].includes(tag)) return;
-    if (e.target.closest('button, a, input, select, .toggle-btn, iframe, .tableauPlaceholder')) return;
+    if (e.target.closest('button, a, input, select, .toggle-btn, iframe, .bp-rule, .def-pill')) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const relX = (e.clientX - rect.left) / rect.width;

@@ -1,0 +1,11 @@
+{
+  "title": "Correct vs silently wrong",
+  "method": "Best reported result per study, frontier AI models, 2024 to 2026. Silently wrong = the query ran and returned a number, and the number was wrong (execution rate minus execution accuracy).",
+  "rows": [
+    { "label": "Demo database",                   "sub": "Spider",            "correct": 92, "wrong": 7  },
+    { "label": "Fully documented data warehouse", "sub": "Spider 2.0-Snow",   "correct": 79, "wrong": 21 },
+    { "label": "Typical company data warehouse",  "sub": "Spider 2.0-AIFunc", "correct": 70, "wrong": 29 },
+    { "label": "Specialist department data",      "sub": "BiomedSQL",         "correct": 63, "wrong": 37 },
+    { "label": "Grown data landscape",            "sub": "DS-NL2SQL",         "correct": 59, "wrong": 41 }
+  ]
+}
