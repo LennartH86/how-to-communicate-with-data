@@ -20,7 +20,7 @@ git-ignored `hands-on/` folder). The build is deterministic; re-run the script t
 - **Two planted signals for the agent exercise**, both in the months before "today":
   - *Peachtree Bikes (US East):* discount rate climbs from ~3 percent in April to ~9 percent in
     September 2026.
-  - *Northwest Bikes (US West):* about 55 percent fewer orders in July to September 2026.
+  - *SoCal Bikes (US West):* about 65 percent fewer orders in June to September 2026, in the middle of the season.
 
 ## Tables
 

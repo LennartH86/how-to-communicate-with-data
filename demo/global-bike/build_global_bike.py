@@ -26,7 +26,7 @@ RNG = np.random.default_rng(2026)
 
 # Signals planted for the agent exercise (both in the last months before AS_OF)
 DISCOUNT_DRIFT = {'customer': 'Peachtree Bikes', 'from': (2026, 5), 'to': (2026, 9), 'target_rate': 0.09}
-VOLUME_DROP = {'customer': 'Northwest Bikes', 'from': (2026, 7), 'to': (2026, 9), 'keep_share': 0.45}
+VOLUME_DROP = {'customer': 'SoCal Bikes', 'from': (2026, 6), 'to': (2026, 9), 'keep_share': 0.35}
 
 SALES_ORG_NAMES = {'UE00': 'US East', 'UW00': 'US West', 'DN00': 'Germany North', 'DS00': 'Germany South'}
 NAME_FIXES = {'Mnchen': 'München', 'R„dlelland': 'Rädlelland', 'Rdlelland': 'Rädlelland'}
