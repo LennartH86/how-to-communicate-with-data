@@ -1,4 +1,5 @@
 import db.storage.demos_467314_global_bike.products
+import db.storage.demos_467314_global_bike.product_categories
 
 kb {
     class Products {
@@ -89,9 +90,9 @@ kb {
         synonym.en: ["Category", "Bike type", "Product group", "Kategorie"]
         description.en: "Touring Bike, Road Bike, Offroad Bike, E Bike, Trend Bike and Accessories."
 
-        from_table: products
-        sql: "${products.category}"
-        name_sql.en: "${products.category_name}"
+        from_table: product_categories
+        sql: "${product_categories.category}"
+        name_sql.en: "${product_categories.category_name}"
 
         default_order: kb.Sales_Order_Lines.Revenue_Usd
     }

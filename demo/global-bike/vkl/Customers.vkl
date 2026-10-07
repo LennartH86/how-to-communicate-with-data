@@ -1,4 +1,5 @@
 import db.storage.demos_467314_global_bike.customers
+import db.storage.demos_467314_global_bike.sales_orgs
 
 kb {
     class Customers {
@@ -92,10 +93,18 @@ kb {
         synonym.en: ["Sales org", "Region", "Sales region", "Territory", "Sales area", "Vertriebsorganisation"]
         description.en: "The four sales organizations: US East, US West, Germany North, Germany South. Budgets and forecasts are planned at this level."
 
-        from_table: customers
-        sql: "${customers.sales_org}"
-        name_sql.en: "${customers.sales_org_name}"
+        from_table: sales_orgs
+        sql: "${sales_orgs.sales_org}"
+        name_sql.en: "${sales_orgs.sales_org_name}"
 
         default_order: kb.Sales_Order_Lines.Revenue_Usd
+
+        class Country {
+            name.en: "Country"
+
+            sql: "${sales_orgs.country}"
+
+            extends: onto.Country
+        }
     }
 }

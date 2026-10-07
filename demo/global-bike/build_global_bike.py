@@ -79,6 +79,11 @@ def build(df):
     products = products[['product_id', 'product_name', 'category', 'category_name', 'division', 'division_name',
                          'list_price_usd', 'unit_cost_usd', 'launch_year']]
 
+    # dimension tables for the planning grain, one row per value (Veezoo classes need unique keys)
+    sales_orgs = (customers[['sales_org', 'sales_org_name']].drop_duplicates().sort_values('sales_org').reset_index(drop=True))
+    sales_orgs['country'] = np.where(sales_orgs['sales_org'].str.startswith('U'), 'US', 'DE')
+    categories = (products[['category', 'category_name', 'division', 'division_name']].drop_duplicates().sort_values('category').reset_index(drop=True))
+
     plants = pd.DataFrame([
         {'plant_id': 'DL00', 'plant_name': 'Dallas', 'city': 'Dallas', 'country': 'US', 'assembly_lines': 3, 'opened': 2001},
         {'plant_id': 'HD00', 'plant_name': 'Heidelberg', 'city': 'Heidelberg', 'country': 'DE', 'assembly_lines': 3, 'opened': 2001},
@@ -170,12 +175,12 @@ def build(df):
                                  'overtime_capacity_units': int(round(base * 1.18)),
                                  'bikes_assembled': int(assembled) if month <= dt.date(AS_OF.year, AS_OF.month, 1) else None})
     capacity = pd.DataFrame(cap_rows)
-    return customers, products, plants, fact, budget, forecast, capacity
+    return customers, products, plants, fact, budget, forecast, capacity, sales_orgs, categories
 
 
 def main():
     df = load_source()
-    customers, products, plants, fact, budget, forecast, capacity = build(df)
+    customers, products, plants, fact, budget, forecast, capacity, sales_orgs, categories = build(df)
     client = bigquery.Client(project=PROJECT)
     ds = bigquery.Dataset(f'{PROJECT}.{DATASET}'); ds.location = 'EU'
     client.create_dataset(ds, exists_ok=True)
@@ -183,6 +188,8 @@ def main():
         'customers': (customers, 'Independent bicycle dealers (24). plant_id is the plant that supplies them.'),
         'products': (products, 'Global Bike products (29) with category, division, list price and unit cost in USD.'),
         'plants': (plants, 'The two assembly plants from the Global Bike story.'),
+        'sales_orgs': (sales_orgs, 'The four sales organizations (US East, US West, Germany North, Germany South), one row each.'),
+        'product_categories': (categories, 'The six product categories with their division, one row each.'),
         'sales_order_lines': (fact, f'Order lines, dates shifted by {SHIFT_YEARS} years, actuals up to {AS_OF}. net_revenue = revenue - discount, margin = net revenue - cost.'),
         'budget': (budget, f'Monthly revenue and quantity budget per sales org and product category for {AS_OF.year - 1} and {AS_OF.year}.'),
         'forecast': (forecast, f'Rolling forecast as of {AS_OF} for the open months of {AS_OF.year}, per sales org and category.'),
