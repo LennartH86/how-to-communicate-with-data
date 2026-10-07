@@ -13,6 +13,12 @@ Form (forms.gle/v77nsv62g1EzY73G9)
        └─ shared "anyone with the link" ───────► js/survey.js on slide 31 (live counter, correct share per question, random-guess line)
 ```
 
+## The data behind the answers: `gapminder_data`
+
+`demos-467314.gapminder_test.gapminder_data` holds the Gapminder country indicators that answer the 13 questions: 273 countries and territories, years 1800 to 2100 (rows after 2024 are Gapminder projections, flagged `is_projection`), 82,173 rows. Copied on 2026-10-07 from Snowflake `GAPMINDER.PUBLIC.DATA` (account be95772.eu-central-2, key-pair login as `heucken`), decimal commas converted to numbers, 698 empty rows dropped. Columns: `population`, `life_expectancy`, `child_mortality_per_1000`, `children_per_woman`, `daily_income_per_person`, `co2_emission_per_capita`, `vaccinated_1year_olds_pct`, `girls_primary_completion_pct`, plus the Gapminder groupings `income_3groups`, `world_4region`, `world_6region`, `west_and_rest`, `unhcr_region`.
+
+Coverage per indicator (last year with observed data): population, life expectancy, child mortality, children per woman and daily income run to 2100 with projections; CO2 per capita ends 2022; vaccination ends 2020; girls' primary completion is sparse and ends 2023. The World Bank publishes observed values to 2024 (2025 for population) for comparable indicators, so a refresh is possible if newer observed years matter for the demo.
+
 ## Files
 
 - `bigquery-survey.sql`: dataset `gapminder_test` (EU) in project `demos-467314`, tables `survey_questions` (13 questions with correct answers) and `survey_responses` (one row per submission, partitioned by `session_date`), view `survey_answers` (one row per response and question with `is_correct`). Applied on 2026-10-05; re-running is safe (the responses table is `CREATE IF NOT EXISTS`).
