@@ -4,12 +4,13 @@ import db.storage.demos_467314_global_bike.product_categories
 kb {
     class Products {
         name.en: "Product"
-        synonym.en: ["Bike", "Bicycle", "Item", "Article", "Model", "SKU", "Produkt"]
-        description.en: "The 29 products Global Bike sells: touring, road, off-road, e-bikes and trend bikes plus accessories."
+        synonym.en: ["Item", "Article", "Model", "SKU", "Product model", "Produkt", "Artikel"]
+        description.en: "The 29 products Global Bike sells: 19 bikes (touring, road, off-road, e-bikes, trend bikes) and 10 accessories. Each product has a list price and a unit cost in USD."
 
         from_table: products
         sql: "${products.product_id}"
         name_sql.en: "${products.product_name}"
+        synonym_sql.en: "${products.product_id}"
 
         synced_description: "Global Bike products (29) with category, division, list price and unit cost in USD."
 
@@ -17,42 +18,15 @@ kb {
         default_order: kb.Sales_Order_Lines.Revenue_Usd
         extends: onto.Product
 
-        // note: listing with_Category here makes Studio fail with "non-existing object kb.kb"
         display_with: [
-            Division,
+            with_Category,
             List_Price_Usd
         ]
 
-        class Division {
-            name.en: "Division"
-            synonym.en: ["Product line", "Business unit"]
-            description.en: "Bicycles or Accessories."
-
-            sql: "${products.division}"
-            name_sql: "${products.division_name}"
-        }
-
-        date Launch_Year {
-            name.en: "Launch Year"
-            synonym.en: ["Introduced", "First sold"]
-
-            sql: "PARSE_DATE('%Y', cast(${products.launch_year} as string))"
-
-            datetime_format: YearFormat
-        }
-
-        number List_Price_Usd {
-            name.en: "List Price"
-            synonym.en: ["Price", "Catalog price", "Unit price"]
-            description.en: "Typical selling price per unit in USD before discount."
-            unit: onto.Currency.USD
-            default_aggregation: average
-
-            sql: "${products.list_price_usd}"
-        }
-
         string Product_Id {
-            name.en: "Product Id"
+            name.en: "Product Number"
+            synonym.en: ["Product ID", "Material number", "Article number", "Materialnummer"]
+            description.en: "The product code, for example DXTR1000 for the Deluxe Touring Bike in black."
             tag: KB_One2One
 
             sql: "${products.product_id}"
@@ -60,40 +34,105 @@ kb {
             extends: onto.ID
         }
 
-        string Product_Name {
-            name.en: "Product Name"
+        relationship with_Category {
+            display_name.en: "in"
+            description.en: "The product category (touring bike, road bike, off-road bike, e-bike, trend bike or accessories)."
+            to: kb.Category
 
-            sql: "${products.product_name}"
+            sql: "${products.category}"
+        }
 
-            extends: onto.Name
+        date Launch_Year {
+            name.en: "Launch Year"
+            synonym.en: ["Introduced", "First sold", "Launch", "Markteinführung"]
+            description.en: "Year the product was introduced. Most products date from 2017; the E-Bike Tailwind from 2020 and the Hoverboard from 2025."
+            phrase_name: "launched"
+
+            sql: "PARSE_DATE('%Y', CAST(${products.launch_year} AS STRING))"
+
+            datetime_format: YearFormat
+        }
+
+        number List_Price_Usd {
+            name.en: "List Price"
+            synonym.en: ["Price", "Catalog price", "Unit price", "Dealer price", "Listenpreis"]
+            description.en: "Selling price per unit in USD before any discount."
+            unit: onto.Currency.USD
+            default_aggregation: average
+
+            sql: "${products.list_price_usd}"
+
+            extends: onto.Price
         }
 
         number Unit_Cost_Usd {
             name.en: "Unit Cost"
-            synonym.en: ["Cost per unit", "Production cost"]
+            synonym.en: ["Cost per unit", "Production cost", "Standard cost", "Stückkosten"]
+            description.en: "Cost to produce or purchase one unit, in USD."
             unit: onto.Currency.USD
             default_aggregation: average
 
             sql: "${products.unit_cost_usd}"
         }
 
-        relationship with_Category {
-            display_name.en: "in"
-            to: kb.Category
+        number Unit_Margin_Usd {
+            name.en: "Unit Margin"
+            synonym.en: ["Margin per unit", "Contribution per unit", "Stückmarge"]
+            description.en: "List price minus unit cost, in USD: the margin on one unit sold at list price."
+            unit: onto.Currency.USD
+            default_aggregation: average
 
-            sql: "${products.category}"
+            sql: "${products.list_price_usd} - ${products.unit_cost_usd}"
+        }
+
+        number Unit_Margin_Pct {
+            name.en: "Unit Margin %"
+            synonym.en: ["List margin %", "Margin at list price", "Target margin"]
+            description.en: "Unit margin divided by list price, in percent: the margin a product earns when sold without discount."
+            unit: onto.Percentage
+            default_aggregation: average
+
+            sql: "(${products.list_price_usd} - ${products.unit_cost_usd}) / ${products.list_price_usd} * 100"
+        }
+
+        subclass Bike {
+            display_name.en: "Bike"
+            synonym.en: ["Bicycle", "Bikes", "Bicycles", "Fahrrad", "Rad"]
+            description.en: "Products in the Bicycles division: touring, road, off-road, e-bikes and trend bikes (19 products)."
+            definition: "this.with_Category.Division = kb.Category.Division.Bicycles_9444"
+        }
+
+        subclass Accessory {
+            display_name.en: "Accessory"
+            synonym.en: ["Accessories", "Gear", "Equipment", "Zubehör"]
+            description.en: "Products in the Accessories division: helmets, pads, pumps, bottles, kits and apparel (10 products)."
+            definition: "this.with_Category.Division = kb.Category.Division.Accessories_1872"
         }
     }
 
     class Category {
         name.en: "Product Category"
-        synonym.en: ["Category", "Bike type", "Product group", "Kategorie"]
-        description.en: "Touring Bike, Road Bike, Offroad Bike, E Bike, Trend Bike and Accessories."
+        synonym.en: ["Category", "Bike type", "Product group", "Product line", "Kategorie", "Produktgruppe"]
+        description.en: "The six product categories: Touring Bike, Road Bike, Offroad Bike, E Bike, Trend Bike and Accessories. Budgets and forecasts are planned per category and sales organization."
 
         from_table: product_categories
         sql: "${product_categories.category}"
         name_sql.en: "${product_categories.category_name}"
+        synonym_sql.en: "${product_categories.category}"
 
         default_order: kb.Sales_Order_Lines.Revenue_Usd
+
+        display_with: [
+            Division
+        ]
+
+        class Division {
+            name.en: "Division"
+            synonym.en: ["Business unit", "Product division", "Sparte"]
+            description.en: "Bicycles or Accessories: the two divisions the categories roll up into."
+
+            sql: "${product_categories.division}"
+            name_sql: "${product_categories.division_name}"
+        }
     }
 }

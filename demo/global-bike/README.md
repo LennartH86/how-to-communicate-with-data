@@ -38,26 +38,57 @@ git-ignored `hands-on/` folder). The build is deterministic; re-run the script t
 
 ## Knowledge graph in Veezoo
 
-The knowledge graph `global-bike` on app.veezoo.com is modelled; the class files as saved in Veezoo
-Studio on 2026-10-07 live in `vkl/` (Studio reformats on save, so the indentation there may differ).
+The knowledge graph `global-bike` on app.veezoo.com is modelled around business concepts, not tables.
+The class files as saved in Veezoo Studio on 2026-10-09 live in `vkl/` (Studio reformats and reorders
+on save, so whitespace and class order there may differ); `vkl/entities/Dealer_Size.vkl` is the one
+hand-edited entities file (ordinal order). Modelling follows the Veezoo academy (think in business
+concepts, properties, subclasses, hierarchies, links) and the KG auditor checklist in `veezoo-ai/agents`.
 
-- **Classes:** Sales (`sales_order_lines`), Dealer (`customers`), Product (`products`), Sales
-  Organization (`sales_orgs`), Product Category (`product_categories`), Plant, Budget, Forecast,
-  Plant Capacity. Sales Organization and Product Category are top-level classes on their own one-row-per-value
-  tables; basing them on a column of `customers` or `products` gave one entity per row (24 and 29) instead of 4 and 6.
-- **Measures:** Revenue, Discount, Net Revenue, Cost, Margin (USD), Margin %, Discount Rate, Average
-  Selling Price, Number of Orders, Budget Revenue, Forecast Revenue, Capacity Utilization, Utilization incl. Overtime.
-- **Checked in the chat on 2026-10-07:** revenue by sales organization, revenue vs budget by category
-  (Veezoo adds the partial-year caveat itself), Peachtree Bikes discount rate per month (3 % to 9 %),
-  capacity utilization per plant in Q3 2026, SoCal Bikes quantity per month. The SoCal drop is visible
-  only against the prior year (June to September 2026: 89, 107, 181, 7 units vs 684, 289, 406, 347 in 2025),
-  so the agent should compare with the same months a year earlier, not look at the trend within 2026.
-- **Still to do by Lennart:** pin "today" to 2026-09-30 in the Veezoo configuration. (The schema
-  synchronization that failed during the table import was re-run successfully on 2026-10-07.)
-- **Editing Studio files from the Claude browser:** the clipboard is blocked and `execCommand('insertText')`
-  triggers the editor's auto-indent. What works: find the Monaco editor instance through the React fiber of
-  `.react-monaco-editor-container` (walk `memoizedState` for an object with `getModel`), call
-  `getModel().setValue(text)`, then click SAVE and SYNC and confirm the dialog.
+**Classes** (name shown to users, file in brackets):
+
+| Class | Grain | Notes |
+|---|---|---|
+| Order Line (`Sales_Order_Lines`) | one product on one order | all amounts; `quantity_of: Product`, so "how many bikes were sold" sums the quantity; local-currency amounts and the line number are hidden |
+| Order (`Order` in the same file) | one sales order | promoted from the order-line table (same table, keyed by order number, entities not synced); carries Order Date (`event_date`), Currency and "placed by" Dealer; `extends onto.Order` |
+| Dealer (`Customers`) | one dealer | `extends onto.Customer`; Dealer Size is an ordinal class (Small < Medium < Large); Dealer Since is a year-typed date ("dealers onboarded before 2012") |
+| Sales Organization (`Sales_Org`, in the Customers file) | one of four | own table, code as synonym (`UE00`), Country |
+| Product (`Products`) | one product | `extends onto.Product`; subclasses Bike and Accessory defined on the category's division; Unit Margin and Unit Margin % as row-level numbers; List Price `extends onto.Price` |
+| Product Category (`Category`, in the Products file) | one of six | own table, Division as nested class (Bicycles or Accessories) |
+| Plant (`Plants`) | one of two | code as synonym, Opening Year as date |
+| Plant Production (`Plant_Capacity`) | one plant and month | Spare Capacity, Overtime Month boolean (negated name "Regular Month") |
+| Budget, Forecast | sales org x category x month | `event_date` on the month, price-per-unit measures |
+
+**Ontologies used:** onto.Order, onto.Order_Date, onto.Customer, onto.Product, onto.Revenue,
+onto.Discount, onto.Profit, onto.Price, onto.City, onto.Country, onto.ID, onto.Currency.USD,
+onto.Percentage. All were accepted by Studio; onto.Quantity and onto.Cost were not tried.
+
+**Measures:** Revenue, Discount, Net Revenue, Cost of Goods, Gross Margin (numbers), Gross Margin %,
+Discount Rate, Cost Ratio, Average Selling Price (net revenue per unit), Number of Orders
+(`count(this.of_Order)`), Average Order Value, Units per Order, Unit Margin, Unit Margin %, Budgeted
+Price per Unit, Forecast Price per Unit, Capacity Utilization, Utilization incl. Overtime, Spare
+Capacity. Every class, attribute, relationship and measure has a description and synonyms (English
+plus the German terms an MBA room in Switzerland or Germany might use).
+
+**Checked in the chat on 2026-10-09:** "How many bikes were sold in 2026" (36,807, via the Bike
+subclass and quantity), orders and average order value per month, gross margin % by dealer size
+(sorted Small, Medium, Large), dealers onboarded before 2012, accessories vs bikes per quarter,
+overtime months of Heidelberg; earlier: revenue by sales organization, revenue vs budget by category,
+Peachtree Bikes discount rate per month (3 % to 9 %), capacity utilization per plant. The SoCal drop
+is visible only against the prior year (June to September 2026: 89, 107, 181, 7 units vs 684, 289,
+406, 347 in 2025), so the agent should compare with the same months a year earlier.
+
+**Not modelled on purpose:** budget attainment as a cross-fact measure (sales org x category x month
+vs order lines); Veezoo answers "revenue vs budget by category" side by side, and the academy
+recommends a ground truth for such cross-fact calculations if a single number is wanted. No class
+carries onto.Location beyond City and Country, so "where" questions stay unambiguous.
+
+**Still to do by Lennart:** pin "today" to 2026-09-30 in the Veezoo configuration.
+
+**Editing Studio files from the Claude browser:** the clipboard is blocked and `execCommand('insertText')`
+triggers the editor's auto-indent. What works: find the Monaco editor instance through the React fiber of
+`.react-monaco-editor-container` (walk `memoizedState` for an object with `getModel`), call
+`getModel().setValue(text)`, then click SAVE and SYNC and confirm the dialog. Entities of a deleted
+nested class stay as orphan files under `classes/<Class>/entities/` and must be deleted by hand.
 
 ## Demo questions, canvas challenge and agent
 

@@ -2,125 +2,36 @@ import db.storage.demos_467314_global_bike.sales_order_lines
 
 kb {
     class Sales_Order_Lines {
-        name.en: "Sales"
-        synonym.en: ["Sales order line", "Order line", "Sale", "Sales transaction", "Verkauf", "Auftragsposition"]
-        description.en: "One row per product on a sales order to a dealer. Amounts are in USD; the dealer's local currency amounts are kept for reference. Actuals end on 30 September 2026."
+        name.en: "Order Line"
+        synonym.en: ["Sales", "Sale", "Sales line", "Line item", "Order item", "Order position", "Sales transaction", "Verkauf", "Auftragsposition"]
+        description.en: "One line of a sales order: one product, its quantity and its amounts. Orders have 4 to 5 lines on average. All amounts are in USD (converted from the dealer's currency at the order date). Revenue is gross before discount, net revenue is after discount, margin is net revenue minus cost of goods. Actuals end on 30 September 2026."
         tag: KB_ShowOnlyRepresenters
 
         from_table: sales_order_lines
 
         synced_description: "Order lines, dates shifted by 10 years, actuals up to 2026-09-30. net_revenue = revenue - discount, margin = net revenue - cost."
 
-        default_date: Order_Date
+        default_date: kb.Order.Order_Date
         default_order: Revenue_Usd
 
         display_with: [
-            Order_Date,
-            with_Customers,
+            of_Order,
             with_Products,
             Quantity,
-            Revenue_Usd
+            Net_Revenue_Usd
         ]
 
-        number Revenue_Usd {
-            name.en: "Revenue"
-            synonym.en: ["Sales", "Gross revenue", "Turnover", "Sales revenue", "Umsatz"]
-            description.en: "Gross revenue in USD before discounts."
-            unit: onto.Currency.USD
-
-            sql: "${sales_order_lines.revenue_usd}"
-        }
-
-        number Discount_Usd {
-            name.en: "Discount"
-            synonym.en: ["Rebate", "Price reduction", "Rabatt"]
-            description.en: "Discount granted to the dealer, in USD."
-            unit: onto.Currency.USD
-
-            sql: "${sales_order_lines.discount_usd}"
-        }
-
-        number Net_Revenue_Usd {
-            name.en: "Net Revenue"
-            synonym.en: ["Net sales", "Revenue after discount", "Nettoumsatz"]
-            description.en: "Revenue minus discount, in USD."
-            unit: onto.Currency.USD
-
-            sql: "${sales_order_lines.net_revenue_usd}"
-        }
-
-        number Cost_Usd {
-            name.en: "Cost"
-            synonym.en: ["COGS", "Cost of goods sold", "Product cost", "Kosten"]
-            description.en: "Cost of the products sold, in USD."
-            unit: onto.Currency.USD
-
-            sql: "${sales_order_lines.cost_usd}"
-        }
-
-        number Margin_Usd {
-            name.en: "Margin"
-            synonym.en: ["Profit", "Gross margin", "Contribution", "Gross profit", "Marge", "Gewinn"]
-            description.en: "Net revenue minus cost, in USD."
-            unit: onto.Currency.USD
-
-            sql: "${sales_order_lines.margin_usd}"
-        }
-
-        integer Quantity {
-            name.en: "Quantity"
-            synonym.en: ["Units", "Units sold", "Volume", "Pieces", "Bikes sold", "Menge", "Stück"]
-
-            sql: "${sales_order_lines.quantity}"
-        }
-
-        number Revenue_Local {
-            name.en: "Revenue in Local Currency"
-            description.en: "Revenue in the dealer's currency (EUR for German dealers, USD for US dealers). Do not sum across currencies; use Revenue instead."
-
-            sql: "${sales_order_lines.revenue_local}"
-        }
-
-        number Discount_Local {
-            name.en: "Discount in Local Currency"
-            description.en: "Discount in the dealer's currency. Do not sum across currencies; use Discount instead."
-
-            sql: "${sales_order_lines.discount_local}"
-        }
-
-        class Currency {
-            name.en: "Currency"
-
-            sql: "${sales_order_lines.currency}"
-        }
-
-        date Order_Date {
-            name.en: "Order Date"
-            synonym.en: ["Date", "Sales date", "Datum"]
-
-            sql: "${sales_order_lines.order_date}"
-
-            datetime_format: DayFormat
-            extends: onto.Order_Date
-        }
-
-        class Order_Number {
-            name.en: "Order"
-            synonym.en: ["Order number", "Sales order", "Auftrag"]
+        relationship of_Order {
+            display_name.en: "of"
+            description.en: "The sales order this line belongs to. The order carries the dealer, the order date and the currency."
+            to: kb.Order
 
             sql: "${sales_order_lines.order_number}"
-            sync_policy: "ignore"
-        }
-
-        integer Order_Item {
-            name.en: "Order Item"
-            synonym.en: ["Line number", "Position"]
-
-            sql: "${sales_order_lines.order_item}"
         }
 
         relationship with_Customers {
             display_name.en: "sold to"
+            description.en: "The dealer that placed the order (same for every line of an order)."
             to: kb.Customers
 
             sql: "${sales_order_lines.customer_id}"
@@ -128,15 +39,101 @@ kb {
 
         relationship with_Products {
             display_name.en: "of"
+            description.en: "The product on this line."
             to: kb.Products
 
             sql: "${sales_order_lines.product_id}"
         }
 
+        integer Quantity {
+            name.en: "Quantity"
+            synonym.en: ["Units", "Units sold", "Volume", "Pieces", "Sales volume", "Menge", "Stück"]
+            description.en: "Number of units of the product on this line. 'How many bikes were sold' resolves to the sum of quantity."
+            quantity_of: kb.Products
+
+            sql: "${sales_order_lines.quantity}"
+        }
+
+        number Revenue_Usd {
+            name.en: "Revenue"
+            synonym.en: ["Gross revenue", "Sales revenue", "Turnover", "Gross sales", "Umsatz", "Bruttoumsatz"]
+            description.en: "Gross revenue in USD: quantity times selling price, before discount."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.revenue_usd}"
+
+            extends: onto.Revenue
+        }
+
+        number Discount_Usd {
+            name.en: "Discount"
+            synonym.en: ["Rebate", "Price reduction", "Discount amount", "Rabatt"]
+            description.en: "Discount granted to the dealer on this line, in USD. Most lines carry a small dealer discount."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.discount_usd}"
+
+            extends: onto.Discount
+        }
+
+        number Net_Revenue_Usd {
+            name.en: "Net Revenue"
+            synonym.en: ["Net sales", "Revenue after discount", "Net turnover", "Nettoumsatz"]
+            description.en: "Revenue minus discount, in USD. The amount the dealer is invoiced."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.net_revenue_usd}"
+        }
+
+        number Cost_Usd {
+            name.en: "Cost of Goods"
+            synonym.en: ["Cost", "COGS", "Cost of goods sold", "Product cost", "Herstellkosten", "Kosten"]
+            description.en: "Cost of the units on this line, in USD: quantity times the product's unit cost."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.cost_usd}"
+        }
+
+        number Margin_Usd {
+            name.en: "Gross Margin"
+            synonym.en: ["Margin", "Profit", "Gross profit", "Contribution", "Contribution margin", "Marge", "Rohertrag", "Gewinn"]
+            description.en: "Net revenue minus cost of goods, in USD."
+            unit: onto.Currency.USD
+
+            sql: "${sales_order_lines.margin_usd}"
+
+            extends: onto.Profit
+        }
+
+        number Revenue_Local {
+            name.en: "Revenue in Local Currency"
+            description.en: "Gross revenue in the order currency (EUR for German dealers, USD for US dealers). Not comparable across currencies; use Revenue for totals."
+            hidden: true
+
+            sql: "${sales_order_lines.revenue_local}"
+        }
+
+        number Discount_Local {
+            name.en: "Discount in Local Currency"
+            description.en: "Discount in the order currency. Not comparable across currencies; use Discount for totals."
+            hidden: true
+
+            sql: "${sales_order_lines.discount_local}"
+        }
+
+        integer Order_Item {
+            name.en: "Line Number"
+            synonym.en: ["Item number", "Position number"]
+            description.en: "Position of the line within its order (10, 20, 30, ...)."
+            hidden: true
+
+            sql: "${sales_order_lines.order_item}"
+        }
+
         measure Margin_Pct {
-            name.en: "Margin %"
-            synonym.en: ["Margin percentage", "Margin rate", "Profit margin", "Marge in Prozent"]
-            description.en: "Margin divided by net revenue, in percent."
+            name.en: "Gross Margin %"
+            synonym.en: ["Margin %", "Margin percentage", "Margin rate", "Profit margin", "Profitability", "Marge in Prozent"]
+            description.en: "Gross margin divided by net revenue, in percent."
             return: number
             unit: onto.Percentage
             definition:
@@ -147,8 +144,8 @@ kb {
 
         measure Discount_Rate {
             name.en: "Discount Rate"
-            synonym.en: ["Discount percentage", "Discount %", "Average discount", "Rabattquote"]
-            description.en: "Discount divided by gross revenue, in percent."
+            synonym.en: ["Discount %", "Discount percentage", "Average discount", "Rebate rate", "Rabattquote"]
+            description.en: "Discount divided by gross revenue, in percent. A rising discount rate for one dealer is a signal worth checking."
             return: number
             unit: onto.Percentage
             definition:
@@ -159,24 +156,127 @@ kb {
 
         measure Average_Price {
             name.en: "Average Selling Price"
-            synonym.en: ["Average price", "Price per unit", "ASP", "Durchschnittspreis"]
-            description.en: "Gross revenue divided by units sold, in USD."
+            synonym.en: ["ASP", "Average price", "Realized price", "Net price per unit", "Price per unit", "Durchschnittspreis"]
+            description.en: "Net revenue divided by units sold, in USD: the price actually realized per unit after discount."
             return: number
             unit: onto.Currency.USD
             definition:
             """
-            sum(this.Revenue_Usd) / sum(this.Quantity)
+            sum(this.Net_Revenue_Usd) / sum(this.Quantity)
             """
         }
 
         measure Number_Of_Orders {
             name.en: "Number of Orders"
-            synonym.en: ["Order count", "Orders", "Anzahl Aufträge"]
-            description.en: "Distinct sales orders; one order usually has several lines."
+            synonym.en: ["Order count", "Orders", "Order volume", "Anzahl Aufträge"]
+            description.en: "Distinct sales orders behind the lines in scope. One order usually has several lines, so this is smaller than the number of order lines."
             return: integer
             definition:
             """
-            count(this.Order_Number)
+            count(this.of_Order)
+            """
+        }
+
+        measure Average_Order_Value {
+            name.en: "Average Order Value"
+            synonym.en: ["AOV", "Basket size", "Revenue per order", "Order size", "Durchschnittlicher Auftragswert"]
+            description.en: "Net revenue divided by the number of distinct orders, in USD."
+            return: number
+            unit: onto.Currency.USD
+            definition:
+            """
+            sum(this.Net_Revenue_Usd) / count(this.of_Order)
+            """
+        }
+
+        measure Units_Per_Order {
+            name.en: "Units per Order"
+            synonym.en: ["Average order quantity", "Quantity per order", "Order quantity"]
+            description.en: "Units sold divided by the number of distinct orders."
+            return: number
+            definition:
+            """
+            sum(this.Quantity) / count(this.of_Order)
+            """
+        }
+
+        measure Cost_Ratio {
+            name.en: "Cost Ratio"
+            synonym.en: ["COGS ratio", "Cost of goods %", "Cost share"]
+            description.en: "Cost of goods divided by net revenue, in percent. The complement of gross margin %."
+            return: number
+            unit: onto.Percentage
+            definition:
+            """
+            sum(this.Cost_Usd) / sum(this.Net_Revenue_Usd) * 100
+            """
+        }
+    }
+
+    class Order {
+        name.en: "Order"
+        synonym.en: ["Sales order", "Purchase order", "Dealer order", "Auftrag", "Bestellung"]
+        description.en: "A sales order placed by a dealer on one day in one currency. An order has one or more order lines (one per product); amounts live on the lines. 28,259 orders from 2017 to 30 September 2026."
+
+        from_table: sales_order_lines
+        sql: "${sales_order_lines.order_number}"
+        sync_policy: "ignore"
+
+        default_date: Order_Date
+        event_date: Order_Date
+        extends: onto.Order
+
+        display_with: [
+            Order_Date,
+            placed_by,
+            Currency
+        ]
+
+        string Order_Number {
+            name.en: "Order Number"
+            synonym.en: ["Order ID", "Order no.", "Auftragsnummer"]
+            description.en: "The six-digit order number, unique per order."
+            tag: KB_One2One
+
+            sql: "CAST(${sales_order_lines.order_number} AS STRING)"
+
+            extends: onto.ID
+        }
+
+        date Order_Date {
+            name.en: "Order Date"
+            synonym.en: ["Date", "Sales date", "Order day", "Datum", "Auftragsdatum"]
+            description.en: "The day the dealer placed the order. The default date for sales questions."
+
+            sql: "${sales_order_lines.order_date}"
+
+            datetime_format: DayFormat
+            extends: onto.Order_Date
+        }
+
+        class Currency {
+            name.en: "Currency"
+            synonym.en: ["Order currency", "Währung"]
+            description.en: "Currency the dealer is invoiced in: EUR for German dealers, USD for US dealers. All amounts in the knowledge graph are converted to USD."
+
+            sql: "${sales_order_lines.currency}"
+        }
+
+        relationship placed_by {
+            display_name.en: "placed by"
+            description.en: "The dealer that placed the order."
+            to: kb.Customers
+
+            sql: "${sales_order_lines.customer_id}"
+        }
+
+        measure Number_Of_Orders {
+            display_name.en: "Order Count"
+            description.en: "Number of distinct orders."
+            return: integer
+            definition:
+            """
+            count(this)
             """
         }
     }

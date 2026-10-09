@@ -2,9 +2,9 @@ import db.storage.demos_467314_global_bike.plant_capacity
 
 kb {
     class Plant_Capacity {
-        name.en: "Plant Capacity"
-        synonym.en: ["Capacity", "Production capacity", "Assembly capacity", "Production", "Kapazität"]
-        description.en: "Per plant and month: how many bikes the plant can assemble on regular shifts, how many with overtime (+18 percent), and how many it actually assembled. Utilization above 100 percent means the plant built ahead of the season from stock."
+        name.en: "Plant Production"
+        synonym.en: ["Production", "Plant capacity", "Capacity", "Assembly capacity", "Output", "Plant output", "Production record", "Produktion", "Kapazität"]
+        description.en: "One record per plant and month: how many bikes the plant can assemble on regular shifts (capacity), how many with overtime (18 percent more), and how many it actually assembled. Output above regular capacity means the plant used overtime; months after September 2026 have capacity but no output yet."
         tag: KB_ShowOnlyRepresenters
 
         from_table: plant_capacity
@@ -12,6 +12,8 @@ kb {
         synced_description: "Monthly assembly capacity per plant (regular and with overtime) and bikes assembled."
 
         default_date: Month
+        event_date: Month
+        default_order: Bikes_Assembled
 
         display_with: [
             Month,
@@ -22,23 +24,33 @@ kb {
 
         date Month {
             name.en: "Production Month"
-            synonym.en: ["Month"]
+            synonym.en: ["Month", "Period", "Produktionsmonat"]
+            description.en: "The month the capacity and output refer to."
 
             sql: "${plant_capacity.month}"
 
             datetime_format: MonthFormat
         }
 
+        relationship with_Plants {
+            display_name.en: "of"
+            description.en: "The plant the record belongs to."
+            to: kb.Plants
+
+            sql: "${plant_capacity.plant_id}"
+        }
+
         number Bikes_Assembled {
             name.en: "Bikes Assembled"
-            synonym.en: ["Production output", "Output", "Bikes produced", "Production volume"]
+            synonym.en: ["Output", "Production output", "Bikes produced", "Production volume", "Units produced", "Produzierte Räder"]
+            description.en: "Bikes actually assembled in the month. Empty for months after September 2026."
 
             sql: "${plant_capacity.bikes_assembled}"
         }
 
         integer Capacity_Units {
             name.en: "Capacity"
-            synonym.en: ["Regular capacity", "Capacity units", "Standard capacity"]
+            synonym.en: ["Regular capacity", "Standard capacity", "Planned capacity", "Nominal capacity", "Kapazität"]
             description.en: "Bikes the plant can assemble per month on regular shifts."
 
             sql: "${plant_capacity.capacity_units}"
@@ -46,23 +58,37 @@ kb {
 
         integer Overtime_Capacity_Units {
             name.en: "Capacity with Overtime"
-            synonym.en: ["Maximum capacity", "Overtime capacity", "Max capacity"]
+            synonym.en: ["Maximum capacity", "Overtime capacity", "Max capacity", "Peak capacity"]
             description.en: "Bikes the plant can assemble per month using overtime and part-time workers, 18 percent above regular capacity."
 
             sql: "${plant_capacity.overtime_capacity_units}"
         }
 
-        relationship with_Plants {
-            display_name.en: "of"
-            to: kb.Plants
+        number Spare_Capacity {
+            name.en: "Spare Capacity"
+            synonym.en: ["Free capacity", "Unused capacity", "Headroom", "Available capacity", "Freie Kapazität"]
+            description.en: "Regular capacity minus bikes assembled. Negative when the plant used overtime."
 
-            sql: "${plant_capacity.plant_id}"
+            sql: "${plant_capacity.capacity_units} - ${plant_capacity.bikes_assembled}"
+        }
+
+        boolean Used_Overtime {
+            name.en: "Overtime Month"
+            synonym.en: ["Used overtime", "Above capacity", "Over capacity", "Überstunden"]
+            description.en: "True when the plant assembled more bikes than its regular capacity allows."
+
+            sql: "${plant_capacity.bikes_assembled} > ${plant_capacity.capacity_units}"
+
+            negated: {
+                name.en: "Regular Month"
+                synonym.en: ["Within capacity", "No overtime"]
+            }
         }
 
         measure Utilization {
             name.en: "Capacity Utilization"
-            synonym.en: ["Utilization", "Utilisation", "Load", "Auslastung"]
-            description.en: "Bikes assembled divided by regular capacity, in percent."
+            synonym.en: ["Utilization", "Utilisation", "Load", "Plant utilization", "Auslastung"]
+            description.en: "Bikes assembled divided by regular capacity, in percent. Above 100 percent means overtime was used."
             return: number
             unit: onto.Percentage
             definition:
@@ -73,8 +99,8 @@ kb {
 
         measure Overtime_Utilization {
             name.en: "Utilization incl. Overtime"
-            synonym.en: ["Utilization with overtime", "Overtime utilization"]
-            description.en: "Bikes assembled divided by capacity with overtime, in percent."
+            synonym.en: ["Utilization with overtime", "Overtime utilization", "Utilization of maximum capacity"]
+            description.en: "Bikes assembled divided by capacity with overtime, in percent. 100 percent is the physical limit."
             return: number
             unit: onto.Percentage
             definition:

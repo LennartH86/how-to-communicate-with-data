@@ -3,24 +3,39 @@ import db.storage.demos_467314_global_bike.plants
 kb {
     class Plants {
         name.en: "Plant"
-        synonym.en: ["Factory", "Assembly plant", "Production site", "Werk"]
-        description.en: "Global Bike's two assembly plants. Dallas supplies the US dealers, Heidelberg the German dealers. Each plant has three assembly lines."
+        synonym.en: ["Factory", "Assembly plant", "Production site", "Site", "Werk", "Fabrik"]
+        description.en: "Global Bike's two assembly plants. Dallas supplies the US dealers, Heidelberg the German dealers. Each plant has three assembly lines and reports monthly capacity and output."
 
         from_table: plants
         sql: "${plants.plant_id}"
         name_sql.en: "${plants.plant_name}"
+        synonym_sql.en: "${plants.plant_id}"
 
         synced_description: "The two assembly plants from the Global Bike story."
 
-        integer Assembly_Lines {
-            name.en: "Assembly Lines"
-            synonym.en: ["Lines", "Production lines"]
+        default_order: kb.Plant_Capacity.Bikes_Assembled
 
-            sql: "${plants.assembly_lines}"
+        display_with: [
+            City,
+            Country,
+            Assembly_Lines
+        ]
+
+        string Plant_Id {
+            name.en: "Plant Code"
+            synonym.en: ["Plant ID", "Plant number", "Werksnummer"]
+            description.en: "DL00 for Dallas, HD00 for Heidelberg."
+            tag: KB_One2One
+
+            sql: "${plants.plant_id}"
+
+            extends: onto.ID
         }
 
         class City {
             name.en: "City"
+            synonym.en: ["Location", "Stadt"]
+            description.en: "City where the plant is located."
 
             sql: "${plants.city}"
 
@@ -29,34 +44,31 @@ kb {
 
         class Country {
             name.en: "Country"
+            synonym.en: ["Land"]
+            description.en: "US or DE."
 
             sql: "${plants.country}"
 
             extends: onto.Country
         }
 
-        integer Opened {
+        integer Assembly_Lines {
+            name.en: "Assembly Lines"
+            synonym.en: ["Lines", "Production lines", "Montagelinien"]
+            description.en: "Number of assembly lines in the plant (three each)."
+
+            sql: "${plants.assembly_lines}"
+        }
+
+        date Opened {
             name.en: "Opening Year"
-            synonym.en: ["Opened", "Opened in"]
+            synonym.en: ["Opened", "Opened in", "Founded", "Eröffnet"]
+            description.en: "Year the plant started operating (both in 2001)."
+            phrase_name: "opened"
 
-            sql: "${plants.opened}"
-        }
+            sql: "PARSE_DATE('%Y', CAST(${plants.opened} AS STRING))"
 
-        string Plant_Id {
-            name.en: "Plant Id"
-            tag: KB_One2One
-
-            sql: "${plants.plant_id}"
-
-            extends: onto.ID
-        }
-
-        string Plant_Name {
-            name.en: "Plant Name"
-
-            sql: "${plants.plant_name}"
-
-            extends: onto.Name
+            datetime_format: YearFormat
         }
     }
 }
