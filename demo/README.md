@@ -37,10 +37,27 @@ Coverage per indicator: life expectancy, child mortality, children per woman and
 
 ## Before every session
 
-- Regenerate `assets/images/qr-code.png` if the form link changed (slide 31 shows `forms.gle/v77nsv62g1EzY73G9`).
-- Open slide 31 once before the audience arrives: the status line must say *Live · updated …*, not *Sheet not readable yet*.
-- Keep the Veezoo workspace open in another tab; the live demo (slide 32) runs there.
-- Open the deck with the right track: `index.html?track=veezoo` (hands-on in Veezoo) or `index.html?track=tableau` (hands-on in Tableau with another instructor).
+Block two hours on the morning of the session (first done 2026-10-30) and go through all four parts.
+
+**Deck**
+- Open the public deck with the right track, `?track=veezoo` (hands-on in Veezoo) or `?track=tableau` (hands-on in Tableau with another instructor), and hard-reload (Cmd+Shift+R) so no cached scripts linger. The counter says 44 (43 in the Tableau track).
+- Slide 31: the status line must say *Live · updated …*, not *Sheet not readable yet*. Submit one answer from the phone and watch the counter move. Regenerate `assets/images/qr-code.png` if the form link changed (it shows `forms.gle/v77nsv62g1EzY73G9`).
+- Slide 41 (Veezoo track): the access details are the real ones, not "arrive by email".
+- Click through once with the arrow keys; the videos on slides 3, 24 and 25 load.
+
+**Demo, run it once end to end** (Veezoo track; see `global-bike/README.md` for the story)
+- Rebuild the data if it was not built for this date: `python3 demo/global-bike/build_global_bike.py <day before the session>`. "Last month" must return data.
+- Ask the opening sequence (bikes assembled vs sold per month, scatter, red above 1 %) and the starting question "Revenue vs budget revenue by sales organization, January to October 2026". US West must stand out.
+- Drill the root cause once yourself (region year over year, dealers in US West, SoCal per month against last year) and check the saved agent's back-test still fires.
+
+**Hands-on material**
+- Open the "read me first" canvas as a student: text readable, widgets load, the copy-paste questions work.
+- Log in with one student account in a private window and ask one question.
+- The board with the saved charts and the one "management rework" example slide are ready.
+
+**Room and tabs**
+- Tabs: deck, Global Bike chat, board, explainer canvas, Studio, student view in a private window. The live demo (slide 32) runs in the Veezoo tab.
+- Charger, HDMI adapter, phone with the survey QR tested on the venue Wi-Fi, repo copy of the knowledge graph in `demo/global-bike/vkl/` in case a class file needs restoring.
 - Column order assumption: the sheet has the timestamp in column A and the 13 answers in form order in columns B to N. Both the Apps Script and `js/survey.js` rely on that order, not on header texts. If the form is ever reordered, update `QUESTION_KEYS` in the script and `QUESTIONS` in `js/survey.js`.
 
 ## Demo script for slide 31
