@@ -145,8 +145,9 @@ normal for that large dealer, the rest 3 %). Drill: Peachtree per month, 3 % thr
 Extra discount granted May to October: about 70 k USD. Gross revenue does not show it, net revenue
 and margin do.
 
-Suggested root-cause brief for the room: "US West is 6.6 M USD behind budget. Find out where the gap
-comes from, since when, and what you would ask the regional manager." Expected path: region, dealer,
+Lennart's starting line for the root-cause analysis is one level above: "Revenue vs budget revenue by
+sales organization in 2026" (three regions on budget, US West at 11.5 M vs 18.1 M), then the room finds
+out why. Brief: "Find out where the gap comes from, since when, and what you would ask the regional manager." Expected path: region, dealer,
 month, prior-year comparison; expected answer: two dealers, one of them (SoCal) collapsing since July,
 plus a budget that assumed 10 % growth.
 
