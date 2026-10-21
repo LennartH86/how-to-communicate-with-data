@@ -1,0 +1,91 @@
+import db.storage.demos_467314_global_bike.forecast
+
+kb {
+    class Forecast {
+        name.en: "Forecast"
+        synonym.en: ["Outlook", "Projection", "Expected revenue", "Rolling forecast", "Q4 forecast", "Prognose", "Vorschau"]
+        description.en: "Rolling forecast made at the end of the actuals (see Forecast Version) for the current month and the remaining months of the year, per sales organization and product category. Based on last year's months and this year's run rate. Compare with the budget to see where the year is expected to land."
+        tag: KB_ShowOnlyRepresenters
+
+        from_table: forecast
+
+        synced_description: "Rolling forecast as of the last day with actuals for the open months of the year, per sales org and category."
+
+        default_date: Forecast_Month
+        event_date: Forecast_Month
+        default_order: Forecast_Revenue_Usd
+
+        display_with: [
+            Forecast_Month,
+            with_Sales_Org,
+            with_Category,
+            Forecast_Revenue_Usd
+        ]
+
+        date Forecast_Month {
+            name.en: "Forecast Month"
+            synonym.en: ["Month", "Forecast period", "Prognosemonat"]
+            description.en: "The month the forecast applies to: the current month and the remaining months of the year."
+
+            sql: "${forecast.forecast_month}"
+
+            datetime_format: MonthFormat
+        }
+
+        date Forecast_Version {
+            name.en: "Forecast Version"
+            synonym.en: ["As of", "Forecast date", "Version date", "Stand"]
+            description.en: "The day the forecast was made: the last day with sales actuals."
+            phrase_name: "made"
+
+            sql: "${forecast.forecast_version}"
+
+            datetime_format: DayFormat
+        }
+
+        relationship with_Sales_Org {
+            display_name.en: "made for"
+            description.en: "The sales organization the forecast is made for."
+            to: kb.Sales_Org
+
+            sql: "${forecast.sales_org}"
+        }
+
+        relationship with_Category {
+            display_name.en: "made for"
+            description.en: "The product category the forecast is made for."
+            to: kb.Category
+
+            sql: "${forecast.category}"
+        }
+
+        number Forecast_Revenue_Usd {
+            name.en: "Forecast Revenue"
+            synonym.en: ["Expected revenue", "Projected revenue", "Revenue outlook", "Revenue forecast", "Prognoseumsatz"]
+            description.en: "Expected gross revenue for the month, in USD."
+            unit: onto.Currency.USD
+
+            sql: "${forecast.forecast_revenue_usd}"
+        }
+
+        integer Forecast_Quantity {
+            name.en: "Forecast Quantity"
+            synonym.en: ["Expected units", "Projected volume", "Unit forecast", "Prognosemenge"]
+            description.en: "Expected units for the month."
+
+            sql: "${forecast.forecast_quantity}"
+        }
+
+        measure Forecast_Price {
+            name.en: "Forecast Price per Unit"
+            synonym.en: ["Expected price", "Forecast ASP", "Projected average price"]
+            description.en: "Forecast revenue divided by forecast quantity, in USD."
+            return: number
+            unit: onto.Currency.USD
+            definition:
+            """
+            sum(this.Forecast_Revenue_Usd) / sum(this.Forecast_Quantity)
+            """
+        }
+    }
+}

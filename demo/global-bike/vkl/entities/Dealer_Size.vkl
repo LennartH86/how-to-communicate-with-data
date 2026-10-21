@@ -1,0 +1,28 @@
+kb.Customers.Dealer_Size {
+    entity Small_6135 {
+        name: "Small"
+        synonym.en: ["Small dealer", "Small dealers"]
+        description.en: "Dealers with the lowest lifetime revenue (8 dealers)."
+        sort_id: 0
+
+        id: "Small"
+    }
+
+    entity Medium_3307 {
+        name: "Medium"
+        synonym.en: ["Medium dealer", "Mid-sized dealer", "Medium dealers"]
+        description.en: "Dealers in the middle revenue tier (10 dealers)."
+        sort_id: 1
+
+        id: "Medium"
+    }
+
+    entity Large_0171 {
+        name: "Large"
+        synonym.en: ["Large dealer", "Big dealer", "Key account", "Large dealers"]
+        description.en: "Dealers with the highest lifetime revenue (6 dealers)."
+        sort_id: 2
+
+        id: "Large"
+    }
+}

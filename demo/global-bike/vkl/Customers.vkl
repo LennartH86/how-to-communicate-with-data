@@ -1,0 +1,120 @@
+import db.storage.demos_467314_global_bike.customers
+import db.storage.demos_467314_global_bike.sales_orgs
+
+kb {
+    class Customers {
+        name.en: "Dealer"
+        synonym.en: ["Customer", "Bike shop", "Retailer", "Store", "Reseller", "Bike dealer", "Account", "Händler", "Kunde"]
+        description.en: "One of the 24 independent bicycle dealers Global Bike sells through: 12 in the United States, 12 in Germany. Global Bike has no direct-to-consumer sales, so dealers are its customers. Each dealer belongs to one sales organization and is supplied by one plant."
+
+        from_table: customers
+        sql: "${customers.customer_id}"
+        name_sql.en: "${customers.customer_name}"
+
+        synced_description: "Independent bicycle dealers (24). plant_id is the plant that supplies them."
+
+        default_order: kb.Sales_Order_Lines.Revenue_Usd
+        extends: onto.Customer
+
+        display_with: [
+            City,
+            Country,
+            with_Sales_Org,
+            Dealer_Size
+        ]
+
+        string Customer_Id {
+            name.en: "Dealer Number"
+            synonym.en: ["Dealer ID", "Customer number", "Customer ID", "Kundennummer"]
+            description.en: "The dealer's customer number (1000 to 24000)."
+            tag: KB_One2One
+
+            sql: "CAST(${customers.customer_id} AS STRING)"
+
+            extends: onto.ID
+        }
+
+        class City {
+            name.en: "City"
+            synonym.en: ["Town", "Location", "Stadt"]
+            description.en: "City where the dealer's shop is located."
+
+            sql: "${customers.city}"
+
+            extends: onto.City
+        }
+
+        class Country {
+            name.en: "Country"
+            synonym.en: ["Market", "Dealer country", "Land"]
+            description.en: "US or DE. Global Bike only sells in the United States and Germany."
+
+            sql: "${customers.country}"
+
+            extends: onto.Country
+        }
+
+        class Dealer_Size {
+            name.en: "Dealer Size"
+            synonym.en: ["Size", "Size tier", "Dealer tier", "Segment", "Dealer segment", "Händlergrösse"]
+            description.en: "Small, Medium or Large, by lifetime revenue with Global Bike. 8 small, 10 medium and 6 large dealers."
+            tag: KB_Ordinal
+
+            sql: "${customers.dealer_size}"
+        }
+
+        date Dealer_Since {
+            name.en: "Dealer Since"
+            synonym.en: ["Partner since", "Onboarding year", "Customer since", "Start year", "Händler seit"]
+            description.en: "Year the dealer started selling Global Bike products (2009 to 2016)."
+            phrase_name: "onboarded"
+
+            sql: "PARSE_DATE('%Y', CAST(${customers.dealer_since} AS STRING))"
+
+            datetime_format: YearFormat
+        }
+
+        relationship with_Sales_Org {
+            display_name.en: "managed by"
+            description.en: "The sales organization responsible for the dealer."
+            to: kb.Sales_Org
+
+            sql: "${customers.sales_org}"
+        }
+
+        relationship with_Plants {
+            display_name.en: "supplied by"
+            description.en: "The assembly plant that ships to the dealer: Dallas for US dealers, Heidelberg for German dealers."
+            to: kb.Plants
+
+            sql: "${customers.plant_id}"
+        }
+    }
+
+    class Sales_Org {
+        name.en: "Sales Organization"
+        synonym.en: ["Sales org", "Region", "Sales region", "Territory", "Sales area", "Sales unit", "Vertriebsorganisation", "Vertriebsregion"]
+        description.en: "The four sales organizations: US East, US West, Germany North, Germany South. Each dealer belongs to exactly one. Budgets and forecasts are planned per sales organization and product category."
+
+        from_table: sales_orgs
+        sql: "${sales_orgs.sales_org}"
+        name_sql.en: "${sales_orgs.sales_org_name}"
+        synonym_sql.en: "${sales_orgs.sales_org}"
+
+        default_order: kb.Sales_Order_Lines.Revenue_Usd
+
+        display_with: [
+            Country
+        ]
+
+        class Country {
+            name.en: "Country"
+            synonym.en: ["Market", "Land"]
+            description.en: "US or DE: the country the sales organization covers."
+
+            sql: "${sales_orgs.country}"
+
+            extends: onto.Country
+        }
+    }
+}

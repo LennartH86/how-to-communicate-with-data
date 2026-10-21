@@ -1,0 +1,80 @@
+import db.storage.demos_467314_global_bike.budget
+
+kb {
+    class Budget {
+        name.en: "Budget"
+        synonym.en: ["Plan", "Target", "Sales plan", "Sales target", "Revenue target", "Annual plan", "Budgetplan", "Planung"]
+        description.en: "Monthly revenue and quantity targets per sales organization and product category for 2025 and 2026, set before each year started. Derived from the previous year's actuals plus a growth target; US West carries the most ambitious target. Compare with actual revenue of the order lines for budget attainment."
+        tag: KB_ShowOnlyRepresenters
+
+        from_table: budget
+
+        synced_description: "Monthly revenue and quantity budget per sales org and product category for 2025 and 2026."
+
+        default_date: Budget_Month
+        event_date: Budget_Month
+        default_order: Budget_Revenue_Usd
+
+        display_with: [
+            Budget_Month,
+            with_Sales_Org,
+            with_Category,
+            Budget_Revenue_Usd
+        ]
+
+        date Budget_Month {
+            name.en: "Budget Month"
+            synonym.en: ["Plan month", "Month", "Planmonat"]
+            description.en: "The month the target applies to."
+
+            sql: "${budget.budget_month}"
+
+            datetime_format: MonthFormat
+        }
+
+        relationship with_Sales_Org {
+            display_name.en: "planned for"
+            description.en: "The sales organization the target is set for."
+            to: kb.Sales_Org
+
+            sql: "${budget.sales_org}"
+        }
+
+        relationship with_Category {
+            display_name.en: "planned for"
+            description.en: "The product category the target is set for."
+            to: kb.Category
+
+            sql: "${budget.category}"
+        }
+
+        number Budget_Revenue_Usd {
+            name.en: "Budget Revenue"
+            synonym.en: ["Planned revenue", "Revenue budget", "Target revenue", "Revenue target", "Plan revenue", "Planumsatz"]
+            description.en: "Gross revenue target for the month, in USD."
+            unit: onto.Currency.USD
+
+            sql: "${budget.budget_revenue_usd}"
+        }
+
+        integer Budget_Quantity {
+            name.en: "Budget Quantity"
+            synonym.en: ["Planned units", "Target quantity", "Planned volume", "Unit target", "Planmenge"]
+            description.en: "Units target for the month."
+
+            sql: "${budget.budget_quantity}"
+        }
+
+        measure Budget_Price {
+            name.en: "Budgeted Price per Unit"
+            synonym.en: ["Planned price", "Budget ASP", "Planned average price"]
+            description.en: "Budget revenue divided by budget quantity, in USD: the average price the plan assumes."
+            return: number
+            unit: onto.Currency.USD
+            definition:
+            """
+            sum(this.Budget_Revenue_Usd) / sum(this.Budget_Quantity)
+            """
+        }
+    }
+}
