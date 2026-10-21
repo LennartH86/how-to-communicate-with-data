@@ -1001,22 +1001,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
   font-family: var(--font-hero); font-size: 26px; font-weight: 700; box-shadow: var(--shadow-accent);
 }
 .handson-note { font-size: 22px; color: var(--text-2); }
-.handson-foot { display: flex; align-items: center; gap: 28px; }
-.handson-sequence { display: none; width: 100%; max-width: 1600px; padding: 36px 44px; grid-template-columns: 540px 1fr; gap: 40px; align-items: center; }
-.handson-sequence ol { margin: 14px 0 0; padding-left: 28px; display: flex; flex-direction: column; gap: 12px; font-size: 22px; line-height: 1.4; color: var(--text); }
-.handson-sequence ol li::marker { color: var(--accent); font-weight: 700; }
-.handson-outcome { margin-top: 22px; font-size: 20px; line-height: 1.5; color: var(--text-2); border-left: 4px solid var(--accent); padding-left: 16px; }
-.handson-sequence img { width: 100%; border: 1px solid var(--border); border-radius: 12px; }
-.handson-start { margin-top: 14px; font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--text); line-height: 1.35; }
-.handson-rca { grid-template-columns: 1fr 1fr; gap: 56px; }
-.handson-path { display: flex; flex-direction: column; gap: 14px; }
-.handson-hop { display: flex; gap: 16px; align-items: flex-start; }
-.handson-hop span { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; font-size: 17px; display: flex; align-items: center; justify-content: center; }
-.handson-hop strong { font-family: var(--font-display); font-size: 21px; font-weight: 600; }
-.handson-hop p { margin: 2px 0 0; font-size: 19px; line-height: 1.4; color: var(--text-2); }
-#slide-41.show-sequence .handson-steps, #slide-41.show-rca .handson-steps { display: none; }
-#slide-41.show-sequence .handson-sequence:not(.handson-rca) { display: grid; }
-#slide-41.show-rca .handson-rca { display: grid; }
 
 /* ---------- 43 · Resources ---------- */
 .link-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; width: 100%; max-width: 1560px; }

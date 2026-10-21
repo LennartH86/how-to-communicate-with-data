@@ -20,7 +20,6 @@ js/numbers.js       Number-grid pre-attentive demo, "count the twos" (slide 20)
 js/semantics.js     "Asking an AI" block: accuracy cliff chart (slide 28), country-definition picker (slide 29)
 js/survey.js        Live survey results on slide 31: polls the shared response sheet, hit rate vs random guessing
 js/bestpractices.js Click-to-switch examples on the visual best-practice slides (35–39), class-based
-js/handson.js       Slide 41 button that reveals the opening line of questioning and its scatter plot
 data/*.json         Anscombe and Datasaurus datasets, gdp-growth.json (World Bank, slides 18 and 22), ai-accuracy.json (slide 28)
 demo/               Survey pipeline: BigQuery DDL, Apps Script, README with the pre-session checklist
 assets/images/      Veezoo logo + favicon mark, profile photo, QR code
