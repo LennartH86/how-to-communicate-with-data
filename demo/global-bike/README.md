@@ -6,12 +6,12 @@ git-ignored `hands-on/` folder). The build is deterministic; re-run the script t
 
 ## What was done to the source
 
-- **Shifted by 10 years** (2007–2016 → 2017–2026) so the story plays "now".
+- **Shifted by about ten years** (2007–2016 → 2017–2026) so the story plays "now".
 - **"Today" is the real date.** The builder shifts every date by a whole number of days so the
   actuals end on `AS_OF` (default: yesterday; pass a date as the first argument). Veezoo has no
   setting that fixes the current date, so re-run the builder on the eve of every session; the
-  rest of the current year is covered by budget and forecast. The knowledge
-  graph so the demo looks identical on any real date.
+  rest of the current year is covered by budget and forecast, and the planted signals move
+  along, so relative questions ("last month", "last 3 months") always hit them.
 - **Master data fixed:** encoding errors in two German dealer names, duplicate dealer rows
   removed, sales-org names spelled out (US East, US West, Germany North, Germany South).
 - **Added from the story:** two plants (Dallas supplies US dealers, Heidelberg the German ones)
