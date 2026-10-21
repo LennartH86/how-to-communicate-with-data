@@ -1289,7 +1289,7 @@
   <!-- ── SLIDE 41: Hands-on (Veezoo track only; the Tableau session hands over on slide 40) ── -->
   <!-- Before the session: replace the access note with the real link or a QR code. -->
   <section class="slide mesh-bg" id="slide-41" data-track="veezoo">
-    <div class="slide-center" style="gap:48px">
+    <div class="slide-center" style="gap:40px">
       <div class="slide-head">
         <p class="eyebrow">Hands-on</p>
         <h2 class="section-title">Your turn: <span class="text-gradient">ask, check, present</span></h2>
@@ -1298,7 +1298,7 @@
         <div class="card handson-step">
           <div class="handson-num">1</div>
           <strong>Ask</strong>
-          <p>Pick a question about the world you actually care about and ask it in plain language. Gapminder and World Bank data are loaded.</p>
+          <p>Global Bike: two plants, four sales regions, 24 dealers, ten years of orders. Ask in plain language, then ask a follow-up that changes the chart.</p>
         </div>
         <div class="card handson-step">
           <div class="handson-num">2</div>
@@ -1311,7 +1311,22 @@
           <p>Build one slide for management: the takeaway as the title, one chart, the key numbers and your recommendation.</p>
         </div>
       </div>
-      <p class="handson-note">Your access details arrive by email.</p>
+      <div class="handson-sequence card">
+        <div class="handson-turns">
+          <p class="eyebrow">Three turns, one chat</p>
+          <ol>
+            <li>For each month show me how many bikes were assembled and how many were sold</li>
+            <li>Put this into a scatter plot with one dot by month</li>
+            <li>Now color every point red where sold and assembled are more than 1 % apart</li>
+          </ol>
+          <p class="handson-outcome">We usually sell what we assemble. The red dots are the months we did not: one dealer's orders fell away, and the current month has no output yet. Ask, change the form, add the highlight.</p>
+        </div>
+        <img src="assets/images/handson-scatter.webp" alt="Scatter plot of bikes sold against bikes assembled per month, red dots where they differ by more than one percent">
+      </div>
+      <div class="handson-foot">
+        <button class="toggle-btn" id="handson-toggle">Show the opening sequence</button>
+        <p class="handson-note">Your access details arrive by email.</p>
+      </div>
     </div>
   </section>
 
@@ -1449,6 +1464,7 @@
 <script src="js/semantics.js"></script>
 <script src="js/survey.js"></script>
 <script src="js/bestpractices.js"></script>
+  <script src="js/handson.js"></script>
 
 <!-- Hover effect on nav arrows -->
 <script>
