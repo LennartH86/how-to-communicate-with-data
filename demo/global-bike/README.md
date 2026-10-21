@@ -95,7 +95,29 @@ nested class stay as orphan files under `classes/<Class>/entities/` and must be 
 
 ## Demo questions, canvas challenge and agent
 
-See the session plan in the chat of 2026-10-07 (to be moved here once agreed): seven questions
-that each produce a chart to be reworked for management, a 15-minute canvas challenge with four
-roles (US West, Germany South, E-Bike product lead, CFO), and an agent built live on the two
-planted signals.
+Hands-on of 2026-10-30, 90 minutes (Lennart's whiteboard plan): intro and setup 10, knowledge graph and
+first line of questioning 10, viz input 5, the students answer one question and present it as a chart
+15, slide out of it 5, canvas explanation 5, build the daily canvas 20, discuss results 10, agents on
+what they found 10. Three things are prepared: the first line of questioning, the student question,
+and a "read me first" canvas that explains the data and the how-tos.
+
+### First line of questioning (verified 2026-10-21)
+
+Three turns in one chat, each building on the previous answer:
+
+1. "For each month show me how many bikes were assembled and how many were sold"
+2. "Put this into a scatter plot with one dot by month"
+3. "Now color every point red where sold and assembled are more than 1 % apart"
+
+Result: a near-perfect diagonal ("we usually sell what we assemble") with a handful of red dots. The red
+dots are real: the months of the planted SoCal Bikes volume drop (bike sales fall, output does not) and
+the current month, which has sales but no output yet (shown as "data not available" at x = 0). Point
+this out, or ask "excluding the current month" in a fourth turn. Title and subtitle were added by hand
+in the chart editor: "We usually sell what we got" / "but at these times not".
+
+The sequence shows the three moves of the session in one minute: ask in business language, change the
+form (table to scatter), add the highlight that carries the message.
+
+### Student question, explainer canvas, agents
+
+To be filled in after the prep on 2026-10-21 (candidates in the calendar events of that morning).
