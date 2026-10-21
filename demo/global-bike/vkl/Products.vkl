@@ -35,7 +35,7 @@ kb {
         }
 
         relationship with_Category {
-            display_name.en: "in"
+            display_name.en: "belongs to"
             description.en: "The product category (touring bike, road bike, off-road bike, e-bike, trend bike or accessories)."
             to: kb.Category
 

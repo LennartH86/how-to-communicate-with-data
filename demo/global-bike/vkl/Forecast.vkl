@@ -44,7 +44,7 @@ kb {
         }
 
         relationship with_Sales_Org {
-            display_name.en: "for"
+            display_name.en: "made for"
             description.en: "The sales organization the forecast is made for."
             to: kb.Sales_Org
 
@@ -52,7 +52,7 @@ kb {
         }
 
         relationship with_Category {
-            display_name.en: "for"
+            display_name.en: "made for"
             description.en: "The product category the forecast is made for."
             to: kb.Category
 

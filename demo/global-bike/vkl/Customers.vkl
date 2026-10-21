@@ -75,7 +75,7 @@ kb {
         }
 
         relationship with_Sales_Org {
-            display_name.en: "belongs to"
+            display_name.en: "managed by"
             description.en: "The sales organization responsible for the dealer."
             to: kb.Sales_Org
 

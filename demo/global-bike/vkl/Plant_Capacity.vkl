@@ -33,7 +33,7 @@ kb {
         }
 
         relationship with_Plants {
-            display_name.en: "of"
+            display_name.en: "at"
             description.en: "The plant the record belongs to."
             to: kb.Plants
 

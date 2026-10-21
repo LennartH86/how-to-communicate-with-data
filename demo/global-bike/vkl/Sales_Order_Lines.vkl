@@ -22,7 +22,7 @@ kb {
         ]
 
         relationship of_Order {
-            display_name.en: "of"
+            display_name.en: "belongs to"
             description.en: "The sales order this line belongs to. The order carries the dealer, the order date and the currency."
             to: kb.Order
 
@@ -38,7 +38,7 @@ kb {
         }
 
         relationship with_Products {
-            display_name.en: "of"
+            display_name.en: "contains"
             description.en: "The product on this line."
             to: kb.Products
 

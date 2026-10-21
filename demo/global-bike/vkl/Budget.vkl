@@ -33,7 +33,7 @@ kb {
         }
 
         relationship with_Sales_Org {
-            display_name.en: "for"
+            display_name.en: "planned for"
             description.en: "The sales organization the target is set for."
             to: kb.Sales_Org
 
@@ -41,7 +41,7 @@ kb {
         }
 
         relationship with_Category {
-            display_name.en: "for"
+            display_name.en: "planned for"
             description.en: "The product category the target is set for."
             to: kb.Category
 
