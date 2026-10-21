@@ -76,15 +76,16 @@ subclass and quantity), orders and average order value per month, gross margin %
 (sorted Small, Medium, Large), dealers onboarded before 2012, accessories vs bikes per quarter,
 overtime months of Heidelberg; earlier: revenue by sales organization, revenue vs budget by category,
 Peachtree Bikes discount rate per month (3 % to 9 %), capacity utilization per plant. The SoCal drop
-is visible only against the prior year (with `AS_OF` 2026-10-20: July to September 2026 are 137, 118,
-194 units vs 568, 261, 454 in 2025), so the agent should compare with the same months a year earlier.
+is visible only against the prior year (built for the session of 2026-10-30 with `AS_OF` 2026-10-29:
+July to October 2026 are 97, 124, 224, 27 units vs 645, 323, 403, 316 in 2025), so the agent should
+compare with the same months a year earlier. Peachtree's discount rate climbs from 3 % in May to 9 % in October 2026.
 
 **Not modelled on purpose:** budget attainment as a cross-fact measure (sales org x category x month
 vs order lines); Veezoo answers "revenue vs budget by category" side by side, and the academy
 recommends a ground truth for such cross-fact calculations if a single number is wanted. No class
 carries onto.Location beyond City and Country, so "where" questions stay unambiguous.
 
-**Before every session:** run `python3 demo/global-bike/build_global_bike.py` (actuals end yesterday) and, if the descriptions in Studio still name a date, update them from `vkl/`. The planted signals move with the data.
+**Before every session:** run `python3 demo/global-bike/build_global_bike.py <day before the session>` (done on 2026-10-21 for the session of 2026-10-30) and, if the descriptions in Studio still name a date, update them from `vkl/`. The planted signals move with the data.
 
 **Editing Studio files from the Claude browser:** the clipboard is blocked and `execCommand('insertText')`
 triggers the editor's auto-indent. What works: find the Monaco editor instance through the React fiber of
