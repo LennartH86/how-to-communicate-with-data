@@ -118,6 +118,38 @@ in the chart editor: "We usually sell what we got" / "but at these times not".
 The sequence shows the three moves of the session in one minute: ask in business language, change the
 form (table to scatter), add the highlight that carries the message.
 
+### The story and the two root-cause chains (figures as of AS_OF 2026-10-29)
+
+Global Bike assembles bikes in Dallas and Heidelberg and sells only through 24 dealers in four sales
+organizations. Budgets were set as last year's months plus a growth target (5 % for three regions,
+10 % for US West). Plant output is derived from bike sales, so sold and assembled match almost
+exactly, except in the planted months. Everything else in the data is the real Global Bike history,
+shifted in time.
+
+**Chain 1, volume (the one for a root-cause analysis).** Symptom at the top: US West is far behind
+budget in 2026 (11.5 M USD actual vs 18.1 M budget January to October) while the other three regions
+are on or above budget. Drill: July to October revenue year over year by region, US West 4.8 M vs
+8.6 M, the others flat or up. Drill: by dealer in US West, SoCal Bikes 1.0 M vs 3.2 M, Rocky Mountain
+Bikes 1.9 M vs 3.6 M, Northwest Bikes unchanged. Drill: SoCal per month, July to October 2026 are 97,
+124, 224, 27 units vs 645, 323, 403, 316 a year earlier; the month-by-month 2026 series alone looks
+noisy, the drop appears only against the prior year. The data stops there: it says where and since
+when, not why. (Rocky Mountain's decline is in the original data, not planted; it is a useful
+confounder: "is it the region or one dealer?" has a two-part answer.) Also visible from the opening
+scatter: the months where sold and assembled differ are exactly these.
+
+**Chain 2, margin (subtle at the top, clear at the dealer).** Symptom: US East gross margin % slides
+from about 45.8 % in the first half of 2026 to 43.7 % in October while revenue is up; discount rate
+3.0 % to 3.9 %. Drill: discount rate by dealer since July, Peachtree Bikes 6.6 % (Beantown 5.0 % is
+normal for that large dealer, the rest 3 %). Drill: Peachtree per month, 3 % through May, then 4.2,
+5.4, 6.6, 7.8, 9.0 % to October: a straight line, which is the tell of a decision, not of noise.
+Extra discount granted May to October: about 70 k USD. Gross revenue does not show it, net revenue
+and margin do.
+
+Suggested root-cause brief for the room: "US West is 6.6 M USD behind budget. Find out where the gap
+comes from, since when, and what you would ask the regional manager." Expected path: region, dealer,
+month, prior-year comparison; expected answer: two dealers, one of them (SoCal) collapsing since July,
+plus a budget that assumed 10 % growth.
+
 ### Student question, explainer canvas, agents
 
 To be filled in after the prep on 2026-10-21 (candidates in the calendar events of that morning).
