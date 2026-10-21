@@ -4,12 +4,12 @@ kb {
     class Sales_Order_Lines {
         name.en: "Order Line"
         synonym.en: ["Sales", "Sale", "Sales line", "Line item", "Order item", "Order position", "Sales transaction", "Verkauf", "Auftragsposition"]
-        description.en: "One line of a sales order: one product, its quantity and its amounts. Orders have 4 to 5 lines on average. All amounts are in USD (converted from the dealer's currency at the order date). Revenue is gross before discount, net revenue is after discount, margin is net revenue minus cost of goods. Actuals end on 30 September 2026."
+        description.en: "One line of a sales order: one product, its quantity and its amounts. Orders have 4 to 5 lines on average. All amounts are in USD (converted from the dealer's currency at the order date). Revenue is gross before discount, net revenue is after discount, margin is net revenue minus cost of goods. Actuals run up to yesterday; the current month is partial."
         tag: KB_ShowOnlyRepresenters
 
         from_table: sales_order_lines
 
-        synced_description: "Order lines, dates shifted by 10 years, actuals up to 2026-09-30. net_revenue = revenue - discount, margin = net revenue - cost."
+        synced_description: "Order lines, dates shifted so the actuals end yesterday. net_revenue = revenue - discount, margin = net revenue - cost."
 
         default_date: kb.Order.Order_Date
         default_order: Revenue_Usd
@@ -216,7 +216,7 @@ kb {
     class Order {
         name.en: "Order"
         synonym.en: ["Sales order", "Purchase order", "Dealer order", "Auftrag", "Bestellung"]
-        description.en: "A sales order placed by a dealer on one day in one currency. An order has one or more order lines (one per product); amounts live on the lines. 28,259 orders from 2017 to 30 September 2026."
+        description.en: "A sales order placed by a dealer on one day in one currency. An order has one or more order lines (one per product); amounts live on the lines. About 28,000 orders over almost ten years, up to yesterday."
 
         from_table: sales_order_lines
         sql: "${sales_order_lines.order_number}"

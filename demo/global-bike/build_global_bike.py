@@ -3,16 +3,20 @@
 Build the Global Bike hands-on dataset in BigQuery (demos-467314.global_bike).
 
 Source: SAP UCC "Global Bike" sales data 2007-2016 (hands-on/GBI_Case_Data_Data Visualization.xlsx,
-not committed). The script shifts every date by SHIFT_YEARS so the data ends "today", adds
-budget, forecast, plants and capacity derived from the story, fixes master-data quirks and
-plants two signals for the agent exercise. Re-running rebuilds every table (WRITE_TRUNCATE).
+not committed). The script shifts every date by a whole number of days so the last day with
+actuals is AS_OF (default: yesterday), adds budget, forecast, plants and capacity derived from
+the story, fixes master-data quirks and plants two signals for the agent exercise in the months
+right before AS_OF. Re-running rebuilds every table (WRITE_TRUNCATE).
 
     GOOGLE_APPLICATION_CREDENTIALS=~/.config/veezoo-os/credentials/gcp/<key>.json \
-      python3 demo/global-bike/build_global_bike.py
+      python3 demo/global-bike/build_global_bike.py [AS_OF, e.g. 2026-11-04]
 
-"Today" in the Veezoo knowledge graph must be pinned to AS_OF so the demo looks the same on
-any real date.
+Veezoo has no setting that fixes "today", so run this on the eve of every session (one minute):
+relative dates ("last month", "last 3 months") then line up with the real clock. The keys of
+all dimension tables stay the same, so the knowledge graph needs no edits; only the derived
+years (dealer since, launch year) can move by one for a handful of rows.
 """
+import sys
 import datetime as dt
 import numpy as np
 import pandas as pd
@@ -20,23 +24,30 @@ from google.cloud import bigquery
 
 SRC = '/Users/lennartheuckendorf/Documents/how-to-communicate-with-data/hands-on/GBI_Case_Data_Data Visualization.xlsx'
 PROJECT, DATASET = 'demos-467314', 'global_bike'
-SHIFT_YEARS = 10
-AS_OF = dt.date(2026, 9, 30)          # the fixed "today": actuals end here, Q4 2026 is open
+AS_OF = dt.date.fromisoformat(sys.argv[1]) if len(sys.argv) > 1 else dt.date.today() - dt.timedelta(days=1)
+SOURCE_END = dt.date(2016, 9, 30)      # last order date in the source workbook
+SHIFT_DAYS = (AS_OF - SOURCE_END).days  # every date moves by this many days
 RNG = np.random.default_rng(2026)
 
-# Signals planted for the agent exercise (both in the last months before AS_OF)
-DISCOUNT_DRIFT = {'customer': 'Peachtree Bikes', 'from': (2026, 5), 'to': (2026, 9), 'target_rate': 0.09}
-VOLUME_DROP = {'customer': 'SoCal Bikes', 'from': (2026, 6), 'to': (2026, 9), 'keep_share': 0.35}
+
+def months_back(d, n):
+    """First day of the month n months before the month of d."""
+    y, m = d.year, d.month - n
+    while m <= 0:
+        y, m = y - 1, m + 12
+    return (y, m)
+
+
+# Signals planted for the agent exercise, in the months right before AS_OF (month tuples (year, month))
+DISCOUNT_DRIFT = {'customer': 'Peachtree Bikes', 'from': months_back(AS_OF, 4), 'to': (AS_OF.year, AS_OF.month), 'target_rate': 0.09}
+VOLUME_DROP = {'customer': 'SoCal Bikes', 'from': months_back(AS_OF, 3), 'to': (AS_OF.year, AS_OF.month), 'keep_share': 0.35}
 
 SALES_ORG_NAMES = {'UE00': 'US East', 'UW00': 'US West', 'DN00': 'Germany North', 'DS00': 'Germany South'}
 NAME_FIXES = {'Mnchen': 'München', 'R„dlelland': 'Rädlelland', 'Rdlelland': 'Rädlelland'}
 
 
 def shift_date(d):
-    try:
-        return d.replace(year=d.year + SHIFT_YEARS)
-    except ValueError:                 # 29 February in a non-leap target year
-        return d.replace(year=d.year + SHIFT_YEARS, day=28)
+    return d + dt.timedelta(days=SHIFT_DAYS)
 
 
 def load_source():
@@ -95,7 +106,8 @@ def build(df):
 
     # volume drop: a dealer orders far less in the last quarter
     c = lines['customer_name'] == VOLUME_DROP['customer']
-    win = c & lines['YEAR'].eq(VOLUME_DROP['from'][0]) & lines['MONTH'].between(VOLUME_DROP['from'][1], VOLUME_DROP['to'][1])
+    ym = lines['YEAR'] * 100 + lines['MONTH']
+    win = c & ym.between(VOLUME_DROP['from'][0] * 100 + VOLUME_DROP['from'][1], VOLUME_DROP['to'][0] * 100 + VOLUME_DROP['to'][1])
     orders = lines.loc[win, 'OrderNumber'].unique()
     drop = RNG.choice(orders, size=int(len(orders) * (1 - VOLUME_DROP['keep_share'])), replace=False)
     lines = lines[~lines['OrderNumber'].isin(drop)].copy()
@@ -143,13 +155,14 @@ def build(df):
     budget = pd.DataFrame(budget_rows)
 
     # forecast as of AS_OF: open months of the year = last year's month × this year's YTD growth, slight noise
-    ytd_now = monthly[(monthly['year'] == AS_OF.year) & (monthly['month_start'] <= AS_OF)].groupby('sales_org')['revenue_usd'].sum()
-    ytd_prev = monthly[(monthly['year'] == AS_OF.year - 1) & ([d.month <= AS_OF.month for d in monthly['month_start']])].groupby('sales_org')['revenue_usd'].sum()
+    # run rate from the complete months of this year vs the same months last year (the month of AS_OF is partial)
+    ytd_now = monthly[(monthly['year'] == AS_OF.year) & ([d.month < AS_OF.month for d in monthly['month_start']])].groupby('sales_org')['revenue_usd'].sum()
+    ytd_prev = monthly[(monthly['year'] == AS_OF.year - 1) & ([d.month < AS_OF.month for d in monthly['month_start']])].groupby('sales_org')['revenue_usd'].sum()
     run_rate = (ytd_now / ytd_prev).to_dict()
     fc_rows = []
     for _, r in monthly[monthly['year'] == AS_OF.year - 1].iterrows():
         m = r['month_start'].month
-        if m <= AS_OF.month:
+        if m < AS_OF.month:            # the forecast covers the month of AS_OF (still open) and the rest of the year
             continue
         noise = float(RNG.normal(1.0, 0.03))
         fc_rows.append({'forecast_month': dt.date(AS_OF.year, m, 1), 'sales_org': r['sales_org'], 'category': r['category'],
@@ -173,7 +186,7 @@ def build(df):
                 assembled = prod[(prod['plant_id'] == plant_id) & (prod['month_start'] == month)]['bikes_assembled'].sum()
                 cap_rows.append({'plant_id': plant_id, 'month': month, 'capacity_units': int(base),
                                  'overtime_capacity_units': int(round(base * 1.18)),
-                                 'bikes_assembled': int(assembled) if month <= dt.date(AS_OF.year, AS_OF.month, 1) else None})
+                                 'bikes_assembled': int(assembled) if month < dt.date(AS_OF.year, AS_OF.month, 1) else None})
     capacity = pd.DataFrame(cap_rows)
     return customers, products, plants, fact, budget, forecast, capacity, sales_orgs, categories
 
@@ -190,7 +203,7 @@ def main():
         'plants': (plants, 'The two assembly plants from the Global Bike story.'),
         'sales_orgs': (sales_orgs, 'The four sales organizations (US East, US West, Germany North, Germany South), one row each.'),
         'product_categories': (categories, 'The six product categories with their division, one row each.'),
-        'sales_order_lines': (fact, f'Order lines, dates shifted by {SHIFT_YEARS} years, actuals up to {AS_OF}. net_revenue = revenue - discount, margin = net revenue - cost.'),
+        'sales_order_lines': (fact, f'Order lines, dates shifted by {SHIFT_DAYS} days, actuals up to {AS_OF}. net_revenue = revenue - discount, margin = net revenue - cost.'),
         'budget': (budget, f'Monthly revenue and quantity budget per sales org and product category for {AS_OF.year - 1} and {AS_OF.year}.'),
         'forecast': (forecast, f'Rolling forecast as of {AS_OF} for the open months of {AS_OF.year}, per sales org and category.'),
         'plant_capacity': (capacity, 'Monthly assembly capacity per plant (regular and with overtime) and bikes assembled.'),

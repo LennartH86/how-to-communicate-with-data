@@ -4,12 +4,12 @@ kb {
     class Forecast {
         name.en: "Forecast"
         synonym.en: ["Outlook", "Projection", "Expected revenue", "Rolling forecast", "Q4 forecast", "Prognose", "Vorschau"]
-        description.en: "Rolling forecast made on 30 September 2026 for the open months October to December 2026, per sales organization and product category. Based on last year's months and this year's run rate. Compare with the budget to see where the year is expected to land."
+        description.en: "Rolling forecast made at the end of the actuals (see Forecast Version) for the current month and the remaining months of the year, per sales organization and product category. Based on last year's months and this year's run rate. Compare with the budget to see where the year is expected to land."
         tag: KB_ShowOnlyRepresenters
 
         from_table: forecast
 
-        synced_description: "Rolling forecast as of 2026-09-30 for the open months of 2026, per sales org and category."
+        synced_description: "Rolling forecast as of the last day with actuals for the open months of the year, per sales org and category."
 
         default_date: Forecast_Month
         event_date: Forecast_Month
@@ -25,7 +25,7 @@ kb {
         date Forecast_Month {
             name.en: "Forecast Month"
             synonym.en: ["Month", "Forecast period", "Prognosemonat"]
-            description.en: "The month the forecast applies to (October to December 2026)."
+            description.en: "The month the forecast applies to: the current month and the remaining months of the year."
 
             sql: "${forecast.forecast_month}"
 
@@ -35,7 +35,7 @@ kb {
         date Forecast_Version {
             name.en: "Forecast Version"
             synonym.en: ["As of", "Forecast date", "Version date", "Stand"]
-            description.en: "The day the forecast was made (30 September 2026)."
+            description.en: "The day the forecast was made: the last day with sales actuals."
             phrase_name: "made"
 
             sql: "${forecast.forecast_version}"

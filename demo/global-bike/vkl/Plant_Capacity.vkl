@@ -4,7 +4,7 @@ kb {
     class Plant_Capacity {
         name.en: "Plant Production"
         synonym.en: ["Production", "Plant capacity", "Capacity", "Assembly capacity", "Output", "Plant output", "Production record", "Produktion", "Kapazität"]
-        description.en: "One record per plant and month: how many bikes the plant can assemble on regular shifts (capacity), how many with overtime (18 percent more), and how many it actually assembled. Output above regular capacity means the plant used overtime; months after September 2026 have capacity but no output yet."
+        description.en: "One record per plant and month: how many bikes the plant can assemble on regular shifts (capacity), how many with overtime (18 percent more), and how many it actually assembled. Output above regular capacity means the plant used overtime; the current month and later months have capacity but no output yet."
         tag: KB_ShowOnlyRepresenters
 
         from_table: plant_capacity
@@ -43,7 +43,7 @@ kb {
         number Bikes_Assembled {
             name.en: "Bikes Assembled"
             synonym.en: ["Output", "Production output", "Bikes produced", "Production volume", "Units produced", "Produzierte Räder"]
-            description.en: "Bikes actually assembled in the month. Empty for months after September 2026."
+            description.en: "Bikes actually assembled in the month. Empty for the current month and later months."
 
             sql: "${plant_capacity.bikes_assembled}"
         }
