@@ -14,7 +14,7 @@ css/styles.css      Brand tokens (:root), hero/mesh backgrounds, typography, com
 js/navigation.js    Slide navigation, keyboard control, CSS-transform scaling, session track from ?track=
 js/map.js           D3 world map with customer-visit markers (slide 2)
 js/anscombe.js      Anscombe's quartet table and scatter plots (slides 14–15)
-js/datasaurus.js    Datasaurus Dozen table and scatter grid (slides 16–17)
+js/datasaurus.js    Datasaurus Dozen table and scatter grid (slides 16–17); statistics computed from the points, datasets numbered, the dinosaur is "number 13"
 js/charts.js        GDP-growth table + line chart (slide 18) and world-growth bars with highlighted extremes (slide 22)
 js/numbers.js       Number-grid pre-attentive demo, "count the twos" (slide 20)
 js/semantics.js     "Asking an AI" block: accuracy cliff chart (slide 28), country-definition picker (slide 29)

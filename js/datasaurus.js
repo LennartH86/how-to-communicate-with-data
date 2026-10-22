@@ -27,9 +27,16 @@
   }
 
   function mean(arr) { return arr.reduce((a, b) => a + b, 0) / arr.length; }
+  // sample standard deviation and Pearson correlation, as in the published statistics
   function sd(arr) {
     const m = mean(arr);
-    return Math.sqrt(arr.reduce((a, b) => a + (b - m) ** 2, 0) / arr.length);
+    return Math.sqrt(arr.reduce((a, b) => a + (b - m) ** 2, 0) / (arr.length - 1));
+  }
+  function corr(xs, ys) {
+    const mx = mean(xs), my = mean(ys);
+    let num = 0;
+    for (let i = 0; i < xs.length; i++) num += (xs[i] - mx) * (ys[i] - my);
+    return num / ((xs.length - 1) * sd(xs) * sd(ys));
   }
 
   // ── Table (Slide 16) ──────────────────────────────────────────────────────
@@ -47,21 +54,22 @@
         <th>Mean X</th><th>Mean Y</th><th>SD X</th><th>SD Y</th><th>Correlation</th>
       </tr></thead><tbody>`;
 
-    // the dinosaur is the surprise on the next slide, so the table shows the other twelve
-    d.datasets.filter(ds => ds.name !== 'dino').forEach(ds => {
+    // the dinosaur is the surprise on the next slide, so the table shows the other twelve,
+    // numbered rather than named: the shape names would give the picture away
+    d.datasets.filter(ds => ds.name !== 'dino').forEach((ds, i) => {
       const xs = ds.points.map(p => p.x);
       const ys = ds.points.map(p => p.y);
       html += `<tr>
-        <td style="font-weight:700;text-align:left;padding-left:32px">${ds.label}</td>
+        <td style="font-weight:700;text-align:left;padding-left:32px">Dataset ${i + 1}</td>
         <td>${mean(xs).toFixed(2)}</td><td>${mean(ys).toFixed(2)}</td>
         <td>${sd(xs).toFixed(2)}</td><td>${sd(ys).toFixed(2)}</td>
-        <td>${(-0.064).toFixed(3)}</td>
+        <td>${corr(xs, ys).toFixed(3)}</td>
       </tr>`;
     });
 
     html += `</tbody></table></div>
     <p style="margin-top:24px;font-size:20px;color:var(--text-2);text-align:center">
-      <strong>Twelve datasets, one set of summary statistics.</strong> Same means, same spread, same correlation.
+      <strong>Twelve datasets, one set of summary statistics.</strong> Same means, same spread, same correlation, to two decimals. 142 points each.
     </p>`;
     container.innerHTML = html;
   }
@@ -78,7 +86,7 @@
 
     const title = document.createElement('div');
     title.className = 'ds-panel-title';
-    title.textContent = ds.label;
+    title.textContent = ds.panelLabel || ds.label;
     wrapper.appendChild(title);
 
     const svg = d3.select(wrapper).append('svg')
@@ -154,6 +162,8 @@
 
     const dino    = d.datasets.find(ds => ds.name === 'dino');
     const nonDino = d.datasets.filter(ds => ds.name !== 'dino');
+    nonDino.forEach((ds, i) => { ds.panelLabel = 'Dataset ' + (i + 1); });
+    if (dino) dino.panelLabel = 'Dataset 13';
 
     // Render 12 non-dino panels into the grid
     nonDino.forEach(ds => drawPanel(grid, ds, GRID_SIZE, GM, false));
@@ -182,7 +192,7 @@
         grid.style.display     = dinoVisible ? 'none' : 'grid';
         dinoCont.style.display = dinoVisible ? 'flex'  : 'none';
         dinoBtn.classList.toggle('active', dinoVisible);
-        dinoBtn.textContent = dinoVisible ? 'Hide the dinosaur' : 'Show the dinosaur';
+        dinoBtn.textContent = dinoVisible ? 'Back to the twelve' : 'Show number 13';
       });
     }
   }
