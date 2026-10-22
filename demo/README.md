@@ -27,7 +27,7 @@ survey questions Lennart usually picks (1 girls finishing primary school, 4 worl
 countries weights Tuvalu like China (world life expectancy 73.0 unweighted vs 73.5 official).
 `demos-467314.gapminder_test.worldbank_aggregates` holds the World Bank's own population-weighted
 figures for World, the income groups (low, lower middle, upper middle, middle, high) and seven
-regions, 1960 to 2025, loaded from api.worldbank.org: population, life expectancy, measles and
+regions, 1960 to 2025, loaded from api.worldbank.org, plus a World series 1800 to 1959 computed from the Gapminder country rows (population-weighted life expectancy, child mortality, children per woman; `source` column says which), so "world life expectancy since 1900" shows the Spanish flu (1918: 25 years) and both world wars: population, life expectancy, measles and
 DPT immunization of one-year-olds, girls' and overall primary completion, child mortality, children
 per woman, extreme poverty (below 3.00 USD a day, 2021 prices), access to electricity, expected
 years of school for girls (ends 2019). The API returns the income groups twice (country codes
