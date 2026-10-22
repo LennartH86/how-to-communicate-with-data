@@ -42,22 +42,25 @@
       </tr>`;
     }
 
-    // Stats row
+    // Stats row, computed from the points per dataset (sample variance, Pearson correlation).
+    // Three decimals on purpose: the sets agree to two, and the third shows they are not copies.
+    const mean = a => a.reduce((p, q) => p + q, 0) / a.length;
+    const variance = a => { const m = mean(a); return a.reduce((p, q) => p + (q - m) ** 2, 0) / (a.length - 1); };
+    const corr = (xs, ys) => {
+      const mx = mean(xs), my = mean(ys);
+      let num = 0;
+      for (let i = 0; i < xs.length; i++) num += (xs[i] - mx) * (ys[i] - my);
+      return num / ((xs.length - 1) * Math.sqrt(variance(xs) * variance(ys)));
+    };
     html += `<tr class="is-stats">
-      <td style="font-weight:700;color:var(--text)">Stats</td>
-      <td colspan="2">
-        Mean x=9.0, Mean y≈7.50<br>Var x=11.0, Var y≈4.12<br>Corr≈0.816
-      </td>
-      <td colspan="2">
-        Mean x=9.0, Mean y≈7.50<br>Var x=11.0, Var y≈4.12<br>Corr≈0.816
-      </td>
-      <td colspan="2">
-        Mean x=9.0, Mean y≈7.50<br>Var x=11.0, Var y≈4.12<br>Corr≈0.816
-      </td>
-      <td colspan="2">
-        Mean x=9.0, Mean y≈7.50<br>Var x=11.0, Var y≈4.12<br>Corr≈0.816
-      </td>
-    </tr>`;
+      <td style="font-weight:700;color:var(--text)">Stats</td>`;
+    d.datasets.map(ds => ds.points).forEach(pts => {
+      const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+      html += `<td colspan="2">
+        Mean x = ${mean(xs).toFixed(2)}, Mean y = ${mean(ys).toFixed(3)}<br>Var x = ${variance(xs).toFixed(2)}, Var y = ${variance(ys).toFixed(3)}<br>Corr = ${corr(xs, ys).toFixed(3)}
+      </td>`;
+    });
+    html += '</tr>';
     html += '</tbody></table></div>';
     container.innerHTML = html;
   }
