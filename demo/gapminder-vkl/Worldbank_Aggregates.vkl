@@ -1,0 +1,166 @@
+import db.storage.demos_467314_gapminder_test.worldbank_aggregates
+
+kb {
+    class Worldbank_Aggregates {
+        name.en: "World Bank Figure"
+        synonym.en: ["World Bank aggregate", "Aggregate", "Group figure", "Regional figure", "Global figure"]
+        description.en: "One row per group and year with the World Bank's official, population-weighted figures for the world as a whole, the income groups (low, lower middle, upper middle, middle, high income) and seven world regions, 1990 to 2025. Use this class for any question about the world, an income group or a region as a whole (world life expectancy, vaccination rate in low-income countries, extreme poverty worldwide). Averaging the per-country Gapminder rows instead would weight Tuvalu like China."
+        tag: KB_ShowOnlyRepresenters
+
+        from_table: worldbank_aggregates
+
+        default_date: Year
+        default_filter: "this.Group = kb.Worldbank_Aggregates.Group.World_6130"
+
+        display_with: [
+            Group,
+            Year
+        ]
+
+        class Group {
+            name.en: "Group"
+            synonym.en: ["World Bank group", "Country group", "Income group", "World region", "Region", "Aggregate"]
+            description.en: "World, an income group (low, lower middle, upper middle, middle, high income) or one of seven World Bank regions (East Asia & Pacific, Europe & Central Asia, Latin America & Caribbean, Middle East & North Africa, North America, South Asia, Sub-Saharan Africa). By default questions are answered for the World; name a group to change that."
+
+            sql: "${worldbank_aggregates.aggregate_code}"
+            name_sql.en: "${worldbank_aggregates.aggregate_name}"
+            synonym_sql.en: "${worldbank_aggregates.aggregate_code}"
+        }
+
+        class Aggregate_Type {
+            name.en: "Group Type"
+            synonym.en: ["Type of group", "Aggregate type"]
+            description.en: "world, income group or region."
+
+            sql: "${worldbank_aggregates.aggregate_type}"
+        }
+
+        date Year {
+            name.en: "Year"
+            synonym.en: ["Jahr"]
+            description.en: "Calendar year, 1990 to 2025. Most indicators end in 2024."
+
+            sql: "PARSE_DATE('%Y', CAST(${worldbank_aggregates.year} AS STRING))"
+
+            datetime_format: YearFormat
+        }
+
+        integer Population {
+            name.en: "Population"
+            synonym.en: ["People", "Inhabitants", "Bevölkerung"]
+            description.en: "Total population of the group (World Bank SP.POP.TOTL)."
+
+            sql: "${worldbank_aggregates.population}"
+        }
+
+        number Life_Expectancy {
+            name.en: "Life Expectancy"
+            synonym.en: ["Life expectancy at birth", "Expected lifespan", "How long people live", "Lebenserwartung"]
+            description.en: "Life expectancy at birth in years, population-weighted for the group (World Bank SP.DYN.LE00.IN). World 2024: 73.5 years."
+            unit: kb.Worldbank_Aggregates.Years
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.life_expectancy}"
+        }
+
+        number Measles_Immunization_Pct {
+            name.en: "Vaccinated One-Year-Olds"
+            synonym.en: ["Measles immunization", "Vaccination rate", "Immunization rate", "Share of children vaccinated", "Vaccinated children", "Impfquote", "Geimpfte Einjährige"]
+            description.en: "Share of one-year-old children who received the measles vaccine, in percent (World Bank SH.IMM.MEAS). This is the Gapminder 'vaccinated one-year-olds' figure. World 2024: 84 percent."
+            unit: onto.Percentage
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.measles_immunization_pct}"
+        }
+
+        number Dpt_Immunization_Pct {
+            name.en: "DPT Vaccinated One-Year-Olds"
+            synonym.en: ["DPT immunization", "Diphtheria vaccination", "DTP3"]
+            description.en: "Share of one-year-olds who received three doses of the diphtheria, pertussis and tetanus vaccine, in percent (World Bank SH.IMM.IDPT)."
+            unit: onto.Percentage
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.dpt_immunization_pct}"
+        }
+
+        number Girls_Primary_Completion_Pct {
+            name.en: "Girls Finishing Primary School"
+            synonym.en: ["Girls primary completion rate", "Girls completing primary school", "Female primary completion", "Girls' primary school completion", "Mädchen mit Grundschulabschluss"]
+            description.en: "Girls completing primary school as a share of girls of graduation age, in percent (World Bank SE.PRM.CMPT.FE.ZS). Low-income countries 2023: 61 percent; World 2024: 88 percent. Values above 100 occur when older girls graduate."
+            unit: onto.Percentage
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.girls_primary_completion_pct}"
+        }
+
+        number Primary_Completion_Pct {
+            name.en: "Children Finishing Primary School"
+            synonym.en: ["Primary completion rate", "Primary school completion"]
+            description.en: "All children completing primary school as a share of children of graduation age, in percent (World Bank SE.PRM.CMPT.ZS)."
+            unit: onto.Percentage
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.primary_completion_pct}"
+        }
+
+        number Child_Mortality_Per_1000 {
+            name.en: "Child Mortality"
+            synonym.en: ["Under-five mortality", "Child deaths per 1000", "Kindersterblichkeit"]
+            description.en: "Deaths before age five per 1,000 live births (World Bank SH.DYN.MORT)."
+            unit: kb.Worldbank_Aggregates.Per_1000
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.child_mortality_per_1000}"
+        }
+
+        number Children_Per_Woman {
+            name.en: "Children per Woman"
+            synonym.en: ["Fertility rate", "Births per woman", "Total fertility", "Kinder pro Frau"]
+            description.en: "Total fertility rate: children a woman would have over her lifetime (World Bank SP.DYN.TFRT.IN)."
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.children_per_woman}"
+        }
+
+        number Extreme_Poverty_Pct {
+            name.en: "Extreme Poverty"
+            synonym.en: ["Poverty rate", "Share in extreme poverty", "People below the poverty line", "Poverty headcount", "Extreme Armut"]
+            description.en: "Share of people living on less than 3.00 USD a day (2021 prices), in percent (World Bank SI.POV.DDAY). World: 30 percent in 2004, 10 percent in 2024, so extreme poverty has roughly been cut by two thirds in 20 years."
+            unit: onto.Percentage
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.extreme_poverty_pct}"
+        }
+
+        number Electricity_Access_Pct {
+            name.en: "Access to Electricity"
+            synonym.en: ["Electricity access", "Share with electricity", "Electrification", "Stromzugang"]
+            description.en: "Share of the population with access to electricity, in percent (World Bank EG.ELC.ACCS.ZS). World 2024: 92 percent."
+            unit: onto.Percentage
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.electricity_access_pct}"
+        }
+
+        number School_Life_Expectancy_Female_Years {
+            name.en: "Expected Years of School for Girls"
+            synonym.en: ["School life expectancy female", "Years of schooling girls", "Women's years in school", "Schuljahre Mädchen"]
+            description.en: "Years a girl entering school can expect to spend in education, primary to tertiary (World Bank SE.SCH.LIFE.FE, ends 2019). World 2019: 12.3 years. Not the same as the average years of school of adult women, which Gapminder's survey question refers to."
+            unit: kb.Worldbank_Aggregates.Years
+            default_aggregation: average
+
+            sql: "${worldbank_aggregates.school_life_expectancy_female_years}"
+        }
+
+        object Years {
+            name: "years"
+            synonym: ["year", "Jahre"]
+            tag: KB_Unit
+        }
+
+        object Per_1000 {
+            name: "per 1,000 births"
+            tag: KB_Unit
+        }
+    }
+}
