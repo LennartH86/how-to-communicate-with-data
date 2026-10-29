@@ -575,7 +575,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing:
   flex-shrink: 0;
   min-width: 92px;
 }
-.agenda-title { font-family: var(--font-display); font-weight: 600; font-size: 30px; line-height: 1.25; letter-spacing: -0.015em; margin-top: 6px; }
+.agenda-title { font-family: var(--font-display); font-weight: 600; font-size: 34px; line-height: 1.25; letter-spacing: -0.015em; margin-top: 10px; }
 .agenda-desc  { font-size: 19px; color: var(--text-2); margin-top: 10px; line-height: 1.5; }
 
 /* ---------- 5 · Key learnings ---------- */
