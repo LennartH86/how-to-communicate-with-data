@@ -22,7 +22,7 @@ js/survey.js        Live survey results on slide 31: polls the shared response s
 js/bestpractices.js Click-to-switch examples on the visual best-practice slides (35–39), class-based
 data/*.json         Anscombe and Datasaurus datasets, gdp-growth.json (World Bank, slides 18 and 22), ai-accuracy.json (slide 28)
 demo/               Survey pipeline: BigQuery DDL, Apps Script, README with the pre-session checklist
-assets/images/      Veezoo logo + favicon mark, profile photo, QR code
+assets/images/      Veezoo logo + favicon mark, profile photo, QR code, Snow cholera map detail (public domain, cropped from Wikimedia Commons Snow-cholera-map-1.jpg)
 Research/           Paper dossier behind the best-practice slides, brand references in Research/brand/
 ```
 
@@ -40,7 +40,7 @@ python3 -m http.server 8000
 
 then open http://localhost:8000. (Opening `index.html` directly from disk breaks the `fetch()` of the JSON datasets in Chrome.) Navigate with Arrow keys, Space, PageUp/PageDown, Home/End; the URL hash (`#slide-N`) deep-links to a slide and survives a refresh. `.claude/launch.json` has a `deck` entry that attaches the Claude browser preview to a server you start yourself (the preview helper cannot read `~/Documents`, so it cannot spawn the server).
 
-The deck needs internet access at presentation time: D3, topojson-client and the world atlas load from jsDelivr, the fonts from Google Fonts, the historical charts from Wikimedia Commons, slides 3, 24 and 25 embed YouTube iframes, and slide 31 polls the shared survey sheet. `data/gdp-growth.json` is a static snapshot of World Bank data (indicator NY.GDP.MKTP.KD.ZG); refresh it with the API call noted in the file's `source` field if the series should be current. Images have `onerror` fallbacks but the embeds do not.
+The deck needs internet access at presentation time: D3, topojson-client and the world atlas load from jsDelivr, the fonts from Google Fonts, the historical charts on slides 8, 9 and 11 from Wikimedia Commons (slide 10 is a local crop), slides 3, 24 and 25 embed YouTube iframes, and slide 31 polls the shared survey sheet. `data/gdp-growth.json` is a static snapshot of World Bank data (indicator NY.GDP.MKTP.KD.ZG); refresh it with the API call noted in the file's `source` field if the series should be current. Images have `onerror` fallbacks but the embeds do not.
 
 **Before a session:** open the deck with the right `?track=`, follow the checklist in `demo/README.md` (QR on slide 31, sheet shared, live panel says "Live"), put the hands-on access link on slide 41 for the Veezoo track (it currently says "arrive by email"), verify the paraphrased Snowflake quote on slide 30 against the original blog post, hard-reload the browser (Cmd+Shift+R) so no cached scripts linger, and keep the demo workspace open in another tab (the demo runs outside the deck).
 
