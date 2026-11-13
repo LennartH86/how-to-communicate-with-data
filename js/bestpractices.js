@@ -1,5 +1,5 @@
 /**
- * Visual Best Practices (Slides 22–26): clicking a rule shows its example
+ * Visual Best Practices (Slides 27–31): clicking a rule shows its example
  */
 (function () {
   'use strict';

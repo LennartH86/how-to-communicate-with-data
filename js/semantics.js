@@ -1,6 +1,6 @@
 /**
- * Asking an AI block: accuracy cliff chart (Slide 28) and the
- * "how many countries are there?" definition picker (Slide 29)
+ * Asking an AI block: accuracy cliff chart (Slide 34) and the
+ * "how many countries are there?" definition picker (Slide 35)
  */
 (function () {
   'use strict';
@@ -8,7 +8,7 @@
   let cliffRendered = false;
   let countriesWired = false;
 
-  // ── Slide 26: correct vs silently wrong, one bar per data landscape ──────
+  // ── Slide 34: correct vs silently wrong, one bar per data landscape ──────
   async function renderCliff() {
     if (cliffRendered) return;
     const container = document.getElementById('cliff-chart');
@@ -90,10 +90,10 @@
       .transition().delay((d, i) => 1500 + i * 120).duration(400).attr('opacity', 1);
   }
 
-  // ── Slide 28: four right answers to "how many countries are there?" ──────
+  // ── Slide 35: four right answers to "how many countries are there?" ──────
   function wireCountries() {
     if (countriesWired) return;
-    const pills = document.querySelectorAll('#slide-29 .def-pill');
+    const pills = document.querySelectorAll('#slide-35 .def-pill');
     const countEl = document.getElementById('country-count');
     const defEl = document.getElementById('country-def');
     if (!pills.length || !countEl || !defEl) return;
@@ -122,8 +122,8 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('slidechange', e => {
-      if (e.detail.slide === 28) renderCliff();
-      if (e.detail.slide === 29) wireCountries();
+      if (e.detail.slide === 34) renderCliff();
+      if (e.detail.slide === 35) wireCountries();
     });
   });
 })();
